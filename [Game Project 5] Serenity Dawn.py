@@ -24,151 +24,260 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 class Tools():
     def __init__(self, name):
         self.event = ""
+Tools = Tools("Tools")
 
 class GameState():
     def __init__(self, name):
-        self.Press = [0] * 300          # Key Press (Button)
-        self.Enemy_Sprite = []
-        self.Enemy_Sprite_Rect = []
-GameState.Press = [0] * 300
+        # Interface Fight
+        self.Player = []
+        self.Player_Slot = []
+        self.Player_Death = []
+        
+        self.Enemy  = []
+        self.Enemy_Slot = []
+        self.Enemy_Death = []
+
+        # State
+        self.Attack_Choice = False
+        self.Turn_Count     = 1
+        self.Stage_Progress = 1
+        
+        # Fight Status
+        self.Turn = [False,False,False,False,False,False]
+        self.Turn_Order = 0
+GameState = GameState("GameState")
 
 
 
+def Quit_Game():
+    pygame.quit()
+    quit()
 
+class Player:
+    def __init__(self, name):
+        self.name   = name
+        self.Icon   = Icon_Ellesia
+        self.Sprite = Sprite_Ellesia
+        self.Class  = "Lancer"
+        
+        self.Level      = 1
+        self.Experience = 0
+        self.Gold       = 0
+        self.Action_Point = 100
+        
+        self.Maxhealth  = 44
+        self.Health     = self.Maxhealth
+        self.Strength   = 6
+        self.Magic      = 10
+        self.Speed      = 4
+        self.Defense    = 2
+        self.Resistance = 0
+PlayerIG = Player("NightFore")
+
+class Wolf:
+    def __init__(self, name):
+        self.name   = name
+        self.Icon   = Icon_Wolf
+        self.Sprite = Sprite_Wolf
+        
+        self.Level      = 1
+        self.EXP_Gain   = 10
+        self.Gold_Gain  = 10
+        self.Action_Point = 0
+        
+        self.Maxhealth  = 10 + 6 * (self.Level - 1)
+        self.Health     = self.Maxhealth
+        self.Attack     = 4 + 1 * (self.Level - 1)
+        self.Speed      = 3 + 1 * (self.Level - 1)
+        self.Defense    = 1 + 0.5 * (self.Level - 1)
+        self.Resistance = 0 + 0.5 * (self.Level - 1)
+WolfIG = Wolf("Wolf")
+
+
+    
 # Game - Main Function
-def Main():
-    def Quit_Game():
-        pygame.quit()
-        quit()
+def Title_Screen():
 
-    # Game - Secondary Functions
-    def Title_Screen():
+# Background
+    gameDisplay.blit(Background_Title_Screen_1, (0,0))
 
-    # Background
-        gameDisplay.blit(BG_Title_Screen, (0,0))
-
-    # BGM
-        pygame.mixer.music.load(Jumper)
-        pygame.mixer.music.play(-1)
-        
-        gameExit = False
-        while not gameExit:
-            for event in pygame.event.get():
-                pygame.display.update()
-                Tools.event = event
-                if event.type == pygame.QUIT:
-                    Quit_Game()
-                
-                Text_Display(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
-                Button("Start"  , "", 0, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, Prologue)
-                Button("Levels",  "", 0, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, Load)
-                Button("Exit"   , "", 0, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, Quit_Game)
-
-
-
-    def Prologue():
-    # BGM
-        pygame.mixer.music.load(Glorious_Morning_2)
-        pygame.mixer.music.play(-1)
-
-    # Loading List_Enemies
-        f = open("List_Enemies.txt", "r")
-        List_Enemies = re.split('; |, |\*|\n',f.read())
-        List_Enemies = [List_Enemies[x:x+4] for x in range(0, len(List_Enemies),4)]     # List every 4 Parameters
-
-
-
-    # Total Enemy_Count
-        global Enemy_Count, Enemy_Sprite, Enemy_Sprite_Rect, Enemy_X
-        Enemy_Count = len(List_Enemies)
-        
-        Enemy_Sprite        = [0] * Enemy_Count     # List Enemy_Sprite
-        Enemy_Sprite_Rect   = [0] * Enemy_Count     # List Enemy_Sprite_Rect
-        Arrow_Position      = [0] * Enemy_Count     # List Arrow
-        Enemy_X             = [0] * Enemy_Count     # List Position X
-        Enemy_Y             = [0] * Enemy_Count     # List Position Y
-        Enemy_Speed         = [0] * Enemy_Count     # List Speed
-
-
-
-    # Starting Parameters
-        n = 0
-        for Parameters in List_Enemies:
-            # Enemy_Sprite
-            Enemy_Sprite[n]         = globals()[List_Enemies[n][0]]
-            Enemy_Sprite_Rect[n]    = Enemy_Sprite[n].get_rect()
-
-            # Starting Position
-            Enemy_X[n]      = int(Parameters[1])    # Position X
-            Enemy_Y[n]      = int(Parameters[2])    # Position Y
-            Enemy_Speed[n]  = int(Parameters[3])    # Enemy Speed
-            n = n + 1
-
-
-
-    # Main Game
-        gameExit = False
-        while not gameExit:
-            for event in pygame.event.get():
-                pygame.display.update()
-                Tools.event = event
-                if event.type == pygame.QUIT:
-                    Quit_Game()
-                    
-        # Background
-            gameDisplay.fill(Color_Blue)
-
-        # Grid
-            # 1280 / 160 = 8
-            # (720 - (24*3) - (4*2)) / 160 = 4
-            Grid_Draw(8,4, +24, 4,4,160,160, "Standard")
-
-
-        # Buttons
-            # 80 + 2 + 160*col
-            # 80 + 4 + (160+3)*row
-            Button_Key("X", pygame.K_x, "", 0, 240+2, 80+4,   160-4, 160, Color_Green, Color_Red, Text_Button_2, Tools.event, Tap_Square)
-            Button_Key("C", pygame.K_c, "", 0, 240+2, 240+28, 160-4, 160, Color_Green, Color_Red, Text_Button_2, Tools.event, Tap_Square)
-            Button_Key("V", pygame.K_v, "", 0, 240+2, 400+52, 160-4, 160, Color_Green, Color_Red, Text_Button_2, Tools.event, Tap_Square)
-            Button_Key("B", pygame.K_b, "", 0, 240+2, 560+76, 160-4, 160, Color_Green, Color_Red, Text_Button_2, Tools.event, Tap_Square)
-
-
-        # Sprite Position
-            for n in range(Enemy_Count):
-            # Arrow - Position
-                Arrow_A_Rect.center = (Enemy_X[n], Enemy_Y[n]+90)           # Centering Arrow Position
-                gameDisplay.blit(Icon_Arrow_A, Arrow_A_Rect)                # Displaying Arrow
-            
-            # Enemy - Position
-                Enemy_Sprite_Rect[n].center = (Enemy_X[n], Enemy_Y[n])      # Centering Enemy Position
-                gameDisplay.blit(Enemy_Sprite[n], Enemy_Sprite_Rect[n])     # Displaying Enemy
-
-            # Enemy - Movement
-                Enemy_X[n] += Enemy_Speed[n]
-                if Enemy_X[n] <= 80 :
-                    Enemy_X[n] = 1180
-
-
+# BGM
+    pygame.mixer.music.load(OST_Title_Screen)
+    pygame.mixer.music.play(-1)
+    
+    gameExit = False
+    while not gameExit:
+        for event in pygame.event.get():
             pygame.display.update()
-            clock.tick(60)
+            Tools.event = event
+            if event.type == pygame.QUIT:
+                Quit_Game()
+            
+            Text_Display(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
+            Button("Start"  , "", 15, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Debug_Fight)
+            Button("Gallery"  , "", 15, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, OST_Gallery)
+            Button("Exit"   , "", 15, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Quit_Game)
 
 
 
+def Debug_Fight():
+# Background
+    gameDisplay.blit(Background_Fight_1, (0,0))
 
-    def Load():
-        pass
+# BGM
+    pygame.mixer.music.load(OST_Menu_Victory_2)
+    pygame.mixer.music.play(-1)
 
+# Player / Enemy
+    GameState.Player    = [PlayerIG,PlayerIG,PlayerIG]
+    GameState.Player_Slot = [True,True,True]
+    GameState.Player_Death = [False,False,False]
+    
+    GameState.Enemy     = [WolfIG,WolfIG,WolfIG]
+    GameState.Enemy_Slot = [True,True,True]
+    GameState.Enemy_Death = [False,False,False]
 
+# Loop
+    gameExit = False
+    while not gameExit:
+        for event in pygame.event.get():
+            pygame.display.update()
+            Tools.event = event
+            if event.type == pygame.QUIT:
+                Quit_Game()
+        gameDisplay.blit(ui_Fight_1, (0,0))
+        Game_ui_Fight()
 
-    def Tap_Square(Box):
-        # Checking Enemy Position
-        for n in range(Enemy_Count):
-            if pygame.Rect.colliderect(Enemy_Sprite_Rect[n], Box):
-                Enemy_X[n] = 1200
-
-
+        # State - Attack Selection
+        if GameState.Attack_Choice == True:
+            Attack_Choice()
         
-    Title_Screen()
+def Game_ui_Fight():
+    # Commands
+    Button("Attack", "", 6, 640, 590, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, Attack_Choice)
+    Button("Skill" , "", 6, 640, 640, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, None)
+    Button("Potion", "", 6, 640, 690, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, None)
+
+    Text_Display("Turn: %s"     % GameState.Turn_Count      , Turn_Count_X  , Turn_Count_Y  , Text_Fight)
+    Text_Display("Stage: %s"    % GameState.Stage_Progress  , Stage_X       , Stage_Y       , Text_Fight)
+
+    for i in range(3):
+    # Player
+        if GameState.Player_Slot[i] == True:
+            # Sprite
+            if GameState.Player_Death[i] == False:
+                gameDisplay.blit(GameState.Player[i].Sprite,
+                                 (Sprite_Player_X[i], Sprite_Player_Y[i]))
+
+            # Icon
+            gameDisplay.blit(GameState.Player[i].Icon, (Status_Icon_X[0], Status_Bar_Image_Y[i]))
+
+            # Text
+            Text_Display("%s"           % GameState.Player[i].name, Status_Name_X[0], Status_Bar_Text_Y[i], Text_Fight)
+            Text_Display("HP: %i/%i"    % (GameState.Player[i].Health, GameState.Player[i].Maxhealth), Status_Health_X[0], Status_Bar_Text_Y[i], Text_Fight)
+
+            # Action Bar
+            pygame.draw.rect(gameDisplay, Color_Green, (Status_Action_Bar_X[0], Status_Action_Bar_Y[i], 1.48 * GameState.Player[i].Action_Point, 38))
+            Text_Display("AP: %i/100"   % (GameState.Player[i].Action_Point), Status_Action_X[0], Status_Bar_Text_Y[i], Text_Fight)
+
+    # Enemy   
+        if GameState.Enemy_Slot[i] == True:
+            # Sprite
+            if GameState.Enemy_Death[i] == False:
+                gameDisplay.blit(GameState.Enemy[i].Sprite,  (Sprite_Enemy_X[i], Sprite_Enemy_Y[i]))
+
+            # Icon
+            gameDisplay.blit(GameState.Enemy[i].Icon, (Status_Icon_X[1], Status_Bar_Image_Y[i]))
+
+            # Text
+            Text_Display("%s"           % GameState.Enemy[i].name, Status_Name_X[1], Status_Bar_Text_Y[i], Text_Fight)
+            Text_Display("HP: %i/%i"    % (GameState.Enemy[i].Health,  GameState.Enemy[i].Maxhealth),    Status_Health_X[1], Status_Bar_Text_Y[i], Text_Fight)
+
+            # Action Bar
+            pygame.draw.rect(gameDisplay, Color_Green, (Status_Action_Bar_X[1], Status_Action_Bar_Y[i], 1.48 * GameState.Enemy[i].Action_Point, 38))
+            Text_Display("AP: %i/100"   % (GameState.Enemy[i].Action_Point), Status_Action_X[1], Status_Bar_Text_Y[i], Text_Fight)
+
+
+
+def Attack_Choice():
+    # State - Attack Selection
+    GameState.Attack_Choice = True
+    
+    # Checking for Enemies
+    for i in range(3):
+        if GameState.Enemy_Slot[i] == True and GameState.Enemy_Death[i] == False:
+            # Getting Sprite_Rect
+            Sprite_Rect = GameState.Enemy[i].Sprite.get_rect(topleft=(Sprite_Enemy_X[i], Sprite_Enemy_Y[i]))
+
+            # Selection Buttons
+            Button("", i, -8, Sprite_Rect[0]-10, Sprite_Rect[1]-10, Sprite_Rect[2]+20, Sprite_Rect[3]+20, Color_Red, Color_Button, Text_Fight, Tools.event, "", Attack)
+
+
+def Attack(Selection):
+    GameState.Attack_Choice = False
+    # RNG
+    Hit = random.randint(0, 100)
+
+    # Hit Chance (50+0.5*Level) * (Player.Speed^2/Enemy.Speed^2)
+    Accuracy = (50 + (0.5*PlayerIG.Level)) * (PlayerIG.Speed**2 / GameState.Enemy[Selection].Speed**2)
+
+    # Critical Chance (10+0.5*Level) * (Speed*Strength) / (5*Enemy.Defense*Player.Defense)
+    Crit = (10 + (0.5*PlayerIG.Level)) * (PlayerIG.Speed*PlayerIG.Strength) / (GameState.Enemy[Selection].Defense*PlayerIG.Defense*5)
+
+    if Accuracy >= Hit:
+        # Damage
+        if Crit<=Hit:
+            GameState.Enemy[Selection].Health -= PlayerIG.Strength
+
+        # Crit Damage
+        else:
+            GameState.Enemy[Selection].Health -= PlayerIG.Strength*2
+
+        # HP Loss Cap
+        if GameState.Enemy[Selection].Health < 0:
+            GameState.Enemy[Selection].Health = 0
+
+    End_Turn()
+
+def End_Turn():
+    GameState.Turn_Order += 1
+
+    if GameState.Turn_Order == 6:
+        GameState.Turn_Order = 0
+        GameState.Turn_Count += 1
+
+
+def OST_Gallery():
+# Background
+    gameDisplay.fill(Color_Blue)
+
+# Loop
+    gameExit = False
+    while not gameExit:
+        for event in pygame.event.get():
+            pygame.display.update()
+            Tools.event = event
+            if event.type == pygame.QUIT:
+                Quit_Game() 
+
+            Music_Selection = 0
+            for row in range(5):
+                if Music_Selection >= len(List_OST):
+                    break
+                
+                for col in range(6):
+                    Button("Music %i" % (Music_Selection+1), Music_Selection, 12, 60+(40+display_width/8)*col, 100+(40+display_height/10)*row, display_width/8, display_height/10, Color_Green, Color_Red, Text_Button_1, event, False, Music_Play)
+                    Music_Selection += 1
+                    if Music_Selection >= len(List_OST):
+                        break
+
+            Button_Image(1240, 10, Icon_Exit, Icon_Exit, event, "", Title_Screen)
+
+# Gallery Music
+def Music_Play(Selection):
+        pygame.mixer.music.load(List_OST[Selection])
+        pygame.mixer.music.play(-1)
+
 
 
 # Text - Main Function
@@ -188,13 +297,16 @@ def Text_Button_1(msg):
     textSurface = font.render(msg, True, Color_Blue)
     return textSurface, textSurface.get_rect()
 
-
 def Text_Button_2(msg):
     font = pygame.font.SysFont(None, 100)
     textSurface = font.render(msg, True, Color_Blue)
     return textSurface, textSurface.get_rect()
 
-
+def Text_Fight(msg):
+    font = pygame.font.SysFont(None, 35)
+    textSurface = font.render(msg, True, Color_Black)
+    return textSurface, textSurface.get_rect()
+    
 # Tools
 def Grid_Draw(Row,Col,Gap, x,y,w,h,Color):
     Grid = [[0]*Row for n in range(Col)]
@@ -231,25 +343,34 @@ def Grid_Color(Grid, Rectangle, col, Color):
         
 
 
-def Button(msg, Selection, width, x,y,w,h, ac,ic, Text_Font, event, action=None):
+def Button(msg, Selection, width, x,y,w,h, ac,ic, Text_Font, event, Center, action=None):
     # msg       = Message insde Button
     # Selection = Button Number (Multiple)
     # width     = Border witdh
     # x,y,w,h   = Position
     # ac/ic     = Active/Inactive Color
-    Xb = x-(w/2)    # Center X (Box)
-    Yb = y-(h/2)    # Center Y (Box)
-    Xm = Xb+(w/2)   # Center X (Message)
-    Ym = Yb+(h/2)   # Center Y (Message)
-    
-    Box = pygame.Rect(Xb,Yb,w,h)
-    mouse = pygame.mouse.get_pos()
 
-    pygame.draw.rect(gameDisplay, Color_Black, Box, 15)
+    # if width < 0 : no fill
+    mouse = pygame.mouse.get_pos()
     
+    if Center == True:
+        x = x-(w/2)                         # Center X (Box)
+        y = y-(h/2)                         # Center Y (Box)
+        
+    Box = pygame.Rect(x,y,w,h)              # Box Surface
+    x = x+(w/2)                             # Center X (Message)
+    y = y+(h/2)                             # Center Y (Message)
+    
+
+    pygame.draw.rect(gameDisplay, Color_Black, Box, abs(width))
+
     # Active Color
     if Box.collidepoint(mouse):
-        pygame.draw.rect(gameDisplay, ac, Box, width)
+        if width >= 0:
+            pygame.draw.rect(gameDisplay, ac, Box)
+        else:   # No Fill
+            pygame.draw.rect(gameDisplay, ac, Box, abs(width))
+            
         # Action
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
@@ -258,94 +379,42 @@ def Button(msg, Selection, width, x,y,w,h, ac,ic, Text_Font, event, action=None)
                         action(Selection)
                     else:
                         action()
-
     # Inactive Color
     else:
-        pygame.draw.rect(gameDisplay, ic, Box, width)
+        if width >= 0:
+            pygame.draw.rect(gameDisplay, ic, Box)
 
     # Button Message
     textSurf, textRect = Text_Font(msg)
 
     # Button Rect
-    textRect.center = Xm, Ym
+    textRect.center = x, y
     gameDisplay.blit(textSurf, textRect)
-        
 
-
-def Button_Key(msg, Key_Pressed, Selection, width, x,y,w,h, ac,ic, Text_Font, event, action=None):
-    # msg       = Message insde Button
-    # Selection = Button Number (Multiple)
-    # width     = Border witdh
-    # x,y,w,h   = Position
-    # ac/ic     = Active/Inactive Color
-    Xb = x-(w/2)    # Center X (Box)
-    Yb = y-(h/2)    # Center Y (Box)
-    Xm = Xb+(w/2)   # Center X (Message)
-    Ym = Yb+(h/2)   # Center Y (Message)
     
-    Box = pygame.Rect(Xb,Yb,w,h)
-    mouse = pygame.mouse.get_pos()
+def Button_Image(x, y, Inactive, Active, event, Selection, action=None):
+    mouse = pygame.mouse.get_pos()  
+    Icon_ic = Inactive.convert()
+    Icon_ac = Active.convert()
+    Icon_ic_rect = Icon_ic.get_rect(topleft=(x,y))
+    Icon_ac_rect = Icon_ac.get_rect(topleft=(x,y))
 
-    # Key
-    if event.type == pygame.KEYDOWN:
-        if event.key == Key_Pressed:
-            for n in range(len(GameState.Press)):
-                GameState.Press[n] = False
-                GameState.Press[Key_Pressed] = True
-                if action != None:
-                    action(Box)
-            
-
-    if event.type == pygame.KEYUP:
-        if event.key == Key_Pressed:
-            GameState.Press[Key_Pressed] = False
-
-    # Inactive Color
-    pygame.draw.rect(gameDisplay, ic, Box, width)
-                
-    # Active Color
-    if GameState.Press[Key_Pressed] == True:
-        if event.type == pygame.KEYDOWN:
-            pygame.draw.rect(gameDisplay, ac, Box, width)
-
-    # Button Message
-    textSurf, textRect = Text_Font(msg)
-
-    # Button Rect
-    textRect.center = Xm, Ym
-    gameDisplay.blit(textSurf, textRect)
+    
+    if Icon_ic_rect.collidepoint(mouse):
+        gameDisplay.blit(Active, Icon_ac_rect)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if action != None:
+                if Selection == "":
+                    action()
+                else:
+                    action(Selection)
 
 
+    else:
+        gameDisplay.blit(Inactive, Icon_ic_rect)
 
-Main()
+Title_Screen()
 
-##def Title_Screen():
-##    # Game Setup
-##    global PlayerIG
-##    
-##    # OST
-##    pygame.mixer.music.load(Undisturbed_Place)
-##    pygame.mixer.music.play(-1)
-##
-##    # Background
-##    gameDisplay.blit(Title_Screen_Background, (0,0))
-##
-##    gameExit = False
-##    while not gameExit:
-##        for event in pygame.event.get():
-##            GameStateIG.event = event
-##            if event.type == pygame.QUIT:
-##                Quit_Game()
-##
-##            # Game Title
-##            Text_Display("Shards of Moostones", 400, 150, Text_Title_Screen)
-##
-##            # Commands
-##            Button("Start", 150, 425, 100, 50, Green, Red, Text_Title_Selection, GameStateIG.event, "", Game_Intro_1)
-##            Button("Load",  350, 425, 100, 50, Green, Red, Text_Title_Selection, GameStateIG.event, "", Game_Load)
-##            Button("Exit",  550, 425, 100, 50, Green, Red, Text_Title_Selection, GameStateIG.event, "", Quit_Game)
-##
-##            pygame.display.update()
 ##            
 ##def Game_Intro_1():
 ##    pygame.mixer.music.load(Serenity)

@@ -1,6 +1,35 @@
 import pygame
 pygame.init()
 
+# Interface_Fight
+    # Sprite
+Sprite_Width        = 125
+Sprite_Height       = 200
+
+Sprite_Player_X     = [100,250,265]
+Sprite_Player_Y     = [230,75,300]
+
+Sprite_Enemy_X      = [1055,905,890]
+Sprite_Enemy_Y      = [230,75,300]
+
+
+    # Status Bar
+Status_Icon_X       = [10, 730]
+Status_Name_X       = [135,855]
+Status_Health_X     = [305,1025]
+Status_Action_X     = [475,1195]
+Status_Bar_Text_Y   = [590,640,690]
+Status_Bar_Image_Y  = [570,620,670]
+
+Status_Action_Bar_X = [401,1121]
+Status_Action_Bar_Y = [571,621,671]
+
+    # Information
+Turn_Count_X = 75
+Turn_Count_Y = 25
+Stage_X = 1205
+Stage_Y = 25
+
 # Colors
 Color_Red           = 255, 20,  0
 Color_Green         = 60,  210, 120
@@ -22,12 +51,12 @@ Background_Cutscene_1       = pygame.image.load("Data\Background\Background_Hous
 Background_Selection_1      = pygame.image.load("Data\Background\Background_Forest_1.png")
 
 
+Background_Fight_1      = pygame.image.load("Data\Background\Background_Forest_2.png")
+
+
 
 # UIs
-Interface_Fight     = pygame.image.load("Data\Game_ui\Interface_Fight.png")
-Interface_Results   = pygame.image.load("Data\Game_ui\Interface_Results.png")
-Interface_Inventory = pygame.image.load("Data\Game_ui\Interface_Inventory.png")
-Interface_Shop      = pygame.image.load("Data\Game_ui\Interface_Shop.png")
+ui_Fight_1       = pygame.image.load("Data\Interface\Interface_Fight_Test_1.png")
 
 
 
@@ -105,3 +134,12 @@ OST_Menu_Main_2_2   = "Data/OST/Calm_Before_the_Storm.mp3"
 OST_Menu_Shop       = "Data/OST/Shopping_in_Town.mp3"
 OST_Menu_Victory_1  = "Data/OST/Resting_Around_the_Campfire.mp3"
 OST_Menu_Victory_2  = "Data/OST/Glory_Ride.mp3"
+
+
+List_OST =[OST_Title_Screen,
+           OST_Cutscene_1_1, OST_Cutscene_1_2, OST_Cutscene_1_3,
+           OST_Cutscene_2_1, OST_Cutscene_2_2, OST_Cutscene_2_3,
+           OST_Fight_1_1, OST_Fight_1_2, OST_Fight_1_3, OST_Fight_1_4,
+           OST_Fight_2_1, OST_Fight_2_2, OST_Fight_2_3, OST_Fight_2_4, OST_Fight_2_5, OST_Fight_2_6,
+           OST_Menu_Main_1_1, OST_Menu_Main_2_1, OST_Menu_Main_2_2,
+           OST_Menu_Shop, OST_Menu_Victory_1, OST_Menu_Victory_2]
