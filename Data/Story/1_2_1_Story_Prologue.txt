@@ -1,0 +1,7 @@
+[L]Hm... Huh... What's happening?
+[L]It's been noisy for a while now.
+[L]I should check what's happening.
+[L]What was that sound just now?!
+[L]Is there a monster?
+[L]Woaw! Here he comes!!!
+(NEXT)

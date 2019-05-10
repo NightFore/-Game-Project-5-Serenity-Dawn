@@ -6,23 +6,19 @@ pygame.init()
 Sprite_Width        = 125
 Sprite_Height       = 200
 
-Sprite_Player_X     = [100,250,265]
-Sprite_Player_Y     = [230,75,300]
-
-Sprite_Enemy_X      = [1055,905,890]
-Sprite_Enemy_Y      = [230,75,300]
-
+Sprite_Character_X     = [100,250,265,1055,905,890]
+Sprite_Character_Y     = [300,175,375,300,175,375]
 
     # Status Bar
-Status_Icon_X       = [10, 730]
-Status_Name_X       = [135,855]
-Status_Health_X     = [305,1025]
-Status_Action_X     = [475,1195]
-Status_Bar_Text_Y   = [590,640,690]
-Status_Bar_Image_Y  = [570,620,670]
+Status_Icon_X       = 3*[10] + 3*[730]
+Status_Name_X       = 3*[135] + 3*[855]
+Status_Health_X     = 3*[305] + 3*[1025]
+Status_Action_X     = 3*[475] + 3*[1195]
+Status_Action_Bar_X = 3*[401] + 3*[1121]
 
-Status_Action_Bar_X = [401,1121]
-Status_Action_Bar_Y = [571,621,671]
+Status_Bar_Text_Y   = 2*[590,640,690]
+Status_Bar_Image_Y  = 2*[570,620,670]
+Status_Action_Bar_Y = 2*[571,621,671]
 
     # Information
 Turn_Count_X = 75
@@ -44,24 +40,23 @@ Color_Title_Screen  = 210, 100, 240
 # Backgrounds
 Background_Title_Screen_1   = pygame.image.load("Data\Background\Background_Title_Screen_1.png")
 Background_Title_Screen_2   = pygame.image.load("Data\Background\Background_Title_Screen_2.png")
-
 Background_Prologue         = pygame.image.load("Data\Background\Background_Altar_1.png")
 Background_Cutscene_1       = pygame.image.load("Data\Background\Background_House_1.png")
-
 Background_Selection_1      = pygame.image.load("Data\Background\Background_Forest_1.png")
-
-
 Background_Fight_1      = pygame.image.load("Data\Background\Background_Forest_2.png")
 
 
 
 # UIs
-ui_Fight_1       = pygame.image.load("Data\Interface\Interface_Fight_Test_1.png")
+Interface_Cutscene          = pygame.image.load("Data\Interface\Interface_Cutscene_Test_1.png")
+Interface_Fight             = pygame.image.load("Data\Interface\Interface_Fight_Test_1.png")
 
 
 
 # Icons
 Icon_Ellesia        = pygame.image.load("Data\Icon\Icon_Ellesia.png")
+Icon_Iris           = pygame.image.load("Data\Icon\Icon_Iris.png")
+Icon_Gyrei          = pygame.image.load("Data\Icon\Icon_Gyrei.png")
 
 Icon_Direwolf       = pygame.image.load("Data\Icon\Icon_Direwolf.png")
 Icon_Ghoul          = pygame.image.load("Data\Icon\Icon_Ghoul.png")
@@ -83,6 +78,8 @@ Arrow_B_Rect = Icon_Arrow_B.get_rect()
 
 # Sprites
 Sprite_Ellesia      = pygame.image.load("Data\Sprite\Sprite_Ellesia.png")
+Sprite_Iris         = pygame.image.load("Data\Sprite\Sprite_Iris.png")
+Sprite_Gyrei        = pygame.image.load("Data\Sprite\Sprite_Gyrei.png")
 
 Sprite_Direwolf     = pygame.image.load("Data\Sprite\Sprite_Direwolf.png")
 Sprite_Ghoul        = pygame.image.load("Data\Sprite\Sprite_Ghoul.png")
@@ -136,10 +133,19 @@ OST_Menu_Victory_1  = "Data/OST/Resting_Around_the_Campfire.mp3"
 OST_Menu_Victory_2  = "Data/OST/Glory_Ride.mp3"
 
 
-List_OST =[OST_Title_Screen,
-           OST_Cutscene_1_1, OST_Cutscene_1_2, OST_Cutscene_1_3,
-           OST_Cutscene_2_1, OST_Cutscene_2_2, OST_Cutscene_2_3,
-           OST_Fight_1_1, OST_Fight_1_2, OST_Fight_1_3, OST_Fight_1_4,
-           OST_Fight_2_1, OST_Fight_2_2, OST_Fight_2_3, OST_Fight_2_4, OST_Fight_2_5, OST_Fight_2_6,
-           OST_Menu_Main_1_1, OST_Menu_Main_2_1, OST_Menu_Main_2_2,
-           OST_Menu_Shop, OST_Menu_Victory_1, OST_Menu_Victory_2]
+List_OST = [OST_Title_Screen,
+            OST_Cutscene_1_1, OST_Cutscene_1_2, OST_Cutscene_1_3,
+            OST_Cutscene_2_1, OST_Cutscene_2_2, OST_Cutscene_2_3,
+            OST_Fight_1_1, OST_Fight_1_2, OST_Fight_1_3, OST_Fight_1_4,
+            OST_Fight_2_1, OST_Fight_2_2, OST_Fight_2_3, OST_Fight_2_4, OST_Fight_2_5, OST_Fight_2_6,
+            OST_Menu_Main_1_1, OST_Menu_Main_2_1, OST_Menu_Main_2_2,
+            OST_Menu_Shop, OST_Menu_Victory_1, OST_Menu_Victory_2]
+
+
+
+# Story
+List_Story = []
+List_Story.append("Data/Story/1_1_1_Story_Prologue.txt")
+List_Story.append("Data/Story/1_1_2_Story_Prologue.txt")
+List_Story.append("Data/Story/1_2_1_Story_Prologue.txt")
+List_Story.append("Data/Story/1_2_2_Story_Prologue.txt")

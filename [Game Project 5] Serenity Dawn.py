@@ -5,7 +5,9 @@ import pickle           # Load/Save Game
 import random
 import re               # re.split()
 
+import pygame_textinput
 from Ressources     import *
+from Balance        import *
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -23,19 +25,38 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 
 class Tools():
     def __init__(self, name):
-        self.event = ""
+        self.event              = ""        # Button
+        self.events             = ""        # Text
+
+        self.Background         = ""
+
+        # Text
+        self.Story_Order        = 0         # Story Progress
+        self.Text_File          = ""        # Read File
+
+        self.Text               = ""        # Text in File
+
+        self.Text_Character_Left    = ""                            # Character Name
+        self.Text_Line_Left         = ["","","","","","","","",""]  # Text
+        self.Text_Order_Left        = 1                             # Line
+
+        self.Text_Character_Right   = ""                            # Character Name
+        self.Text_Line_Right        = ["","","","","","","","",""]  # Text
+        self.Text_Order_Right       = 1                             # Line
+
+        self.Event              = False     # Continue/Stop Reading
+        self.Input_State        = False     # Writing
+        self.textinput          = pygame_textinput.TextInput()
+        self.Text_Line_Input    = ""
+
 Tools = Tools("Tools")
 
 class GameState():
     def __init__(self, name):
         # Interface Fight
-        self.Player = []
-        self.Player_Slot = []
-        self.Player_Death = []
-        
-        self.Enemy  = []
-        self.Enemy_Slot = []
-        self.Enemy_Death = []
+        self.Character = [PlayerIG]
+        self.Character_Slot = []
+        self.Character_Death = []
 
         # State
         self.Attack_Choice = False
@@ -45,6 +66,9 @@ class GameState():
         # Fight Status
         self.Turn = [False,False,False,False,False,False]
         self.Turn_Order = 0
+        
+        self.Action_Point   = [0,0,0,0,0,0]  # All Characters Action_Point
+        self.Turn_Phase     = ""
 GameState = GameState("GameState")
 
 
@@ -53,45 +77,7 @@ def Quit_Game():
     pygame.quit()
     quit()
 
-class Player:
-    def __init__(self, name):
-        self.name   = name
-        self.Icon   = Icon_Ellesia
-        self.Sprite = Sprite_Ellesia
-        self.Class  = "Lancer"
-        
-        self.Level      = 1
-        self.Experience = 0
-        self.Gold       = 0
-        self.Action_Point = 100
-        
-        self.Maxhealth  = 44
-        self.Health     = self.Maxhealth
-        self.Strength   = 6
-        self.Magic      = 10
-        self.Speed      = 4
-        self.Defense    = 2
-        self.Resistance = 0
-PlayerIG = Player("NightFore")
 
-class Wolf:
-    def __init__(self, name):
-        self.name   = name
-        self.Icon   = Icon_Wolf
-        self.Sprite = Sprite_Wolf
-        
-        self.Level      = 1
-        self.EXP_Gain   = 10
-        self.Gold_Gain  = 10
-        self.Action_Point = 0
-        
-        self.Maxhealth  = 10 + 6 * (self.Level - 1)
-        self.Health     = self.Maxhealth
-        self.Attack     = 4 + 1 * (self.Level - 1)
-        self.Speed      = 3 + 1 * (self.Level - 1)
-        self.Defense    = 1 + 0.5 * (self.Level - 1)
-        self.Resistance = 0 + 0.5 * (self.Level - 1)
-WolfIG = Wolf("Wolf")
 
 
     
@@ -100,102 +86,166 @@ def Title_Screen():
 
 # Background
     gameDisplay.blit(Background_Title_Screen_1, (0,0))
-
+    
 # BGM
     pygame.mixer.music.load(OST_Title_Screen)
     pygame.mixer.music.play(-1)
-    
+
+# Setup
     gameExit = False
     while not gameExit:
-        for event in pygame.event.get():
-            pygame.display.update()
+        pygame.display.update()
+        Tools.events = pygame.event.get()
+        
+        for event in Tools.events:
             Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
-            
-            Text_Display(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
-            Button("Start"  , "", 15, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Debug_Fight)
-            Button("Gallery"  , "", 15, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, OST_Gallery)
-            Button("Exit"   , "", 15, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Quit_Game)
+                
+            Text_Display_Center(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
+            Button("Start"      , "", 15, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Prologue)
+            Button("Gallery"    , "", 15, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, OST_Gallery)
+            Button("Debug"      , "", 15, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Debug_Fight)
+        
 
+
+def Prologue():
+# BGM
+    pygame.mixer.music.load(OST_Cutscene_1_1)
+    pygame.mixer.music.play(-1)
+
+# Story
+    Tools.Text_File = open(List_Story[Tools.Story_Order], "r")
+    
+# Setup
+    gameExit = False
+    while not gameExit:
+        # Setup
+        Tools.events = pygame.event.get()
+        pygame.display.update()
+        
+        # Background
+        gameDisplay.blit(Background_Prologue, (0,0))
+
+        # Tools
+        Text_Input()
+        Story_Text_Display()
+        
+        for event in Tools.events:
+            Tools.event = event
+            if event.type == pygame.QUIT:
+                Quit_Game()
+
+                   
 
 
 def Debug_Fight():
-# Background
-    gameDisplay.blit(Background_Fight_1, (0,0))
-
 # BGM
     pygame.mixer.music.load(OST_Menu_Victory_2)
     pygame.mixer.music.play(-1)
 
 # Player / Enemy
-    GameState.Player    = [PlayerIG,PlayerIG,PlayerIG]
-    GameState.Player_Slot = [True,True,True]
-    GameState.Player_Death = [False,False,False]
+    GameState.Character         = [PlayerIG ,IrisIG     ,GyreiIG,
+                                   WolfIG   ,DirewolfIG ,GhoulIG]
+    GameState.Character_Slot    = [True,True,True,True,True,True]
+    GameState.Character_Death   = [False,False,False,False,False,False]
     
-    GameState.Enemy     = [WolfIG,WolfIG,WolfIG]
-    GameState.Enemy_Slot = [True,True,True]
-    GameState.Enemy_Death = [False,False,False]
-
 # Loop
     gameExit = False
     while not gameExit:
-        for event in pygame.event.get():
-            pygame.display.update()
+        # Setup
+        Tools.events = pygame.event.get()
+        pygame.display.update()
+        
+        # Background
+        gameDisplay.blit(Background_Fight_1, (0,0))
+        gameDisplay.blit(Interface_Fight, (0,0))
+
+        # Tools
+        Game_ui_Fight()
+        
+        for event in Tools.events:
             Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
-        gameDisplay.blit(ui_Fight_1, (0,0))
-        Game_ui_Fight()
 
+        # State - Action Point
+        Fight_Action_Point()
+
+        # State - Turn Phase
+        if GameState.Turn_Phase != "":
+            Turn_Phase()
+            
         # State - Attack Selection
         if GameState.Attack_Choice == True:
             Attack_Choice()
-        
+            
+        pygame.display.update()
+
+
+
 def Game_ui_Fight():
+    # Information
+    Text_Display_Center("Turn: %s"     % GameState.Turn_Count      , Turn_Count_X  , Turn_Count_Y  , Text_Interface)
+    Text_Display_Center("Stage: %s"    % GameState.Stage_Progress  , Stage_X       , Stage_Y       , Text_Interface)
+    
     # Commands
-    Button("Attack", "", 6, 640, 590, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, Attack_Choice)
-    Button("Skill" , "", 6, 640, 640, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, None)
-    Button("Potion", "", 6, 640, 690, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, None)
+    if GameState.Turn_Phase != "" and GameState.Turn_Phase <= 2:
+        Button("Attack", "", 6, 640, 590, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, Attack_Choice)
+        Button("Skill" , "", 6, 640, 640, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, None)
+        Button("Potion", "", 6, 640, 690, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, None)
 
-    Text_Display("Turn: %s"     % GameState.Turn_Count      , Turn_Count_X  , Turn_Count_Y  , Text_Fight)
-    Text_Display("Stage: %s"    % GameState.Stage_Progress  , Stage_X       , Stage_Y       , Text_Fight)
-
-    for i in range(3):
-    # Player
-        if GameState.Player_Slot[i] == True:
+    # Player / Enemy
+    for i in range(6):
+        if GameState.Character_Slot[i] == True:
             # Sprite
-            if GameState.Player_Death[i] == False:
-                gameDisplay.blit(GameState.Player[i].Sprite,
-                                 (Sprite_Player_X[i], Sprite_Player_Y[i]))
+            if GameState.Character_Death[i] == False:
+                gameDisplay.blit(GameState.Character[i].Sprite, (Sprite_Character_X[i], Sprite_Character_Y[i]))
 
             # Icon
-            gameDisplay.blit(GameState.Player[i].Icon, (Status_Icon_X[0], Status_Bar_Image_Y[i]))
+            gameDisplay.blit(GameState.Character[i].Icon, (Status_Icon_X[i], Status_Bar_Image_Y[i]))
 
             # Text
-            Text_Display("%s"           % GameState.Player[i].name, Status_Name_X[0], Status_Bar_Text_Y[i], Text_Fight)
-            Text_Display("HP: %i/%i"    % (GameState.Player[i].Health, GameState.Player[i].Maxhealth), Status_Health_X[0], Status_Bar_Text_Y[i], Text_Fight)
+            Text_Display_Center("%s"           % GameState.Character[i].name, Status_Name_X[i], Status_Bar_Text_Y[i], Text_Interface)
+            Text_Display_Center("HP: %i/%i"    % (GameState.Character[i].Health, GameState.Character[i].Maxhealth), Status_Health_X[i], Status_Bar_Text_Y[i], Text_Interface)
 
             # Action Bar
-            pygame.draw.rect(gameDisplay, Color_Green, (Status_Action_Bar_X[0], Status_Action_Bar_Y[i], 1.48 * GameState.Player[i].Action_Point, 38))
-            Text_Display("AP: %i/100"   % (GameState.Player[i].Action_Point), Status_Action_X[0], Status_Bar_Text_Y[i], Text_Fight)
+            pygame.draw.rect(gameDisplay, Color_Green, (Status_Action_Bar_X[i], Status_Action_Bar_Y[i], 1.48 * GameState.Character[i].Action_Point, 38))
+            Text_Display_Center("AP: %i/100"   % (GameState.Character[i].Action_Point), Status_Action_X[i], Status_Bar_Text_Y[i], Text_Interface)
 
-    # Enemy   
-        if GameState.Enemy_Slot[i] == True:
-            # Sprite
-            if GameState.Enemy_Death[i] == False:
-                gameDisplay.blit(GameState.Enemy[i].Sprite,  (Sprite_Enemy_X[i], Sprite_Enemy_Y[i]))
 
-            # Icon
-            gameDisplay.blit(GameState.Enemy[i].Icon, (Status_Icon_X[1], Status_Bar_Image_Y[i]))
+def Fight_Action_Point():
+    if all(i < 100 for i in GameState.Action_Point):    
+        for i in range(6):
+            if GameState.Character_Death[i] == False :
+                GameState.Character[i].Action_Point += GameState.Character[i].Speed/10
+                GameState.Action_Point[i]   = GameState.Character[i].Action_Point
 
-            # Text
-            Text_Display("%s"           % GameState.Enemy[i].name, Status_Name_X[1], Status_Bar_Text_Y[i], Text_Fight)
-            Text_Display("HP: %i/%i"    % (GameState.Enemy[i].Health,  GameState.Enemy[i].Maxhealth),    Status_Health_X[1], Status_Bar_Text_Y[i], Text_Fight)
+                # Max Action Point = 100
+                if GameState.Character[i].Action_Point > 100:
+                    GameState.Character[i].Action_Point = 100
 
-            # Action Bar
-            pygame.draw.rect(gameDisplay, Color_Green, (Status_Action_Bar_X[1], Status_Action_Bar_Y[i], 1.48 * GameState.Enemy[i].Action_Point, 38))
-            Text_Display("AP: %i/100"   % (GameState.Enemy[i].Action_Point), Status_Action_X[1], Status_Bar_Text_Y[i], Text_Fight)
+    else:
+        for i in range(6):
+            if GameState.Action_Point[i] >= 100 and GameState.Turn_Phase == "":
+                GameState.Turn_Phase = i
+
+
+
+def Turn_Phase():
+    # Player Phase
+    if GameState.Turn_Phase <= 2:
+        # Active Turn Phase
+        Sprite_Rect = GameState.Character[GameState.Turn_Phase].Sprite.get_rect(topleft=(Sprite_Character_X[GameState.Turn_Phase], Sprite_Character_Y[GameState.Turn_Phase]))
+        pygame.draw.rect(gameDisplay, Color_Red, Sprite_Rect, 5)
+
+    # Enemy Phase
+    else:
+        # Random Target Player
+        Target_Player = random.randint(0,2)
+
+        # Attack
+        Attack(Target_Player)
 
 
 
@@ -204,47 +254,56 @@ def Attack_Choice():
     GameState.Attack_Choice = True
     
     # Checking for Enemies
-    for i in range(3):
-        if GameState.Enemy_Slot[i] == True and GameState.Enemy_Death[i] == False:
+    for i in range(3,6):
+        if GameState.Character_Slot[i] == True and GameState.Character_Death[i] == False:
             # Getting Sprite_Rect
-            Sprite_Rect = GameState.Enemy[i].Sprite.get_rect(topleft=(Sprite_Enemy_X[i], Sprite_Enemy_Y[i]))
+            Sprite_Rect = GameState.Character[i].Sprite.get_rect(topleft=(Sprite_Character_X[i], Sprite_Character_Y[i]))
 
             # Selection Buttons
-            Button("", i, -8, Sprite_Rect[0]-10, Sprite_Rect[1]-10, Sprite_Rect[2]+20, Sprite_Rect[3]+20, Color_Red, Color_Button, Text_Fight, Tools.event, "", Attack)
+            Button("", i, -8, Sprite_Rect[0]-10, Sprite_Rect[1]-10, Sprite_Rect[2]+20, Sprite_Rect[3]+20, Color_Red, Color_Green, Text_Interface, Tools.event, "", Attack)
 
 
 def Attack(Selection):
     GameState.Attack_Choice = False
+    # Turn Phase Character
+    Character = GameState.Character[GameState.Turn_Phase]
+        
     # RNG
     Hit = random.randint(0, 100)
 
     # Hit Chance (50+0.5*Level) * (Player.Speed^2/Enemy.Speed^2)
-    Accuracy = (50 + (0.5*PlayerIG.Level)) * (PlayerIG.Speed**2 / GameState.Enemy[Selection].Speed**2)
+    Accuracy = (50 + (0.5*Character.Level)) * (Character.Speed**2 / GameState.Character[Selection].Speed**2)
 
     # Critical Chance (10+0.5*Level) * (Speed*Strength) / (5*Enemy.Defense*Player.Defense)
-    Crit = (10 + (0.5*PlayerIG.Level)) * (PlayerIG.Speed*PlayerIG.Strength) / (GameState.Enemy[Selection].Defense*PlayerIG.Defense*5)
+    Crit = (10 + (0.5*Character.Level)) * (Character.Speed*Character.Strength) / (GameState.Character[Selection].Defense*Character.Defense*5)
 
     if Accuracy >= Hit:
         # Damage
         if Crit<=Hit:
-            GameState.Enemy[Selection].Health -= PlayerIG.Strength
+            GameState.Character[Selection].Health -= Character.Strength
 
         # Crit Damage
         else:
-            GameState.Enemy[Selection].Health -= PlayerIG.Strength*2
+            GameState.Character[Selection].Health -= Character.Strength*2
 
         # HP Loss Cap
-        if GameState.Enemy[Selection].Health < 0:
-            GameState.Enemy[Selection].Health = 0
+        if GameState.Character[Selection].Health < 0:
+            GameState.Character[Selection].Health = 0
 
     End_Turn()
 
 def End_Turn():
-    GameState.Turn_Order += 1
+    # Turn Phase Character
+    GameState.Character[GameState.Turn_Phase].Action_Point = 0
 
-    if GameState.Turn_Order == 6:
-        GameState.Turn_Order = 0
-        GameState.Turn_Count += 1
+    GameState.Action_Point[GameState.Turn_Phase] = 0
+    GameState.Turn_Phase = ""
+
+    # Death Check
+    for i in range(6):
+        if GameState.Character[i].Health <= 0:
+            GameState.Character_Death[i] = True
+            GameState.Character[i].Action_Point = 0
 
 
 def OST_Gallery():
@@ -283,6 +342,10 @@ def Music_Play(Selection):
 # Text - Main Function
 def Text_Display(msg, x, y, Text_Font):
     textSurf, textRect = Text_Font(msg)
+    gameDisplay.blit(textSurf, (x,y))
+    
+def Text_Display_Center(msg, x, y, Text_Font):
+    textSurf, textRect = Text_Font(msg)
     textRect.center = (x, y)
     gameDisplay.blit(textSurf, textRect)
 
@@ -297,50 +360,11 @@ def Text_Button_1(msg):
     textSurface = font.render(msg, True, Color_Blue)
     return textSurface, textSurface.get_rect()
 
-def Text_Button_2(msg):
-    font = pygame.font.SysFont(None, 100)
-    textSurface = font.render(msg, True, Color_Blue)
-    return textSurface, textSurface.get_rect()
-
-def Text_Fight(msg):
+def Text_Interface(msg):
     font = pygame.font.SysFont(None, 35)
     textSurface = font.render(msg, True, Color_Black)
     return textSurface, textSurface.get_rect()
-    
-# Tools
-def Grid_Draw(Row,Col,Gap, x,y,w,h,Color):
-    Grid = [[0]*Row for n in range(Col)]
-    x0 = x
-    
-    for row in Grid:
-        for col in row:
-            Rectangle = (x,y,w,h)
-            # Border
-            pygame.draw.rect(gameDisplay, Color_Black, Rectangle, 10)
 
-            # Fill
-            Grid_Color(Grid, Rectangle, col, Color)
-
-            # Position
-            x = x+w
-        y = y+h+Gap     # Gap = Space between row
-        x = x0          # Rectification
-
-
-
-def Grid_Color(Grid, Rectangle, col, Color):
-    if Color == "":
-        pygame.draw.rect(gameDisplay, Color_Black, Rectangle)
-        
-    if Color == "Standard":
-##        Grid[5][2] = 1
-##        Grid[5][3] = 2
-##        Grid[5][4] = 3
-        
-        for i in range(4):
-            if col == i:
-                pygame.draw.rect(gameDisplay, Color_Grid[i], Rectangle)
-        
 
 
 def Button(msg, Selection, width, x,y,w,h, ac,ic, Text_Font, event, Center, action=None):
@@ -361,7 +385,6 @@ def Button(msg, Selection, width, x,y,w,h, ac,ic, Text_Font, event, Center, acti
     x = x+(w/2)                             # Center X (Message)
     y = y+(h/2)                             # Center Y (Message)
     
-
     pygame.draw.rect(gameDisplay, Color_Black, Box, abs(width))
 
     # Active Color
@@ -383,6 +406,9 @@ def Button(msg, Selection, width, x,y,w,h, ac,ic, Text_Font, event, Center, acti
     else:
         if width >= 0:
             pygame.draw.rect(gameDisplay, ic, Box)
+        else:
+            pygame.draw.rect(gameDisplay, ic, Box, abs(width))
+            
 
     # Button Message
     textSurf, textRect = Text_Font(msg)
@@ -390,6 +416,7 @@ def Button(msg, Selection, width, x,y,w,h, ac,ic, Text_Font, event, Center, acti
     # Button Rect
     textRect.center = x, y
     gameDisplay.blit(textSurf, textRect)
+
 
     
 def Button_Image(x, y, Inactive, Active, event, Selection, action=None):
@@ -408,214 +435,131 @@ def Button_Image(x, y, Inactive, Active, event, Selection, action=None):
                     action()
                 else:
                     action(Selection)
-
-
     else:
         gameDisplay.blit(Inactive, Icon_ic_rect)
 
-Title_Screen()
 
-##            
-##def Game_Intro_1():
-##    pygame.mixer.music.load(Serenity)
-##    pygame.mixer.music.play(-1)
-##    
-##    GameStateIG.Text_File = open("0.0.1_Cutscene_Introduction.txt", "r")
-##    
-### Setup
-##    gameExit = False
-##    while not gameExit:
-##        events = pygame.event.get()
-##        pygame.display.update()
-##        gameDisplay.blit(Game_ui_Screen, (0,0))
-##        gameDisplay.blit(Background_Introduction, (0,0))
-##        Game_Text_Event()
-##        
-### "0.0.1_Cutscene_Introduction.txt"
-##        if GameStateIG.Event[1] == False :
-##            Text_Input(events, GameStateIG.Text_File)
-##            
-##            if GameStateIG.Text_Order == 4:
-##                GameStateIG.State = "Character Name"
-##                
-##            if GameStateIG.State == "Character Name":
-##                if GameStateIG.Text_Line_Input != "":
-##                    PlayerIG = Player(GameStateIG.Text_Line_Input)
-##                    GameStateIG.Player[0] = PlayerIG
-##
-##                    GameStateIG.Text_File = open("0.0.2_Cutscene_Introduction.txt", "r")
-##                    Game_State_Reset("Event")
-##                    GameStateIG.Event[1] = True
-##
-### "0.0.2_Cutscene_Introduction.txt"
-##        elif GameStateIG.Event[2] == False:
-##            Text_Input(events, GameStateIG.Text_File)
-##
-##            if GameStateIG.Text_Order == 18:
-##                Game_Intro_2()
-##
-##        for event in events:
-##            GameStateIG.event = event
-##            if event.type == pygame.QUIT:
-##                exit()
-##
-##
-##
-##
-##def Game_Intro_2():
-##    pygame.mixer.music.load(Around_a_Campfire)
-##    pygame.mixer.music.play(-1)
-##
-##    Game_State_Reset("All")
-##    GameStateIG.Text_File = open("0.1.1_Cutscene_Introduction_2.txt", "r")
-##
-### Setup
-##    gameExit = False
-##    while not gameExit:
-##        events = pygame.event.get()
-##        pygame.display.update()
-##        gameDisplay.blit(Game_ui_Screen, (0,0))
-##        gameDisplay.blit(Background_House, (0,0))
-##        Game_Text_Event()
-##
-### "0.1.1_Cutscene_Introduction.txt"
-##        if GameStateIG.Event[1] == False:
-##            Text_Input(events, GameStateIG.Text_File)
-##            
-##            if GameStateIG.Text_Order == 0:
-##                gameDisplay.blit(Game_ui_Screen_Black, (0,0))
-##                Text_Display("1 Week Later...", display_width/2, display_height*3/8, Text_Introduction)
-##
-##            if GameStateIG.Text_Order == 3:
-##                if GameStateIG.Sound == False:
-##                    Sound_Wolf_Roar.play()
-##                    GameStateIG.Sound = True
-##
-##            if GameStateIG.Text_Order == 4:
-##                GameStateIG.Sound = False
-##
-##            if GameStateIG.Text_Order == 6:
-##                if GameStateIG.Sound == False:
-##                    Sound_Wolf_Roar.play()
-##                    GameStateIG.Sound = True
-##                    
-##            if GameStateIG.Text_Order == 7:
-##                GameStateIG.State = "Level_Fight"
-##                GameStateIG.Background = "Level_Fight"
-##                Main_Menu()
-##
-##
-##        for event in events:
-##            GameStateIG.event = event
-##            if event.type == pygame.QUIT:
-##                exit()
-##        
-##
-##def Main_Menu():
-##    gameExit = False
-##    while not gameExit:
-##        events = pygame.event.get()
-##        pygame.display.update()
-##        
-##        if GameStateIG.Background == "Cutscene":
-##            gameDisplay.blit(Game_ui_Screen, (0,0))
-##
-##        Game_Text_Event()
-##        for event in events:
-##            GameStateIG.event = event
-##            if event.type == pygame.QUIT:
-##                exit()
-##                
-##    # Main_Menu
-##            if GameStateIG.State == "":
-##                # Background
-##                if GameStateIG.Zone_Progress == 1:
-##                    if GameStateIG.Background == "":
-##                        gameDisplay.blit(Background_Main_Menu_1, (0,0))
-##
-##                # Menu
-##                Interface_Main_Menu()
-##                if GameStateIG.Menu == "Inventory":
-##                    Inventory()
-##
-##                if GameStateIG.Menu == "Shop":
-##                    Shop()
-##                        
-##
-##
-##            # Fight
-##            if GameStateIG.State == "Level_Fight":
-##                Level_Fight()
-##                Player_Enemy_Check()
-##                Action_Point()
-##
-##                if GameStateIG.Attack_Choice == True:
-##                    Attack_Choice()
-##                Win_Condition()
-##
-##            # Win
-##            elif GameStateIG.State == "Win":
-##                Win(events)
-##
-##            # Results
-##            elif GameStateIG.State == "Result":
-##                Game_State_Reset("Text")
-##                GameStateIG.Background = "Result"
-##                gameDisplay.blit(Interface_Results, (0,0))
-##                Battle_Result()
-##
-##
-##def Player_Enemy_Check():
-##    if GameStateIG.Player[0] != "":
-##        GameStateIG.Player_Slot[0] = True
-##        
-##    if GameStateIG.Player[1] != "":
-##        GameStateIG.Player_Slot[1] = True
-##        
-##    if GameStateIG.Player[2] != "":
-##        GameStateIG.Player_Slot[2] = True
-##        
-##    if GameStateIG.Enemy[0] != "" and GameStateIG.Enemy[0] != NoMonsterIG:
-##        GameStateIG.Enemy_Slot[0] = True
-##        
-##    if GameStateIG.Enemy[1] != "" and GameStateIG.Enemy[1] != NoMonsterIG:
-##        GameStateIG.Enemy_Slot[1] = True
-##        
-##    if GameStateIG.Enemy[2] != "" and GameStateIG.Enemy[2] != NoMonsterIG:
-##        GameStateIG.Enemy_Slot[2] = True
-##        
-##
-##def Win_Condition():
-##    if GameStateIG.Enemy[0].Health <= 0:
-##        GameStateIG.Enemy_Death[0] = True
-##        
-##    if GameStateIG.Enemy[1].Health <= 0:
-##        GameStateIG.Enemy_Death[1] = True
-##        
-##    if GameStateIG.Enemy[2].Health <= 0:
-##        GameStateIG.Enemy_Death[2] = True
-##
-##    if GameStateIG.Enemy_Death == [True,True,True]:
-##        Game_State_Reset("Win")
-##
-##def Win(events):
-##    if GameStateIG.Zone_Progress == 1:
-##        if GameStateIG.Music == False:
-##            pygame.mixer.music.load(Finally_Some_Rest)
-##            pygame.mixer.music.play(-1)
-##            GameStateIG.Music = True
-##        
-##        if GameStateIG.Stage_Progress == 0:
-##            if GameStateIG.Text_Cutscene == False:
-##                GameStateIG.Text_File = open("1.0.0_Victory.txt", "r")
-##                GameStateIG.Text_Cutscene = True
-##                
-##            if GameStateIG.Text_Cutscene == True:
-##                Text_Input(events, GameStateIG.Text_File)
-##
-##            if GameStateIG.Text_Order == 5:
-##                GameStateIG.State = "Result"
-##
-##
-##GameStateIG.Player = [PlayerIG, IrisIG, GyreiIG]
-##Game_Intro_2()
+
+def Text_Input():
+    # Read Text
+    if Tools.textinput.update(Tools.events):
+        # Text Input
+        Tools.Text_Line_Input   = Tools.textinput.get_text()
+        Tools.textinput         = pygame_textinput.TextInput()
+
+
+        # Input Name Event
+        if Tools.Text_Line_Input != "":
+            Tools.Input_State = False
+            Tools.Event = False
+            
+            PlayerIG.name = Tools.Text_Line_Input
+            Tools.Text_Line_Input = ""
+            Tools.Text = "(NEXT)"
+
+
+        # Next File
+        if "(NEXT)" in Tools.Text:
+            Tools.Text_File.close()
+            Tools.Story_Order += 1
+            Tools.Text_File = open(List_Story[Tools.Story_Order], "r")
+            Tools.Text = ""
+
+        # Event == Stop Reading
+        if Tools.Event == False:
+            
+            # Read File
+            Tools.Text = Tools.Text_File.readline().rstrip('\n').replace("%PlayerIG.name", ("%s" % GameState.Character[0].name))
+
+            # Event State
+            if "(EVENT)" in Tools.Text:
+                Tools.Event = True
+
+            # Input State
+            if "(INPUT)" in Tools.Text:
+                Tools.Text = Tools.Text.strip("(INPUT)")
+                Tools.Text_Line_Input = ""
+                Tools.Input_State = True
+
+
+
+            # Reset Text
+            if Tools.Text_Order_Left == 7:
+                Tools.Text_Line_Left = ["","","","","","","","",""]
+                Tools.Text_Order_Left = 1
+
+            if Tools.Text_Order_Right == 7:
+                Tools.Text_Line_Right = ["","","","","","","","",""]
+                Tools.Text_Order_Right = 1
+
+
+        # Text
+            # Left Side
+            if "[L]" in Tools.Text:
+                # Character Name
+                if "(NAME)" in Tools.Text:
+                    Tools.Text_Character_Left = Tools.Text.replace("(NAME)[L]", "")
+                    Tools.Text = Tools.Text_File.readline().rstrip('\n').replace("%PlayerIG.name", ("%s" % GameState.Character[0].name))
+
+                # Text
+                Tools.Text_Line_Left[Tools.Text_Order_Left]     = Tools.Text.replace("[L]", "")
+                Tools.Text_Line_Left[Tools.Text_Order_Left+1]   = "(-> Press Enter)"
+                Tools.Text_Line_Right[Tools.Text_Order_Right+1] = ""
+                Tools.Text_Order_Left += 1
+
+            # Right Side
+            elif "[R]" in Tools.Text:
+                # Character Name
+                if "(NAME)" in Tools.Text:
+                    Tools.Text_Character_Right = Tools.Text.replace("(NAME)[R]", "")
+                    Tools.Text = Tools.Text_File.readline().rstrip('\n').replace("%PlayerIG.name", ("%s" % GameState.Character[0].name))
+
+                # Text
+                Tools.Text_Line_Right[Tools.Text_Order_Right]   = Tools.Text.replace("[R]", "")
+                Tools.Text_Line_Right[Tools.Text_Order_Right+1] = "(-> Press Enter)"
+                Tools.Text_Line_Left[Tools.Text_Order_Left+1]   = ""
+                Tools.Text_Order_Right += 1
+
+
+def Story_Text_Display():
+    # Background
+    gameDisplay.blit(Interface_Cutscene, (0,0))
+
+    # Character Name
+    Text_Display_Center(Tools.Text_Character_Left   , 100, 535, Text_Interface)
+    Text_Display_Center(Tools.Text_Character_Right  , 1180, 535, Text_Interface) 
+
+    # Text Left
+    Text_Display(Tools.Text_Line_Left[1], 5, 565, Text_Interface)
+    Text_Display(Tools.Text_Line_Left[2], 5, 585, Text_Interface)
+    Text_Display(Tools.Text_Line_Left[3], 5, 605, Text_Interface)
+    Text_Display(Tools.Text_Line_Left[4], 5, 625, Text_Interface)
+    Text_Display(Tools.Text_Line_Left[5], 5, 645, Text_Interface)
+    Text_Display(Tools.Text_Line_Left[6], 5, 665, Text_Interface)
+    Text_Display(Tools.Text_Line_Left[7], 5, 685, Text_Interface)
+
+    # Text Right
+    Text_Display(Tools.Text_Line_Right[1], 725, 565, Text_Interface)
+    Text_Display(Tools.Text_Line_Right[2], 725, 585, Text_Interface)
+    Text_Display(Tools.Text_Line_Right[3], 725, 605, Text_Interface)
+    Text_Display(Tools.Text_Line_Right[4], 725, 625, Text_Interface)
+    Text_Display(Tools.Text_Line_Right[5], 725, 645, Text_Interface)
+    Text_Display(Tools.Text_Line_Right[6], 725, 665, Text_Interface)
+    Text_Display(Tools.Text_Line_Right[7], 725, 685, Text_Interface)
+
+    # Write Text
+    if Tools.Input_State == True:
+        #Text_Display_Center(Tools.textinput.get_text(), 720, 600, Text_Interface)
+
+        # Text Box
+        pygame.draw.rect(gameDisplay, Color_Grey, [540, 340, 200, 40])
+        pygame.draw.rect(gameDisplay, Color_Black, [540, 340, 200, 40], 5)
+
+        # Text Center
+        Text    = Tools.textinput.get_surface()
+        Width   = Text.get_width()
+        Height  = Text.get_height()
+        gameDisplay.blit(Tools.textinput.get_surface(), (640-Width//2, 360-Height//2))
+
+
+Title_Screen()
