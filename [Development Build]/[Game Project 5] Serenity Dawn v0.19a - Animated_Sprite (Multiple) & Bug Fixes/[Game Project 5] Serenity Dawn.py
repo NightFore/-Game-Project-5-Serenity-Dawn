@@ -62,8 +62,8 @@ class Tools():
         self.Sprite_player = []
         self.Sprite_all_sprites = []    # Creates a sprite group and adds 'player' to it.
         
-        self.Sprite_dt = []             # Amount of seconds between each loop.
-        self.Sprite_animation = []      # Amount of time/frame before update
+        self.Sprite_dt = []                 # Amount of seconds between each loop.
+        self.Sprite_animation_frames = []   # Amount of frame before update
 
 Tools = Tools("Tools")
 
@@ -86,103 +86,6 @@ class GameState():
         self.Action_Point   = [0,0,0,0,0,0]  # All Characters Action_Point
         self.Turn_Phase     = ""
 GameState = GameState("GameState")
-
-
-class AnimatedSprite(pygame.sprite.Sprite):
-
-    def __init__(self, position, images, animation, center):
-        """
-        Animated sprite object.
-
-        Args:
-            position: x, y coordinate on the screen to place the AnimatedSprite.
-            images: Images to use in the animation.
-        """
-        super(AnimatedSprite, self).__init__()
-
-        self.images = images
-        self.images_right = images
-        self.images_left = [pygame.transform.flip(image, True, False) for image in images]  # Flipping every image.
-        self.index = 0
-        self.image = images[self.index]  # 'image' is the current image of the animation.
-
-        self.image_rect = self.image.get_rect()
-        size = (self.image_rect[2], self.image_rect[3])  # This should match the size of the images.
-
-        if center == True:
-            self.rect = pygame.Rect((Tools.Sprite_x[Tools.Sprite_Index]-self.image_rect[2]/2, Tools.Sprite_y[Tools.Sprite_Index]-self.image_rect[3]/2), size)
-            
-        self.rect = pygame.Rect(position, size)
-        
-        self.animation_time = animation
-        self.current_time = 0
-
-        #self.animation_frames = 6
-        self.animation_frames = animation
-        self.current_frame = 0
-
-    def load_images(path):
-        """
-        Loads all images in directory. The directory must only contain images.
-
-        Args:
-            path: The relative or absolute path to the directory to load images from.
-
-        Returns:
-            List of images.
-        """
-        images = []
-        for file_name in os.listdir(path):
-            image = pygame.image.load(path + os.sep + file_name).convert()
-            images.append(image)
-        return images
-        
-    def button_image(x, y, event, action=None):
-        """
-        Calls the function Selection when clicking oh the image
-        """
-        mouse = pygame.mouse.get_pos()  
-        button = Tools.Sprite_player[Tools.Sprite_index].image.convert()
-        button_rect = button.get_rect(topleft=(x,y))
-
-        if Tools.Sprite_player[Tools.Sprite_index].rect.collidepoint(mouse):
-            gameDisplay.blit(Tools.Sprite_player[Tools.Sprite_index].image, Tools.Sprite_player[Tools.Sprite_index].rect)
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if action != None:
-                    action()
-
-    def update_time_dependent(self, dt):
-        """
-        Updates the image of Sprite approximately every 0.1 second.
-
-        Args:
-            dt: Time elapsed between each frame.
-        """
-        
-        self.current_time += dt
-        if self.current_time >= self.animation_time:
-            self.current_time = 0
-            self.index = (self.index + 1) % len(self.images)
-            self.image = self.images[self.index]
-
-    def update_frame_dependent(self):
-        """
-        Updates the image of Sprite every 6 frame (approximately every 0.1 second if frame rate is 60).
-        """
-
-        self.current_frame += 1
-        if self.current_frame >= self.animation_frames:
-            self.current_frame = 0
-            self.index = (self.index + 1) % len(self.images)
-            self.image = self.images[self.index]
-
-    def update(self, dt):
-        """
-        This is the method that's being called when 'all_sprites.update(dt)' is called.
-        """
-        # Switch between the two update methods by commenting/uncommenting.
-        # self.update_time_dependent(dt)
-        self.update_frame_dependent()
 
 
 
@@ -289,17 +192,16 @@ def Training():
     pygame.mixer.music.load(List_OST[6])
     pygame.mixer.music.play(-1)
 
-    # Sprite Setup
     Tools.Sprite_Number = 2                                     # Number of Sprite
     Tools.Sprite_x = [display_width/2, display_width/3]         # Position x
     Tools.Sprite_y = [display_height/3, display_height/3]       # Position y
     Tools.Sprite_center = [True, True]                          # Center Sprite
     Tools.Sprite_action = [Action_Test, Action_Test]            # Function
-    Tools.Sprite_images = [AnimatedSprite.load_images(path="Data\Sprite_Button\Sprite_Button_Traning"), AnimatedSprite.load_images(path="Data\Sprite_Button\Sprite_Button_Fight")]
+    Tools.Sprite_images = [load_images(path="Data\Sprite_Button\Sprite_Button_Traning"), load_images(path="Data\Sprite_Button\Sprite_Button_Fight")]
 
     for Tools.Sprite_index in range(Tools.Sprite_Number):
-        Tools.Sprite_animation.append(4)                        # Frame before update
-        Tools.Sprite_player.append(AnimatedSprite(position=(Tools.Sprite_x[Tools.Sprite_index], Tools.Sprite_y[Tools.Sprite_index]), images  =Tools.Sprite_images[Tools.Sprite_index], animation=Tools.Sprite_animation[Tools.Sprite_index], center=Tools.Sprite_center[Tools.Sprite_index]))
+        Tools.Sprite_animation_frames.append(4)                 # Frame before update
+        Tools.Sprite_player.append(AnimatedSprite(position=(Tools.Sprite_x[Tools.Sprite_index], Tools.Sprite_y[Tools.Sprite_index]), images=Tools.Sprite_images[Tools.Sprite_index], center=Tools.Sprite_center[Tools.Sprite_index]))
         Tools.Sprite_all_sprites.append(pygame.sprite.Group(Tools.Sprite_player[Tools.Sprite_index]))
     
     # Loop
@@ -321,12 +223,12 @@ def Training():
                     AnimatedSprite.button_image(Tools.Sprite_x[Tools.Sprite_Index], Tools.Sprite_y[Tools.Sprite_Index], Tools.event, Tools.Sprite_action[Tools.Sprite_Index])
 
         Text_Display_Center(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
-        Button("Debug", "", 15, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, OST_Gallery)
-        Button("Debug", "", 15, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Debug_Fight)
-        Button("Debug", "", 15, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Training)
+        Button("Debug"      , "", 15, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, OST_Gallery)
+        Button("Debug"      , "", 15, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Debug_Fight)
+        Button("Debug"   , "", 15, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Training)
 
 
-        Tools.Sprite_dt = [clock.tick(FPS), clock.tick(FPS)]    # No effects (using frames)
+        Tools.Sprite_dt = [clock.tick(FPS)/400, clock.tick(FPS)/400]        # No effects (using frames)
 
         for Tools.Sprite_index in range(Tools.Sprite_Number):
             Tools.Sprite_all_sprites[Tools.Sprite_index].update(Tools.Sprite_dt[Tools.Sprite_index])
@@ -768,6 +670,106 @@ def Story_Text_Display():
         Width   = Text.get_width()
         Height  = Text.get_height()
         gameDisplay.blit(Tools.textinput.get_surface(), (640-Width//2, 360-Height//2))
+
+
+
+def load_images(path):
+    """
+    Loads all images in directory. The directory must only contain images.
+
+    Args:
+        path: The relative or absolute path to the directory to load images from.
+
+    Returns:
+        List of images.
+    """
+    images = []
+    for file_name in os.listdir(path):
+        image = pygame.image.load(path + os.sep + file_name).convert()
+        images.append(image)
+    return images
+
+
+class AnimatedSprite(pygame.sprite.Sprite):
+
+    def __init__(self, position, images, center):
+        """
+        Animated sprite object.
+
+        Args:
+            position: x, y coordinate on the screen to place the AnimatedSprite.
+            images: Images to use in the animation.
+        """
+        super(AnimatedSprite, self).__init__()
+
+        self.images = images
+        self.images_right = images
+        self.images_left = [pygame.transform.flip(image, True, False) for image in images]  # Flipping every image.
+        self.index = 0
+        self.image = images[self.index]  # 'image' is the current image of the animation.
+
+        self.image_rect = self.image.get_rect()
+        size = (self.image_rect[2], self.image_rect[3])  # This should match the size of the images.
+
+        print(Tools.Sprite_index)
+        if center == True:
+            self.rect = pygame.Rect((Tools.Sprite_x[Tools.Sprite_Index]-self.image_rect[2]/2, Tools.Sprite_y[Tools.Sprite_Index]-self.image_rect[3]/2), size)
+            
+        self.rect = pygame.Rect(position, size)
+        
+        self.animation_time = 0.1
+        self.current_time = 0
+
+        #self.animation_frames = 6
+        self.animation_frames = Tools.Sprite_animation_frames[Tools.Sprite_Index]
+        self.current_frame = 0
+
+    def update_time_dependent(self, dt):
+        """
+        Updates the image of Sprite approximately every 0.1 second.
+
+        Args:
+            dt: Time elapsed between each frame.
+        """
+        
+        self.current_time += dt
+        if self.current_time >= self.animation_time:
+            self.current_time = 0
+            self.index = (self.index + 1) % len(self.images)
+            self.image = self.images[self.index]
+
+    def update_frame_dependent(self):
+        """
+        Updates the image of Sprite every 6 frame (approximately every 0.1 second if frame rate is 60).
+        """
+
+        self.current_frame += 1
+        if self.current_frame >= self.animation_frames:
+            self.current_frame = 0
+            self.index = (self.index + 1) % len(self.images)
+            self.image = self.images[self.index]
+
+    def update(self, dt):
+        """
+        This is the method that's being called when 'all_sprites.update(dt)' is called.
+        """
+        # Switch between the two update methods by commenting/uncommenting.
+        # self.update_time_dependent(dt)
+        self.update_frame_dependent()
+        
+    def button_image(x, y, event, action=None):
+        """
+        Calls the function Selection when clicking oh the image
+        """
+        mouse = pygame.mouse.get_pos()  
+        button = Tools.Sprite_player[Tools.Sprite_index].image.convert()
+        button_rect = button.get_rect(topleft=(x,y))
+
+        if Tools.Sprite_player[Tools.Sprite_index].rect.collidepoint(mouse):
+            gameDisplay.blit(Tools.Sprite_player[Tools.Sprite_index].image, Tools.Sprite_player[Tools.Sprite_index].rect)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if action != None:
+                    action()
 
 
 Title_Screen()
