@@ -338,10 +338,9 @@ def Debug():
                     AnimatedSprite.button_image(index, Tools.Sprite_x[index], Tools.Sprite_y[index], Tools.event, Tools.Sprite_action[index])
                     
 
-def Debug_Action_1():
+def Action_Test_1():
     print("Click 1!")
-    
-def Debug_Action_2():
+def Action_Test_2():
     print("Click 2!")
 
 
@@ -353,44 +352,29 @@ def Training():
     pygame.mixer.music.play(-1)
 
     # Player / Enemy
-    GameState.Character         = [PlayerIG, IrisIG, GyreiIG]
+    GameState.Character         = [PlayerIG, IrisIG, GyreiIG,   WolfIG, DirewolfIG, GhoulIG]
     GameState.Character_Slot    = [True,     True,   True,      True,   True,       True]
     GameState.Character_Death   = [False,    False,  False,     False,  False,      False]
-
-    # Random Enemy
-    for i in range(3):
-        Enemy = List_Enemy[random.randint(0, len(List_Enemy)-1)]
-        GameState.Character.append(Enemy("Monster %i" % (i+1)))
     
     # Loop
     gameExit = False
     while not gameExit:
         # Setup
-        pygame.display.update()
         Tools.events = pygame.event.get()
         gameDisplay.blit(Tools.Background, (0,0))
-
-        # Interface
-        Game_ui_Fight()
-
-        # State - Action Point
-        Fight_Action_Point()
-
-        # State - Turn Phase
-        if GameState.Turn_Phase != "":
-            Turn_Phase()
-            
-        # State - Attack Selection
-        if GameState.Attack_Choice == True:
-            Attack_Choice()
 
         # Event
         for event in Tools.events:
             Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
+
+            Text_Display_Center(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
+            Button("Music"      , "", 15, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, OST_Gallery)
+            Button("Fight"      , "", 15, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Debug_Fight)
+            Button("Training"   , "", 15, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Training)
     
-            
+            pygame.display.update()
         
 
 

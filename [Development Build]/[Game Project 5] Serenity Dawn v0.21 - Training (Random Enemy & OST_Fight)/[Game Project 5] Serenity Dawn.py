@@ -338,10 +338,9 @@ def Debug():
                     AnimatedSprite.button_image(index, Tools.Sprite_x[index], Tools.Sprite_y[index], Tools.event, Tools.Sprite_action[index])
                     
 
-def Debug_Action_1():
+def Action_Test_1():
     print("Click 1!")
-    
-def Debug_Action_2():
+def Action_Test_2():
     print("Click 2!")
 
 

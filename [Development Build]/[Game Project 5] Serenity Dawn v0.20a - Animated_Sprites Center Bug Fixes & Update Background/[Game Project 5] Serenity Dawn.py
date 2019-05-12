@@ -58,7 +58,7 @@ class Tools():
         self.Sprite_center = []
         self.Sprite_action = []
         
-        self.Sprite_path = []           # Make sure to provide the relative or full path to the images directory.
+        self.Sprite_images = []         # Make sure to provide the relative or full path to the images directory.
         self.Sprite_player = []
         self.Sprite_all_sprites = []    # Creates a sprite group and adds 'player' to it.
         
@@ -90,7 +90,7 @@ GameState = GameState("GameState")
 
 class AnimatedSprite(pygame.sprite.Sprite):
 
-    def __init__(self):
+    def __init__(self, animation, center):
         """
         Animated sprite object.
 
@@ -100,7 +100,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         """
         super(AnimatedSprite, self).__init__()
 
-        self.images = AnimatedSprite.load_images(path=Tools.Sprite_path[Tools.Sprite_index])    # Load all images
+        self.images = Tools.Sprite_images[Tools.Sprite_index]                                   # Load all images
         self.images_right = self.images                                                         # Normal image
         self.images_left = [pygame.transform.flip(image, True, False) for image in self.images] # Flipping every image.
         
@@ -110,19 +110,19 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.image_rect = self.image.get_rect()                                                 # Surface of the images
         size = (self.image_rect[2], self.image_rect[3])                                         # This should match the size of the images.
 
-        if Tools.Sprite_center[Tools.Sprite_index] == False:
+        if center == False:
             self.rect = pygame.Rect((Tools.Sprite_x[Tools.Sprite_index], Tools.Sprite_y[Tools.Sprite_index]), size)
         
-        if Tools.Sprite_center[Tools.Sprite_index] == True:
+        if center == True:
             self.rect = pygame.Rect((Tools.Sprite_x[Tools.Sprite_index]-self.image_rect[2]/2, Tools.Sprite_y[Tools.Sprite_index]-self.image_rect[3]/2), size)
 
-        #self.animation_time    = 0.1
-        self.animation_time     = Tools.Sprite_animation[Tools.Sprite_index]
-        self.current_time       = 0
+        #self.animation_time = 0.1
+        self.animation_time = animation
+        self.current_time = 0
 
-        #self.animation_frames  = 6
-        self.animation_frames   = Tools.Sprite_animation[Tools.Sprite_index]
-        self.current_frame      = 0
+        #self.animation_frames = 6
+        self.animation_frames = animation
+        self.current_frame = 0
 
     def load_images(path):
         """
@@ -140,15 +140,16 @@ class AnimatedSprite(pygame.sprite.Sprite):
             images.append(image)
         return images
         
-    def button_image(index, x, y, event, action=None):
+    def button_image(x, y, event, action=None):
         """
         Calls the function Selection when clicking oh the image
         """
         mouse = pygame.mouse.get_pos()  
-        button = Tools.Sprite_player[index].image.convert()
+        button = Tools.Sprite_player[Tools.Sprite_index].image.convert()
         button_rect = button.get_rect(topleft=(x,y))
 
-        if Tools.Sprite_player[index].rect.collidepoint(mouse):
+        if Tools.Sprite_player[Tools.Sprite_index].rect.collidepoint(mouse):
+            gameDisplay.blit(Tools.Sprite_player[Tools.Sprite_index].image, Tools.Sprite_player[Tools.Sprite_index].rect)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if action != None:
                     action()
@@ -185,43 +186,6 @@ class AnimatedSprite(pygame.sprite.Sprite):
         # Switch between the two update methods by commenting/uncommenting.
         # self.update_time_dependent(dt)
         self.update_frame_dependent()
-
-
-
-def OST_Gallery():
-    # Setup
-    Tools.Background = Background_Title_Screen_2
-    pygame.mixer.music.load(OST_Title_Screen)
-    pygame.mixer.music.play(-1)
-    
-    # Loop
-    gameExit = False
-    while not gameExit:
-        # Setup
-        Tools.events = pygame.event.get()
-        gameDisplay.blit(Tools.Background, (0,0))
-
-        # Event
-        for event in Tools.events:
-            Tools.event = event
-            if event.type == pygame.QUIT:
-                Quit_Game()
-
-            # Exit Button
-            Button_Image(1240, 10, Icon_Exit, Icon_Exit, Tools.event, "", Title_Screen)
-
-            # Music Button
-            Music_Selection = 0
-            Row = round(len(List_OST)/6)
-            
-            for row in range(Row):
-                for col in range(6):
-                    Button("Music %i" % (Music_Selection+1), Music_Selection, 12, 60+(40+display_width/8)*col, 100+(40+display_height/10)*row, display_width/8, display_height/10, Color_Green, Color_Red, Text_Button_1, Tools.event, False, Music_Play)
-                    Music_Selection += 1
-                    if Music_Selection >= len(List_OST):
-                        break
-
-            pygame.display.update()
 
 
 
@@ -300,17 +264,17 @@ def Debug():
 
     # Sprite Setup
     Tools.Sprite_Number = 2                             # Number of Sprite
-    Tools.Sprite_x = [615, 1230]                        # Position x
-    Tools.Sprite_y = [435, 520]                         # Position y
+    Tools.Sprite_x = [615, display_width/3]             # Position x
+    Tools.Sprite_y = [435, display_height/3]            # Position y
+    Tools.Sprite_images = [AnimatedSprite.load_images(path="Data\Sprite_Button\Sprite_Button_Traning"), AnimatedSprite.load_images(path="Data\Sprite_Button\Sprite_Button_Fight")]
     Tools.Sprite_center = [True, True]                  # Center Sprite
-    Tools.Sprite_action = [Training, Debug_Fight]       # Function
-    Tools.Sprite_path = ["Data\Sprite_Button\Sprite_Button_Traning", "Data\Sprite_Button\Sprite_Button_Fight"]  # Sprite Path
-    
+    Tools.Sprite_action = [Action_Test, Action_Test]    # Function
+
     for Tools.Sprite_index in range(Tools.Sprite_Number):
-        Tools.Sprite_animation.append(4)                # Frame before update
+        Tools.Sprite_animation.append(4)                        # Frame before update
         Tools.Sprite_dt.append(clock.tick(FPS))
-        Tools.Sprite_player.append(AnimatedSprite())
-        Tools.Sprite_all_sprites.append(pygame.sprite.Group(AnimatedSprite()))
+        Tools.Sprite_player.append(AnimatedSprite(animation=Tools.Sprite_animation[Tools.Sprite_index], center=Tools.Sprite_center[Tools.Sprite_index]))
+        Tools.Sprite_all_sprites.append(pygame.sprite.Group(Tools.Sprite_player[Tools.Sprite_index]))
     
     # Loop
     gameExit = False
@@ -319,8 +283,7 @@ def Debug():
         pygame.display.update()
         Tools.events = pygame.event.get()
         gameDisplay.blit(Tools.Background, (0,0))
-
-        # Sprite Update
+                    
         for Tools.Sprite_index in range(Tools.Sprite_Number):
             Tools.Sprite_dt[Tools.Sprite_index] = clock.tick(FPS)   # No effects (using frames)
             Tools.Sprite_all_sprites[Tools.Sprite_index].update(Tools.Sprite_dt[Tools.Sprite_index])
@@ -331,66 +294,77 @@ def Debug():
             Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
-
-            # Sprite Button
-            for index in range(Tools.Sprite_Number):
-                if callable(Tools.Sprite_action[index]) == True:   # Check Function
-                    AnimatedSprite.button_image(index, Tools.Sprite_x[index], Tools.Sprite_y[index], Tools.event, Tools.Sprite_action[index])
-                    
-
-def Debug_Action_1():
-    print("Click 1!")
-    
-def Debug_Action_2():
-    print("Click 2!")
+                
+            for Tools.Sprite_index in range(Tools.Sprite_Number):
+                if callable(Tools.Sprite_action[Tools.Sprite_Index]) == True:   # Check Function
+                    AnimatedSprite.button_image(Tools.Sprite_x[Tools.Sprite_Index], Tools.Sprite_y[Tools.Sprite_Index], Tools.event, Tools.Sprite_action[Tools.Sprite_Index])
 
 
 
 def Training():
     # Setup
-    Tools.Background = Interface_Fight
-    pygame.mixer.music.load(List_OST[random.randint(7, 16)])
+    Tools.Background = Background_Title_Screen_2
+    pygame.mixer.music.load(List_OST[6])
     pygame.mixer.music.play(-1)
-
-    # Player / Enemy
-    GameState.Character         = [PlayerIG, IrisIG, GyreiIG]
-    GameState.Character_Slot    = [True,     True,   True,      True,   True,       True]
-    GameState.Character_Death   = [False,    False,  False,     False,  False,      False]
-
-    # Random Enemy
-    for i in range(3):
-        Enemy = List_Enemy[random.randint(0, len(List_Enemy)-1)]
-        GameState.Character.append(Enemy("Monster %i" % (i+1)))
     
     # Loop
     gameExit = False
     while not gameExit:
         # Setup
-        pygame.display.update()
         Tools.events = pygame.event.get()
         gameDisplay.blit(Tools.Background, (0,0))
-
-        # Interface
-        Game_ui_Fight()
-
-        # State - Action Point
-        Fight_Action_Point()
-
-        # State - Turn Phase
-        if GameState.Turn_Phase != "":
-            Turn_Phase()
-            
-        # State - Attack Selection
-        if GameState.Attack_Choice == True:
-            Attack_Choice()
 
         # Event
         for event in Tools.events:
             Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
+
+            Text_Display_Center(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
+            Button("Music"      , "", 15, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, OST_Gallery)
+            Button("Fight"      , "", 15, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Debug_Fight)
+            Button("Training"   , "", 15, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, Color_Green, Color_Red, Text_Button_1, Tools.event, True, Training)
     
+            pygame.display.update()
             
+
+def Action_Test():
+    print("Click!")
+
+def OST_Gallery():
+    # Setup
+    Tools.Background = Background_Title_Screen_2
+    pygame.mixer.music.load(OST_Title_Screen)
+    pygame.mixer.music.play(-1)
+    
+    # Loop
+    gameExit = False
+    while not gameExit:
+        # Setup
+        Tools.events = pygame.event.get()
+        gameDisplay.blit(Tools.Background, (0,0))
+
+        # Event
+        for event in Tools.events:
+            Tools.event = event
+            if event.type == pygame.QUIT:
+                Quit_Game()
+
+            # Exit Button
+            Button_Image(1240, 10, Icon_Exit, Icon_Exit, Tools.event, "", Title_Screen)
+
+            # Music Button
+            Music_Selection = 0
+            Row = round(len(List_OST)/6)
+            
+            for row in range(Row):
+                for col in range(6):
+                    Button("Music %i" % (Music_Selection+1), Music_Selection, 12, 60+(40+display_width/8)*col, 100+(40+display_height/10)*row, display_width/8, display_height/10, Color_Green, Color_Red, Text_Button_1, Tools.event, False, Music_Play)
+                    Music_Selection += 1
+                    if Music_Selection >= len(List_OST):
+                        break
+
+            pygame.display.update()
         
 
 

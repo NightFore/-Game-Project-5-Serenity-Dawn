@@ -120,7 +120,7 @@ class Ghoul:
     def __init__(self, name):
         self.name   = name
         self.Icon   = Icon_Ghoul
-        self.Sprite = Sprite_Ghoul
+        self.Sprite    = Sprite_Ghoul
 
         self.Level      = 1
         self.EXP_Gain   = 10
@@ -141,7 +141,7 @@ class Zombie:
     def __init__(self, name):
         self.name   = name
         self.Icon   = Icon_Zombie
-        self.Sprite = Sprite_Zombie
+        self.Sprite    = Sprite_Zombie
 
         self.Level      = 1
         self.EXP_Gain   = 10
@@ -198,6 +198,5 @@ class Shadow_Blue:
         self.Defense    = 1 + 0.5 * (self.Level - 1)
         self.Resistance = 0 + 0.5 * (self.Level - 1)
 Shadow_BlueIG = Shadow_Blue("Shadow_Blue")
-
 
 List_Enemy = [Wolf, Direwolf, Ghoul, Zombie, Shadow_Red, Shadow_Blue]
