@@ -36,8 +36,7 @@ Tools = Tools()
 class Combat():
     def __init__(self):
         # State
-        self.Button_Action  = False
-        self.Button_Turn    = False
+        self.Action         = False
         self.Attack         = False
         self.Skill          = False
         
@@ -492,6 +491,8 @@ def Training():
 def Debug_Fight():
     # Setup
     Setup(Interface_Fight, OST_Menu_Victory_2)
+    print(Tools.Button)
+
     # Player / Enemy
     GameState.Character         = [PlayerIG, IrisIG, GyreiIG,   WolfIG, DirewolfIG, GhoulIG]
     GameState.Character_Slot    = [True,     True,   True,      True,   True,       True]
@@ -504,8 +505,6 @@ def Debug_Fight():
             if event.type == pygame.QUIT:
                 Quit_Game()
         Setup_Loop(Button=True, Fight=True)
-        print(Combat.Turn_Phase)
-
             
 
 
@@ -516,8 +515,8 @@ def Game_ui_Fight():
 
     # Commands
     if Combat.Turn_Phase != "" and Combat.Turn_Phase <= 2:
-        if Combat.Button_Action == False:
-            Combat.Button_Action = True
+        if Combat.Action == False:
+            Combat.Action = True
             Tools.Button.append(Button("Attack", Text_Button_1, 640, 590, 140, 40, 6, True, True, Color_Button, Color_Red, None, Attack_Choice))
             Tools.Button.append(Button("Skill",  Text_Button_1, 640, 640, 140, 40, 6, True, True, Color_Button, Color_Red, None, None))
             Tools.Button.append(Button("Potion", Text_Button_1, 640, 690, 140, 40, 6, True, True, Color_Button, Color_Red, None, None))
@@ -581,18 +580,15 @@ def Attack_Choice():
     Combat.Attack = True
     
     # Checking for Enemies
-    if Combat.Button_Turn == False:
-        Combat.Button_Turn = True
-        for i in range(3,6):
-            if GameState.Character_Slot[i] == True and GameState.Character_Death[i] == False:
-                # Getting Sprite_Rect
-                Sprite_Rect = GameState.Character[i].Sprite.get_rect(topleft=(Sprite_Character_X[i], Sprite_Character_Y[i]))
+    for i in range(3,6):
+        if GameState.Character_Slot[i] == True and GameState.Character_Death[i] == False:
+            # Getting Sprite_Rect
+            Sprite_Rect = GameState.Character[i].Sprite.get_rect(topleft=(Sprite_Character_X[i], Sprite_Character_Y[i]))
 
-                # Selection Buttons
-                Tools.Button.append(Button(None, Text_Interface, Sprite_Rect[0]-10, Sprite_Rect[1]-10, Sprite_Rect[2]+20, Sprite_Rect[3]+20, 8, True, False, Color_Red, Color_Green, i, Attack))
+            # Selection Buttons
+            Button("", i, -8, Sprite_Rect[0]-10, Sprite_Rect[1]-10, Sprite_Rect[2]+20, Sprite_Rect[3]+20, Color_Red, Color_Green, Text_Interface, Tools.event, "", Attack)
 
 
-                
 def Attack(Selection):
     Combat.Attack = False
     # Turn Phase Character
@@ -623,11 +619,8 @@ def Attack(Selection):
     End_Turn()
 
 def End_Turn():
-    Tools.Button = []
-    Combat.Button_Action = False
-    Combat.Button_Turn = False
-    
     # Turn Phase Character
+    Combat.Action = False
     GameState.Character[Combat.Turn_Phase].Action_Point = 0
 
     Combat.Action_Point[Combat.Turn_Phase] = 0

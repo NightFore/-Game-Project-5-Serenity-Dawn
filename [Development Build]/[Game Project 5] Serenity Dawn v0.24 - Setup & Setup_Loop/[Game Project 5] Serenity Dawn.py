@@ -21,23 +21,20 @@ pygame.display.set_caption(Project_Title)
 Screen_Size = display_width, display_height = 1280, 720
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 
-
-
 class Tools():
     def __init__(self):
         self.event          = ""        # Button
         self.events         = ""        # Text
         
-        self.Background     = None
+        self.Background     = ""
         self.Button         = []
         self.Button_Image   = []
+
 Tools = Tools()
 
-class Combat():
+class Fight():
     def __init__(self):
         # State
-        self.Button_Action  = False
-        self.Button_Turn    = False
         self.Attack         = False
         self.Skill          = False
         
@@ -48,7 +45,7 @@ class Combat():
         
         self.Active_Time    = 0
         self.Action_Point   = [0,0,0,0,0,0]  # All Characters Action_Point
-Combat = Combat()
+Fight = Fight()
         
 
 class GameState():
@@ -63,6 +60,26 @@ class GameState():
         self.Character_Slot     = []
         self.Character_Death    = []
 GameState = GameState()
+
+
+
+class Sprite():
+    def __init__(self):
+        self.Number         = 0
+        self.Index          = 0
+        
+        self.x              = []
+        self.y              = []
+        self.center         = []
+        self.action         = []
+        
+        self.path           = []    # Make sure to provide the relative or full path to the images directory.
+        self.player         = []    # AnimatedSprite()
+        self.all_sprites    = []    # Creates a sprite group and adds 'player' to it.
+        
+        self.dt             = []    # Amount of seconds between each loop.
+        self.animation      = []    # Amount of time/frame before update
+Sprite = Sprite()
 
 
 
@@ -88,8 +105,6 @@ class Text():
         self.R_Line         = ["","","","","","","","",""]  # Text
         self.R_Order        = 1                             # Line
 Text = Text()
-
-
 
 class Button():
     def __init__(self, text, font, x,y,w,h,b,border,center, active,inactive, selection, action=None):
@@ -179,30 +194,11 @@ class Button_Image():
     def update(self, index):
         # Button
         gameDisplay.blit(self.image, self.rect)
-
-
-
-class Sprite():
-    def __init__(self):
-        self.Number         = 0
-        self.Index          = 0
-        
-        self.x              = []
-        self.y              = []
-        self.center         = []
-        self.action         = []
-        
-        self.path           = []    # Make sure to provide the relative or full path to the images directory.
-        self.player         = []    # AnimatedSprite()
-        self.all_sprites    = []    # Creates a sprite group and adds 'player' to it.
-        
-        self.dt             = []    # Amount of seconds between each loop.
-        self.animation      = []    # Amount of time/frame before update
-Sprite = Sprite()
         
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
+
     def __init__(self):
         """
         Animated sprite object.
@@ -301,68 +297,10 @@ class AnimatedSprite(pygame.sprite.Sprite):
 
 
 
-def Setup(Background, OST):
-    # Tools
-    Tools.Button, Tools.Button_Image = [], []
-
-    # Background
-    Tools.Background = Background
-
-    # OST
-    pygame.mixer.music.load(OST)
-    pygame.mixer.music.play(-1)
-    
-def Setup_Loop(Button=None, Text=None, Sprite=None, Fight=None):
-    # Tools
-    pygame.display.update()
-    Tools.events = pygame.event.get()
-
-    # Background
-    if Tools.Background != None:
-        gameDisplay.blit(Tools.Background, (0,0))
-
-    # Text
-    if Text == True:
-        Text_Input()
-        Story_Text_Display()
-
-    # Button
-    if Button == True:
-        for index in range(len(Tools.Button)):
-            Tools.Button[index].update(index)
-        for index in range(len(Tools.Button_Image)):
-            Tools.Button_Image[index].update(index)
-
-    for event in Tools.events:
-        # Tools
-        Tools.event = event
-
-        if Button == True:
-            # Button
-            for index in range(len(Tools.Button)):
-                Tools.Button[index].check(index)
-            for index in range(len(Tools.Button_Image)):
-                Tools.Button_Image[index].check(index)
-
-    # Fight
-    if Fight == True:
-        # Interface
-        Game_ui_Fight()
-
-        # State - Action Point
-        Fight_Action_Point()
-
-        # State - Turn Phase
-        if Combat.Turn_Phase != "":
-            Turn_Phase()
-            
-        # State - Attack Selection
-        if Combat.Attack == True:
-            Attack_Choice()
-
 def Quit_Game():
     pygame.quit()
     quit()
+
 
 
     
@@ -372,19 +310,16 @@ def Title_Screen():
     Setup(Background_Title_Screen_1, OST_Title_Screen)
 
     # Buttons
-    Tools.Button.append(Button("Start",    Text_Button_1, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, 15, True, True, Color_Green, Color_Red, None, Prologue))
+    Tools.Button.append(Button("Start",    Text_Button_1, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, 15, True, True, Color_Green, Color_Red, None, Test_Button_Click))
     Tools.Button.append(Button("Gallery",  Text_Button_1, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, 15, True, True, Color_Green, Color_Red, None, OST_Gallery))
     Tools.Button.append(Button("Debug",    Text_Button_1, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, 15, True, True, Color_Green, Color_Red, None, Debug))
     
     # Loop
     gameExit = False
     while not gameExit:
-        Setup_Loop(Button=True)
-        for event in Tools.events:
-            if event.type == pygame.QUIT:
-                Quit_Game()  
-        Text_Display_Center(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
+        Setup_Loop()
 
+        Text_Display_Center(Project_Title, display_width/2, display_height/4, Text_Title_Screen)
 
 
 def OST_Gallery():
@@ -405,30 +340,89 @@ def OST_Gallery():
     # Loop
     gameExit = False
     while not gameExit:
-        Setup_Loop(Button=True)
-        for event in Tools.events:
-            if event.type == pygame.QUIT:
-                Quit_Game()
+        Setup_Loop()
+        
 
-            
+def Setup(Background, OST):
+    # Tools
+    Tools.Button, Tools.Button_Image = [], []
+    # Background
+    Tools.Background = Background
+
+    # OST
+    pygame.mixer.music.load(OST)
+    pygame.mixer.music.play(-1)
+
+
+    
+def Setup_Loop():
+    # Tools
+    pygame.display.update()
+    Tools.events = pygame.event.get()
+
+    # Background
+    gameDisplay.blit(Tools.Background, (0,0))
+
+    # Button Display
+    for index in range(len(Tools.Button)):
+        Tools.Button[index].update(index)
+    for index in range(len(Tools.Button_Image)):
+        Tools.Button_Image[index].update(index)
+
+    for event in Tools.events:
+        # Tools
+        Tools.event = event
+
+        # Button Click
+        for index in range(len(Tools.Button)):
+            Tools.Button[index].check(index)
+        for index in range(len(Tools.Button_Image)):
+            Tools.Button_Image[index].check(index)
+
+        # Exit
+        if event.type == pygame.QUIT:
+            Quit_Game()
+
+
+    
+def Test_Button_Click():
+    print("Click!")
 
 def Prologue():
     # Setup
-    Setup(Background_Prologue, OST_Cutscene_1_1)
+    Tools.Background = Background_Prologue
+    pygame.mixer.music.load(OST_Cutscene_1_1)
+    pygame.mixer.music.play(-1)
     
     # Loop
     gameExit = False
     while not gameExit:
-        Setup_Loop(Text=True)
+        # Setup
+        Tools.events = pygame.event.get()
+        gameDisplay.blit(Tools.Background, (0,0))
+
+        # Tools
+        Text_Input()
+        Story_Text_Display()
+
+        # Event
         for event in Tools.events:
+            Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
 
+            pygame.display.update()
 
 
+
+
+    
+# Game - Main Function
 def Debug():
     # Setup
-    Setup(Background_Main_1, OST_Menu_Main_1_1)
+    Tools.Background = Background_Main_1
+    pygame.mixer.music.load(OST_Menu_Main_1_1)
+    pygame.mixer.music.play(-1)
 
     # Sprite Setup
     Sprite.Number = 2                             # Number of Sprite
@@ -447,8 +441,20 @@ def Debug():
     # Loop
     gameExit = False
     while not gameExit:
-        Setup_Loop(Button=True)
+        # Setup
+        pygame.display.update()
+        Tools.events = pygame.event.get()
+        gameDisplay.blit(Tools.Background, (0,0))
+
+        # Sprite Update
+        for Sprite.index in range(Sprite.Number):
+            Sprite.dt[Sprite.index] = clock.tick(FPS)   # No effects (using frames)
+            Sprite.all_sprites[Sprite.index].update(Sprite.dt[Sprite.index])
+            Sprite.all_sprites[Sprite.index].draw(gameDisplay)
+        
+        # Event
         for event in Tools.events:
+            Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
 
@@ -457,17 +463,13 @@ def Debug():
                 if callable(Sprite.action[index]) == True:   # Check Function
                     AnimatedSprite.button_image(index, Sprite.x[index], Sprite.y[index], Tools.event, Sprite.action[index])
 
-        # Sprite Update
-        for Sprite.index in range(Sprite.Number):
-            Sprite.dt[Sprite.index] = clock.tick(FPS)   # No effects (using frames)
-            Sprite.all_sprites[Sprite.index].update(Sprite.dt[Sprite.index])
-            Sprite.all_sprites[Sprite.index].draw(gameDisplay)
-
 
 
 def Training():
     # Setup
-    Setup(Interface_Fight, List_OST[random.randint(7, 16)])
+    Tools.Background = Interface_Fight
+    pygame.mixer.music.load(List_OST[random.randint(7, 16)])
+    pygame.mixer.music.play(-1)
 
     # Player / Enemy
     GameState.Character         = [PlayerIG, IrisIG, GyreiIG]
@@ -482,16 +484,41 @@ def Training():
     # Loop
     gameExit = False
     while not gameExit:
+        # Setup
+        pygame.display.update()
+        Tools.events = pygame.event.get()
+        gameDisplay.blit(Tools.Background, (0,0))
+
+        # Interface
+        Game_ui_Fight()
+
+        # State - Action Point
+        Fight_Action_Point()
+
+        # State - Turn Phase
+        if Fight.Turn_Phase != "":
+            Turn_Phase()
+            
+        # State - Attack Selection
+        if Fight.Attack == True:
+            Attack_Choice()
+
+        # Event
         for event in Tools.events:
+            Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
-        Setup_Loop(Button=True, Fight=True)
-
+    
+            
+        
 
 
 def Debug_Fight():
     # Setup
-    Setup(Interface_Fight, OST_Menu_Victory_2)
+    Tools.Background = Interface_Fight
+    pygame.mixer.music.load(OST_Menu_Victory_2)
+    pygame.mixer.music.play(-1)
+
     # Player / Enemy
     GameState.Character         = [PlayerIG, IrisIG, GyreiIG,   WolfIG, DirewolfIG, GhoulIG]
     GameState.Character_Slot    = [True,     True,   True,      True,   True,       True]
@@ -500,27 +527,43 @@ def Debug_Fight():
     # Loop
     gameExit = False
     while not gameExit:
+        # Setup
+        pygame.display.update()
+        Tools.events = pygame.event.get()
+        gameDisplay.blit(Tools.Background, (0,0))
+
+        # Interface
+        Game_ui_Fight()
+
+        # State - Action Point
+        Fight_Action_Point()
+
+        # State - Turn Phase
+        if Fight.Turn_Phase != "":
+            Turn_Phase()
+            
+        # State - Attack Selection
+        if Fight.Attack == True:
+            Attack_Choice()
+
+        # Event
         for event in Tools.events:
+            Tools.event = event
             if event.type == pygame.QUIT:
                 Quit_Game()
-        Setup_Loop(Button=True, Fight=True)
-        print(Combat.Turn_Phase)
-
             
 
 
 def Game_ui_Fight():
     # Information
-    Text_Display_Center("Turn: %s"     % Combat.Turn_Count      , Turn_Count_X  , Turn_Count_Y  , Text_Interface)
+    Text_Display_Center("Turn: %s"     % Fight.Turn_Count      , Turn_Count_X  , Turn_Count_Y  , Text_Interface)
     Text_Display_Center("Stage: %s"    % GameState.Stage  , Stage_X       , Stage_Y       , Text_Interface)
-
+    
     # Commands
-    if Combat.Turn_Phase != "" and Combat.Turn_Phase <= 2:
-        if Combat.Button_Action == False:
-            Combat.Button_Action = True
-            Tools.Button.append(Button("Attack", Text_Button_1, 640, 590, 140, 40, 6, True, True, Color_Button, Color_Red, None, Attack_Choice))
-            Tools.Button.append(Button("Skill",  Text_Button_1, 640, 640, 140, 40, 6, True, True, Color_Button, Color_Red, None, None))
-            Tools.Button.append(Button("Potion", Text_Button_1, 640, 690, 140, 40, 6, True, True, Color_Button, Color_Red, None, None))
+    if Fight.Turn_Phase != "" and Fight.Turn_Phase <= 2:
+        Button("Attack", "", 6, 640, 590, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, Attack_Choice)
+        Button("Skill" , "", 6, 640, 640, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, None)
+        Button("Potion", "", 6, 640, 690, 140, 40, Color_Button, Color_Red, Text_Button_1, Tools.event, True, None)
 
     # Player / Enemy
     for i in range(6):
@@ -542,11 +585,11 @@ def Game_ui_Fight():
 
 
 def Fight_Action_Point():
-    if all(i < 100 for i in Combat.Action_Point):    
+    if all(i < 100 for i in Fight.Action_Point):    
         for i in range(6):
             if GameState.Character_Death[i] == False :
                 GameState.Character[i].Action_Point += GameState.Character[i].Speed/10
-                Combat.Action_Point[i]   = GameState.Character[i].Action_Point
+                Fight.Action_Point[i]   = GameState.Character[i].Action_Point
 
                 # Max Action Point = 100
                 if GameState.Character[i].Action_Point > 100:
@@ -554,16 +597,16 @@ def Fight_Action_Point():
 
     else:
         for i in range(6):
-            if Combat.Action_Point[i] >= 100 and Combat.Turn_Phase == "":
-                Combat.Turn_Phase = i
+            if Fight.Action_Point[i] >= 100 and Fight.Turn_Phase == "":
+                Fight.Turn_Phase = i
 
 
 
 def Turn_Phase():
     # Player Phase
-    if Combat.Turn_Phase <= 2:
+    if Fight.Turn_Phase <= 2:
         # Active Turn Phase
-        Sprite_Rect = GameState.Character[Combat.Turn_Phase].Sprite.get_rect(topleft=(Sprite_Character_X[Combat.Turn_Phase], Sprite_Character_Y[Combat.Turn_Phase]))
+        Sprite_Rect = GameState.Character[Fight.Turn_Phase].Sprite.get_rect(topleft=(Sprite_Character_X[Fight.Turn_Phase], Sprite_Character_Y[Fight.Turn_Phase]))
         pygame.draw.rect(gameDisplay, Color_Red, Sprite_Rect, 5)
 
     # Enemy Phase
@@ -578,25 +621,22 @@ def Turn_Phase():
 
 def Attack_Choice():
     # State - Attack Selection
-    Combat.Attack = True
+    Fight.Attack = True
     
     # Checking for Enemies
-    if Combat.Button_Turn == False:
-        Combat.Button_Turn = True
-        for i in range(3,6):
-            if GameState.Character_Slot[i] == True and GameState.Character_Death[i] == False:
-                # Getting Sprite_Rect
-                Sprite_Rect = GameState.Character[i].Sprite.get_rect(topleft=(Sprite_Character_X[i], Sprite_Character_Y[i]))
+    for i in range(3,6):
+        if GameState.Character_Slot[i] == True and GameState.Character_Death[i] == False:
+            # Getting Sprite_Rect
+            Sprite_Rect = GameState.Character[i].Sprite.get_rect(topleft=(Sprite_Character_X[i], Sprite_Character_Y[i]))
 
-                # Selection Buttons
-                Tools.Button.append(Button(None, Text_Interface, Sprite_Rect[0]-10, Sprite_Rect[1]-10, Sprite_Rect[2]+20, Sprite_Rect[3]+20, 8, True, False, Color_Red, Color_Green, i, Attack))
+            # Selection Buttons
+            Button("", i, -8, Sprite_Rect[0]-10, Sprite_Rect[1]-10, Sprite_Rect[2]+20, Sprite_Rect[3]+20, Color_Red, Color_Green, Text_Interface, Tools.event, "", Attack)
 
 
-                
 def Attack(Selection):
-    Combat.Attack = False
+    Fight.Attack = False
     # Turn Phase Character
-    Character = GameState.Character[Combat.Turn_Phase]
+    Character = GameState.Character[Fight.Turn_Phase]
         
     # RNG
     Hit = random.randint(0, 100)
@@ -623,15 +663,11 @@ def Attack(Selection):
     End_Turn()
 
 def End_Turn():
-    Tools.Button = []
-    Combat.Button_Action = False
-    Combat.Button_Turn = False
-    
     # Turn Phase Character
-    GameState.Character[Combat.Turn_Phase].Action_Point = 0
+    GameState.Character[Fight.Turn_Phase].Action_Point = 0
 
-    Combat.Action_Point[Combat.Turn_Phase] = 0
-    Combat.Turn_Phase = ""
+    Fight.Action_Point[Fight.Turn_Phase] = 0
+    Fight.Turn_Phase = ""
 
     # Death Check
     for i in range(6):
