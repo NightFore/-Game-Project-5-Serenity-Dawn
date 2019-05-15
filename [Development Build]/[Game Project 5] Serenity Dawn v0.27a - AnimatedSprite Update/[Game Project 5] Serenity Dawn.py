@@ -32,7 +32,7 @@ class Tools():
         self.Button         = []
         self.Button_Image   = []
         
-        self.sprite         = []    # AnimatedSprite()
+        self.Sprite         = []
         self.all_sprites    = []    # Creates a sprite group and adds 'player' to it.
 Tools = Tools()
 
@@ -213,8 +213,10 @@ def Debug():
     Setup(Background_Main_1, OST_Menu_Main_1_1)
 
     # Sprite Setup
-    AnimatedSprite(615,  435, True, "Data\Sprite_Button\Sprite_Button_Traning", clock.tick(FPS), 4, Training)
-    AnimatedSprite(1230, 520, True, "Data\Sprite_Button\Sprite_Button_Fight",   clock.tick(FPS), 4, Debug_Fight)
+    Tools.Sprite.append(AnimatedSprite(615,  435, True, "Data\Sprite_Button\Sprite_Button_Traning", clock.tick(FPS), 4, Training))
+    Tools.all_sprites.append(pygame.sprite.Group(AnimatedSprite(615,  435, True, "Data\Sprite_Button\Sprite_Button_Traning", clock.tick(FPS), 4, Training)))
+    Tools.Sprite.append(AnimatedSprite(1230, 520, True, "Data\Sprite_Button\Sprite_Button_Fight",   clock.tick(FPS), 4, Debug_Fight))
+    Tools.all_sprites.append(pygame.sprite.Group(AnimatedSprite(1230, 520, True, "Data\Sprite_Button\Sprite_Button_Fight",   clock.tick(FPS), 4, Debug_Fight)))
     
     # Loop
     gameExit = False
@@ -231,7 +233,7 @@ def Debug():
 
         # Sprite Update
         for index in range(len(Tools.Sprite)):
-            Tools.sprite[index].dt = clock.tick(FPS)
+            Tools.Sprite[index].dt = clock.tick(FPS)
             Tools.all_sprites[index].update(Tools.Sprite[index].dt)
             Tools.all_sprites[index].draw(gameDisplay)
 
@@ -247,10 +249,6 @@ class AnimatedSprite(pygame.sprite.Sprite):
             images: Images to use in the animation.
         """
         super(AnimatedSprite, self).__init__()
-
-        # Tools
-        Tools.sprite.append(self)
-        Tools.all_sprites.append(pygame.sprite.Group(self))
         
         # Position
         self.x = x
