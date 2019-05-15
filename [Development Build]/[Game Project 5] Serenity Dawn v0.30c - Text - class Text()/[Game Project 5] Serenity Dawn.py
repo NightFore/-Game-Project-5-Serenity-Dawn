@@ -479,6 +479,8 @@ def Title_Screen():
             if event.type == pygame.QUIT:
                 Quit_Game()  
 
+
+
 def Main_Menu():
     # Setup
     Setup(Background_Main_1, OST_Menu_Main_1_1)
@@ -494,6 +496,8 @@ def Main_Menu():
         for event in Tools.events:
             if event.type == pygame.QUIT:
                 Quit_Game()
+
+
 
 def OST_Gallery():
     # Setup
@@ -517,7 +521,9 @@ def OST_Gallery():
         Setup_Loop(Button=True)
         for event in Tools.events:
             if event.type == pygame.QUIT:
-                Quit_Game()  
+                Quit_Game()
+
+            
 
 def Prologue():
     # Setup
@@ -530,6 +536,8 @@ def Prologue():
         for event in Tools.events:
             if event.type == pygame.QUIT:
                 Quit_Game()
+
+
 
 def Training():
     # Setup
@@ -553,6 +561,8 @@ def Training():
                 Quit_Game()
         Setup_Loop(Button=True, Fight=True)
 
+
+
 def Debug_Fight():
     # Setup
     Setup(Interface_Fight, OST_Menu_Victory_2)
@@ -568,7 +578,7 @@ def Debug_Fight():
             if event.type == pygame.QUIT:
                 Quit_Game()
         Setup_Loop(Button=True, Fight=True)
-
+            
 
 
 def Game_ui_Fight():
