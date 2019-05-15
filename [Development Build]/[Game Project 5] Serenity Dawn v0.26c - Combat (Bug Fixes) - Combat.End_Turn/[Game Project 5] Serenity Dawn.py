@@ -364,10 +364,10 @@ def Setup_Loop(Button=None, Text=None, Sprite=None, Fight=None):
             Attack_Choice()
 
         if Combat.End_Turn == True:
+            Combat.End_Turn = False
             Tools.Button = []
             Combat.Button_Action = False
             Combat.Button_Turn = False
-            Combat.End_Turn = False
 
 def Quit_Game():
     pygame.quit()
@@ -513,6 +513,8 @@ def Debug_Fight():
             if event.type == pygame.QUIT:
                 Quit_Game()
         Setup_Loop(Button=True, Fight=True)
+        print(Tools.Button)
+
             
 
 
@@ -626,6 +628,7 @@ def Attack(Selection):
         # HP Loss Cap
         if GameState.Character[Selection].Health < 0:
             GameState.Character[Selection].Health = 0
+
     End_Turn()
 
 def End_Turn():
@@ -640,6 +643,7 @@ def End_Turn():
         if GameState.Character[i].Health <= 0:
             GameState.Character_Death[i] = True
             GameState.Character[i].Action_Point = 0
+
 
     Combat.End_Turn = True
             
