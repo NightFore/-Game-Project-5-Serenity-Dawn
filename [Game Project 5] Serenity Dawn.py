@@ -396,7 +396,7 @@ def Title_Screen():
     # Buttons
     Tools.Button.append(Button("Start",    Text_Button_1, 1*display_width/4, 3*display_height/4, display_width/8, display_height/12, 15, True, True, Color_Green, Color_Red, None, Prologue))
     Tools.Button.append(Button("Gallery",  Text_Button_1, 2*display_width/4, 3*display_height/4, display_width/8, display_height/12, 15, True, True, Color_Green, Color_Red, None, OST_Gallery))
-    Tools.Button.append(Button("Debug",    Text_Button_1, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, 15, True, True, Color_Green, Color_Red, None, Debug))
+    Tools.Button.append(Button("Debug",    Text_Button_1, 3*display_width/4, 3*display_height/4, display_width/8, display_height/12, 15, True, True, Color_Green, Color_Red, None, Main_Menu))
     
     # Loop
     gameExit = False
@@ -409,7 +409,7 @@ def Title_Screen():
 
 
 
-def Debug():
+def Main_Menu():
     # Setup
     Setup(Background_Main_1, OST_Menu_Main_1_1)
 
