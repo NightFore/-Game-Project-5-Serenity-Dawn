@@ -1,7 +1,12 @@
-[L]Hm... Huh... What's happening?
-[L]It's been noisy for a while now.
-[L]I should check what's happening.
+[L]Huum...... Huh...? What's happening?
+[L]Why is it so noisy?
+[L]I should check out what's happening.
+(SOUND)SFX_Wolf_Growl
+(NAME)[R]Wolf
+[R]*Wolf growling*
 [L]What was that sound just now?!
 [L]Is there a monster?
+(SOUND)SFX_Wolf_Growl
+[R]*Wolf growling again*
 [L]Woaw! Here he comes!!!
 (NEXT)

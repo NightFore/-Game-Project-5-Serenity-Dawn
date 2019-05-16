@@ -90,7 +90,7 @@ Sprite_Wolf         = pygame.image.load("Data\Sprite\Sprite_Wolf.png")
 
 
 # Sound Effects
-SFX_Wolf_Roar   = pygame.mixer.Sound("Data\SFX\SFX_Wolf_Roar.wav")
+SFX_Wolf_Growl  = pygame.mixer.Sound("Data\SFX\SFX_Wolf_Growl.wav")
 
 SFX_Hit_1       = pygame.mixer.Sound("Data\SFX\SFX_Hit_1.wav")
 SFX_Hit_2       = pygame.mixer.Sound("Data\SFX\SFX_Hit_2.wav")
