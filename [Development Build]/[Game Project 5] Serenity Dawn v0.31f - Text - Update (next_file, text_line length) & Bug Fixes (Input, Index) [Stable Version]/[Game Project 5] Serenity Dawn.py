@@ -157,7 +157,7 @@ class StoryIG():
 
                 # Right Side
                 if "[R]" in self.read_line:
-                    # Right Clear
+                    # Left Clear
                     if self.index[1] == 6:
                         self.text_line[1] = ["","","","","","",""]
                         self.index[1] = 0

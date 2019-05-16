@@ -1,4 +1,3 @@
-(NAME)[L]%PlayerIG.name
 [L]My name? It is %PlayerIG.name.
 [R]I see... So your name is %PlayerIG.name...
 [R]It suits very well for a "Summon".
