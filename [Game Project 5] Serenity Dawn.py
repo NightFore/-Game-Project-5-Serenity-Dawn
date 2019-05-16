@@ -767,9 +767,9 @@ def Prologue_3():
     Setup.update_init(Interface_Fight, OST_Fight_1_1, text=True, button=True, fight=True)
 
     # Player / Enemy
-    GameState.Character         = [PlayerIG, IrisIG, GyreiIG, WolfIG, WolfIG, WolfIG]
-    GameState.Character_Slot    = [True,     True,   True,      True,   True,       True]
-    GameState.Character_Death   = [False,    False,  False,     False,  False,      False]
+    GameState.Character         = [PlayerIG, "",    "",     WolfIG, "",     ""]
+    GameState.Character_Slot    = [True,     False, False,  True,   False,  False]
+    GameState.Character_Death   = [False,    True,  True,   False,  True,   True]
     
     # Loop
     gameExit = False
