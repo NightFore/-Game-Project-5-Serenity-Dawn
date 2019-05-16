@@ -74,9 +74,6 @@ GameState = GameState()
 
 class Story():
     def __init__(self, read=True, input_box=False):
-        # Tools
-        Tools.Story[index] = self
-
         # State
         self.file       = open(List_Story[GameState.Story], "r")    # Read File
         self.read       = read                                      # Continue/Stop Reading
@@ -176,7 +173,7 @@ class Story():
 
     def display(self):
         for side in range(self.text_line):
-            for index in range(self.text_line[]):
+            for index in range(self.text_line[side]):
                 gameDisplay.blit(self.text_line[side][index], (self.x+720*side, self.y+20*index))
 
         if self.input_box == True:
