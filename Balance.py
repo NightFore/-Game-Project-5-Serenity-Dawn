@@ -200,4 +200,4 @@ class Shadow_Blue:
 Shadow_BlueIG = Shadow_Blue("Shadow_Blue")
 
 
-List_Enemy = [Wolf, Direwolf, Ghoul, Zombie, Shadow_Red, Shadow_Blue]
+list_enemy = [Wolf, Direwolf, Ghoul, Zombie, Shadow_Red, Shadow_Blue]

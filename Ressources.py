@@ -1,31 +1,6 @@
 import pygame
 pygame.init()
 
-# Interface_Fight
-    # Sprite
-Sprite_Width        = 125
-Sprite_Height       = 200
-
-Sprite_Character_X     = [100,250,265,1055,905,890]
-Sprite_Character_Y     = [300,175,375,300,175,375]
-
-    # Status Bar
-Status_Icon_X       = 3*[10] + 3*[730]
-Status_Name_X       = 3*[135] + 3*[855]
-Status_Health_X     = 3*[305] + 3*[1025]
-Status_Action_X     = 3*[475] + 3*[1195]
-Status_Action_Bar_X = 3*[401] + 3*[1121]
-
-Status_Bar_Text_Y   = 2*[590,640,690]
-Status_Bar_Image_Y  = 2*[570,620,670]
-Status_Action_Bar_Y = 2*[571,621,671]
-
-    # Information
-Turn_Count_X = 75
-Turn_Count_Y = 25
-Stage_X = 1205
-Stage_Y = 25
-
 # Colors
 Color_Red           = 255, 20,  0
 Color_Green         = 60,  210, 120
