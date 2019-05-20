@@ -183,7 +183,7 @@ class Setup():
             self.list_button = []
 
             # Update
-            Fight.update_ui()
+            Fight.update()
 
         """
         Display text from the list
@@ -455,8 +455,8 @@ class Fight():
     def __init__(self):
         # Character / Slot / Death Status
         self.character = [PlayerIG, IrisIG, GyreiIG]
-        self.slot = [True, False, False, False, False, False]
-        self.death = [False, False, False, False, False, False]
+        self.slot = [True, False, False]
+        self.death = [False, False, False]
 
         # State
         self.turn = None
@@ -489,31 +489,18 @@ class Fight():
         self.stage = 1
         self.stage_x, self.stage_y = 1205, 25
 
-    def update_enemy(self, enemy=None, random=True):
-        if random == True:
+    def update_enemy(self, enemy=[], random_enemy=False):
+        # Random Enemy
+        if random_enemy == True:
             enemy = []
-            for index in range(3):
+            for index in range(3-len(enemy)):
                 random_enemy = random.randint(0, len(list_enemy)-1)
                 enemy.append(list_enemy[random_enemy])
-                
+        
         for index in range(len(enemy)):
-            self.character.append(enemy[index])
+            self.character.append(enemy[index]("Monster %s" % (index+1)))
             self.slot.append(True)
             self.death.append(False)
-                
-    def action_point(self):
-        """
-        When reaching 100 Action Point, the character gain a Turn
-        """
-        for index in range(6):
-            # Generating Action Point
-            if self.slot[index] == True and self.death[index] == False:
-                self.character[index].action_point += self.character[index].Speed/10
-
-            # Gain a Turn
-            if self.character[index].action_point > 100 and self.turn != None :
-                self.character[index].action_point = 100
-                self.turn = index
 
     def turn_phase(self):
         # Player Phase
@@ -567,7 +554,10 @@ class Fight():
             Tools.Current_Progress += 1
             eval(Tools.Progress[Tools.Current_Progress])()
 
-    def update_ui(self):
+    def update(self):
+        """
+        User Interface Update
+        """
         # Information
         Text("Time: %s"  % self.time, self.time_x, self.time_y, True, Text_Interface)
         Text("Stage: %s" % self.stage, self.stage_x, self.stage_y, True, Text_Interface)
@@ -591,6 +581,21 @@ class Fight():
                 # Character - Action Point
                 Text("AP: %i/100" % self.character[index].Action_Point, self.action_text_x[index], self.action_text_y[index], True,Text_Interface)
                 pygame.draw.rect(gameDisplay, Color_Green, (self.action_bar_x[index], self.action_bar_y[index], 1.48 * self.character[index].Action_Point, 38))
+
+        """
+        Action Point Update
+        When reaching 100 Action Point, the character gain a Turn
+        """
+        for index in range(6):
+            print(self.turn)
+            # Generating Action Point
+            if self.slot[index] == True and self.death[index] == False:
+                self.character[index].Action_Point += self.character[index].Speed/10
+                
+            # Gain a Turn
+            if self.character[index].Action_Point > 100 and self.turn == None :
+                self.character[index].Action_Point = 100
+                self.turn = index
             
 Fight = Fight()
 
@@ -820,7 +825,7 @@ def Debug_Fight():
     # Setup
     Setup.update_init(Interface_Fight, List_OST[random.randint(7, 16)], fight=True)
 
-    Fight.update_enemy(Fight.random_enemy())
+    Fight.update_enemy(random_enemy=True)
     
     # Loop
     gameExit = False
