@@ -502,6 +502,19 @@ class Fight():
             self.slot.append(True)
             self.death.append(False)
 
+    def turn_phase(self):
+        # Player Phase
+        index = self.character.index(self.turn)
+        if index < 3:
+            sprite_rect = self.turn.Sprite.get_rect(topleft=(self.character_x[index], self.character_y[index]))
+            pygame.draw.rect(gameDisplay, Color_Red, sprite_rect, 5)
+
+        # Enemy PHase
+        else:
+            # Random Target Player
+            target = random.randint(0,2)
+            Attack(target)
+
     def attack_choice(self):
         for index in range(3, 6):
             if self.slot[index] == True and self.death[index] == False:
@@ -543,8 +556,7 @@ class Fight():
 
     def update(self):
         """
-        Update : User Interface
-            Display Information, Buttons, Sprite, Icons, Name, Health & Action_Point
+        User Interface Update
         """
         # Information
         Text("Time: %s"  % self.time, self.time_x, self.time_y, True, Text_Interface)
@@ -571,36 +583,19 @@ class Fight():
                 pygame.draw.rect(gameDisplay, Color_Green, (self.action_bar_x[index], self.action_bar_y[index], 1.48 * self.character[index].Action_Point, 38))
 
         """
-        Update : Action Point
-            Generate Action_Point until it reaches 100
+        Action Point Update
+        When reaching 100 Action Point, the character gain a Turn
         """
-        if self.turn == None:
-            for index in range(6):
-                print(self.turn)
-                # Generating Action Point
-                if self.slot[index] == True and self.death[index] == False:
-                    self.character[index].Action_Point += self.character[index].Speed/10
-                    
-                # Gain a Turn
-                if self.character[index].Action_Point > 100:
-                    self.character[index].Action_Point = 100
-                    self.turn = index
-
-        """
-        Update : Turn Phase
-            When reaching 100 Action_Point, give the character a Turn
-        """
-        if self.turn != None:
-            # Player Phase
-            if self.turn < 3:
-                sprite_rect = self.character[self.turn].Sprite.get_rect(topleft=(self.character_x[self.turn], self.character_y[self.turn]))
-                pygame.draw.rect(gameDisplay, Color_Red, sprite_rect, 5)
-
-            # Enemy PHase
-            else:
-                # Random Target Player
-                target = random.randint(0,2)
-                Attack(target)
+        for index in range(6):
+            print(self.turn)
+            # Generating Action Point
+            if self.slot[index] == True and self.death[index] == False:
+                self.character[index].Action_Point += self.character[index].Speed/10
+                
+            # Gain a Turn
+            if self.character[index].Action_Point > 100 and self.turn == None :
+                self.character[index].Action_Point = 100
+                self.turn = index
             
 Fight = Fight()
 
