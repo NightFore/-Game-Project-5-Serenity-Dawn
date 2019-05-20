@@ -162,7 +162,7 @@ class Shadow_Red:
     def __init__(self, name):
         self.name   = name
         self.Icon   = Icon_Shadow_Red
-        self.Sprite    = Sprite_Shadow_Red
+        self.Sprite = Sprite_Shadow_Red
 
         self.Level      = 1
         self.EXP_Gain   = 10
@@ -183,7 +183,7 @@ class Shadow_Blue:
     def __init__(self, name):
         self.name   = name
         self.Icon   = Icon_Shadow_Blue
-        self.Sprite    = Sprite_Shadow_Blue
+        self.Sprite = Sprite_Shadow_Blue
 
         self.Level      = 1
         self.EXP_Gain   = 10

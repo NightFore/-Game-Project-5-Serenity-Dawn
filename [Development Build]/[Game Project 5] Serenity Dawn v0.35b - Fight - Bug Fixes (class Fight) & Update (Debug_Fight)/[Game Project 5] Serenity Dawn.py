@@ -489,17 +489,18 @@ class Fight():
         self.stage = 1
         self.stage_x, self.stage_y = 1205, 25
 
-    def update_enemy(self, enemy=None, random=True):
-        if random == True:
-            enemy = []
-            for index in range(3):
-                random_enemy = random.randint(0, len(list_enemy)-1)
-                enemy.append(list_enemy[random_enemy])
-                
+    def update_enemy(self, enemy):
         for index in range(len(enemy)):
             self.character.append(enemy[index])
             self.slot.append(True)
             self.death.append(False)
+
+    def random_enemy(self):
+        enemy = []
+        for index in range(3):
+            random_enemy = random.randint(0, len(list_enemy)-1)
+            enemy.append(list_enemy[random_enemy])
+            return enemy
                 
     def action_point(self):
         """
