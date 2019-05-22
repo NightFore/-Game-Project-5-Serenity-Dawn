@@ -451,7 +451,7 @@ class Fight():
     def __init__(self):
         # Character / Slot / Death Status
         self.character = [PlayerIG, IrisIG, GyreiIG]
-        self.slot = [True, False, False]
+        self.slot = [True, True, True]
         self.death = [False, False, False]
 
         # State
