@@ -17,13 +17,13 @@ Background_Title_Screen_1   = pygame.image.load("Data\Background\Background_Titl
 Background_Title_Screen_2   = pygame.image.load("Data\Background\Background_Title_Screen_2.png")
 Background_Prologue         = pygame.image.load("Data\Background\Background_Altar.png")
 Background_Cutscene_1       = pygame.image.load("Data\Background\Background_House.png")
-Background_Main_1           = pygame.image.load("Data\Background\Background_Forest.png")
 
 
 
 # UIs
-Interface_Cutscene          = pygame.image.load("Data\Interface\Interface_Cutscene_Test_1.png")
-Interface_Fight             = pygame.image.load("Data\Interface\Interface_Fight_Test_1.png")
+Interface_Main_Menu         = pygame.image.load("Data\Interface\Interface_Main_Menu.png")
+Interface_Cutscene          = pygame.image.load("Data\Interface\Interface_Cutscene.png")
+Interface_Fight             = pygame.image.load("Data\Interface\Interface_Fight.png")
 
 
 
