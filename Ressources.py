@@ -24,13 +24,17 @@ Background_Cutscene_1       = pygame.image.load("Data\Background\Background_Hous
 Interface_Main_Menu         = pygame.image.load("Data\Interface\Interface_Main_Menu.png")
 Interface_Cutscene          = pygame.image.load("Data\Interface\Interface_Cutscene.png")
 Interface_Fight             = pygame.image.load("Data\Interface\Interface_Fight.png")
+Interface_Inventory         = pygame.image.load("Data\Interface\Interface_Inventory.png")
 
 
 
 # Icons
 Icon_Ellesia        = pygame.image.load("Data\Icon\Icon_Ellesia.png")
+Icon_Ellesia_Status = pygame.image.load("Data\Icon\Icon_Ellesia_Status.png")
 Icon_Iris           = pygame.image.load("Data\Icon\Icon_Iris.png")
+Icon_Iris_Status    = pygame.image.load("Data\Icon\Icon_Iris_Status.png")
 Icon_Gyrei          = pygame.image.load("Data\Icon\Icon_Gyrei.png")
+Icon_Gyrei_Status   = pygame.image.load("Data\Icon\Icon_Gyrei_Status.png")
 
 Icon_Direwolf       = pygame.image.load("Data\Icon\Icon_Direwolf.png")
 Icon_Ghoul          = pygame.image.load("Data\Icon\Icon_Ghoul.png")

@@ -489,9 +489,9 @@ class Button_Image():
 class Fight():
     def __init__(self):
         # Character / Slot / Death Status
-        self.character = [PlayerIG, IrisIG, GyreiIG, Wolf("Wolf 1"), Wolf("Wolf 2"), Wolf("Wolf 3")]
-        self.slot   = [True, True, True, True, True, True]
-        self.death  = [False, False, False, False, False, False]
+        self.character = [PlayerIG, IrisIG, GyreiIG]
+        self.slot = [True, True, True]
+        self.death = [False, False, False]
 
         # State
         self.turn = None
@@ -536,9 +536,9 @@ class Fight():
 
         # Add Enemies to the Character List
         for index in range(len(enemy)):
-            self.character[index+3] = enemy[index]("Monster %s" % (index+1))
-            self.slot[index+3] = True
-            self.death[index+3] = False
+            self.character.append(enemy[index]("Monster %s" % (index+1)))
+            self.slot.append(True)
+            self.death.append(False)
 
     def attack_choice(self):
         if self.state_attack == False:
