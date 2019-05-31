@@ -25,6 +25,7 @@ Interface_Main_Menu         = pygame.image.load("Data\Interface\Interface_Main_M
 Interface_Cutscene          = pygame.image.load("Data\Interface\Interface_Cutscene.png")
 Interface_Fight             = pygame.image.load("Data\Interface\Interface_Fight.png")
 Interface_Inventory         = pygame.image.load("Data\Interface\Interface_Inventory.png")
+Interface_Result            = pygame.image.load("Data\Interface\Interface_Result.png")
 
 
 
