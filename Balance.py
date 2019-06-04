@@ -31,7 +31,7 @@ class Iris:
     def __init__(self, name):
         self.name   = name
         self.Icon   = Icon_Iris
-        self.Sprite    = Sprite_Iris
+        self.Sprite = Sprite_Iris
         self.Class  = "Archer"
         
         self.Level      = 1
@@ -53,8 +53,8 @@ class Gyrei:
     def __init__(self, name):
         self.name   = name
         self.Icon   = Icon_Gyrei
-        self.Sprite    = Sprite_Gyrei
-        self.Class = "Dual Wielder"
+        self.Sprite = Sprite_Gyrei
+        self.Class  = "Dual Wield"
         
         self.Level      = 1
         self.Experience = 0
