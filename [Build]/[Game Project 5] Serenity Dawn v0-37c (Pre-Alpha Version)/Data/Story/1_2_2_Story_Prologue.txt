@@ -1,0 +1,5 @@
+[L]What was a Monster doing here?
+[L]There shouldn't be monsters here.
+[L]I wonder if the village is safe.
+[L]I should get ready to go check.
+(RESULT)
