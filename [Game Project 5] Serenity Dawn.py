@@ -945,10 +945,7 @@ def Result():
         for index in range(len(Fight.character[3:])):
             Text(Fight.character[3+index].name, 785, 135+95*index,  True, Text_Interface)
             Text("Level : %i" % Fight.character[3+index].Level, 785, 180+95*index,  True, Text_Interface)
-
-    else:
-        print("omg")
-        
+            
 def Inventory():
     if Setup.inventory == False:
         Setup.sprite = False
@@ -960,8 +957,6 @@ def Inventory():
         Text("Equipment",   760, 85, True, Text_Interface)
         Text("Inventory",   950, 85, True, Text_Interface)
     
-        print("Inventory!")
-
     else:
         Setup.sprite = True
         Setup.inventory = False

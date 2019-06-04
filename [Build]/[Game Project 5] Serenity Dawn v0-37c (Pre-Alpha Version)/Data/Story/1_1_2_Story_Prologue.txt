@@ -1,0 +1,18 @@
+[L]My name? It is %PlayerIG.name.
+[R]I see... So your name is %PlayerIG.name...
+[R]It suits very well for a "Summon".
+[L]A summon? What do you mean?
+[R]What does it mean?
+[R]What a foolish question.
+[R]It means that you have to obey me.
+[R]Simple as that isn't it?
+[R]I hope that you won't disappoint me.
+[R]You have a destiny to accomplish.
+[L]My "Destiny"? What might it be?
+[R]It isn't something you need to know.
+[R]You will understand in due time.
+[R]The day you will meet her...
+[R]I will have you fall asleep now.
+[L]Fall asleep? Wait no!
+[L]I still have some... more... quest...
+(CUTSCENE END)
