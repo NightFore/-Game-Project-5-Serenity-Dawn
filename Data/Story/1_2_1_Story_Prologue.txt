@@ -1,4 +1,5 @@
 (BACKGROUND) Background_Prologue_2
+(MUSIC) OST_Cutscene_1_2
 [L]Huum...... Huh...? What's happening?
 [L]Why is it so noisy?
 [L]I should check out what's happening.

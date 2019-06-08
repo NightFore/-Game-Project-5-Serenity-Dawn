@@ -1,4 +1,5 @@
 (BACKGROUND) Background_Prologue_1
+(MUSIC) OST_Cutscene_1_1
 (NAME)[R]Voice
 [R]Wake up young child...
 (NAME)[L]Player
