@@ -75,7 +75,7 @@ GyreiIG = Gyrei("Gyrei")
 
         # Enemy
 class Wolf:
-    def __init__(self, name):
+    def __init__(self, name, level=1):
         self.name   = name
         self.Icon   = Icon_Wolf
         self.Sprite = Sprite_Wolf

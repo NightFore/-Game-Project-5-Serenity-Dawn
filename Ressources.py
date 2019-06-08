@@ -119,12 +119,3 @@ List_OST = [OST_Title_Screen,
             OST_Fight_2_1, OST_Fight_2_2, OST_Fight_2_3, OST_Fight_2_4, OST_Fight_2_5, OST_Fight_2_6,
             OST_Menu_Main_1_1, OST_Menu_Main_2_1, OST_Menu_Main_2_2,
             OST_Menu_Shop, OST_Menu_Victory_1, OST_Menu_Victory_2]
-
-
-
-# Story
-List_Story = []
-List_Story.append("Data/Story/1_1_1_Story_Prologue.txt")
-List_Story.append("Data/Story/1_1_2_Story_Prologue.txt")
-List_Story.append("Data/Story/1_2_1_Story_Prologue.txt")
-List_Story.append("Data/Story/1_2_2_Story_Prologue.txt")

@@ -1,14 +1,16 @@
-(BACKGROUND) Background_Prologue_2
-(MUSIC) OST_Cutscene_1_2
+(BACKGROUND)Background_Prologue_2
+(MUSIC)OST_Cutscene_1_2
 [L]Huum...... Huh...? What's happening?
 [L]Why is it so noisy?
 [L]I should check out what's happening.
-(SOUND) SFX_Wolf_Growl
+(SOUND)SFX_Wolf_Growl
 (NAME)[R]Wolf
 [R]*Wolf growling*
 [L]What was that sound just now?!
 [L]Is there a monster?
-(SOUND) SFX_Wolf_Growl
+(SOUND)SFX_Wolf_Growl
 [R]*Wolf growling again*
 [L]Woaw! Here he comes!!!
-(END)
+(FIGHT)Prologue
+(BACKGROUND) Interface_Fight
+(MUSIC) OST_Fight_1_1
