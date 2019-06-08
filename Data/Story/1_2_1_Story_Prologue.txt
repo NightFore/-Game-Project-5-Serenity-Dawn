@@ -9,4 +9,4 @@
 (SOUND)SFX_Wolf_Growl
 [R]*Wolf growling again*
 [L]Woaw! Here he comes!!!
-(CUTSCENE END)
+(END)
