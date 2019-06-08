@@ -80,7 +80,7 @@ class Wolf:
         self.Icon   = Icon_Wolf
         self.Sprite = Sprite_Wolf
         
-        self.Level      = 1
+        self.Level      = level
         self.EXP_Gain   = 10
         self.Gold_Gain  = 10
         self.Action_Point = 0
