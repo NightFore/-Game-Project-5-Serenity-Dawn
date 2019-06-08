@@ -31,11 +31,11 @@ Interface_Result            = pygame.image.load("Data\Interface\Interface_Result
 
 # Icons
 Icon_Ellesia        = pygame.image.load("Data\Icon\Icon_Ellesia.png")
-Icon_Ellesia_Status = pygame.image.load("Data\Icon\Icon_Ellesia_Status.png")
+Icon_Status_Ellesia = pygame.image.load("Data\Icon\Icon_Status_Ellesia.png")
 Icon_Iris           = pygame.image.load("Data\Icon\Icon_Iris.png")
-Icon_Iris_Status    = pygame.image.load("Data\Icon\Icon_Iris_Status.png")
+Icon_Status_Iris    = pygame.image.load("Data\Icon\Icon_Status_Iris.png")
 Icon_Gyrei          = pygame.image.load("Data\Icon\Icon_Gyrei.png")
-Icon_Gyrei_Status   = pygame.image.load("Data\Icon\Icon_Gyrei_Status.png")
+Icon_Status_Gyrei   = pygame.image.load("Data\Icon\Icon_Status_Gyrei.png")
 
 Icon_Direwolf       = pygame.image.load("Data\Icon\Icon_Direwolf.png")
 Icon_Ghoul          = pygame.image.load("Data\Icon\Icon_Ghoul.png")

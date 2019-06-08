@@ -1,2 +1,1 @@
 Wolf("Wolf 1", level=1)
-Wolf("Wolf 2", level=3)

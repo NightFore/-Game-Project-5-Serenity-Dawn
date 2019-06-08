@@ -6,67 +6,70 @@ from Ressources import *
         # Player
 class Player:
     def __init__(self, name):
-        self.name   = name
-        self.Icon   = Icon_Ellesia
-        self.Sprite = Sprite_Ellesia
-        self.Class  = "Lancer"
+        self.name           = name
+        self.Icon           = Icon_Ellesia
+        self.Icon_Status    = Icon_Status_Ellesia
+        self.Sprite         = Sprite_Ellesia
         
-        self.Level      = 1
-        self.Experience = 0
-        self.Gold       = 0
-        self.Action_Point = 0
+        self.Class          = "Lancer"
+        self.Level          = 1
+        self.Experience     = 0
+        self.Gold           = 0
+        self.Action_Point   = 0
         
-        self.Maxhealth  = 44
-        self.Health     = self.Maxhealth
-        self.Strength   = 10
-        self.Magic      = 10
-        self.Speed      = 7
-        self.Defense    = 2
-        self.Resistance = 0
+        self.Maxhealth      = 44
+        self.Health         = self.Maxhealth
+        self.Strength       = 10
+        self.Magic          = 10
+        self.Speed          = 7
+        self.Defense        = 2
+        self.Resistance     = 0
 PlayerIG = Player("NightFore")
 
 
 
 class Iris:
     def __init__(self, name):
-        self.name   = name
-        self.Icon   = Icon_Iris
-        self.Sprite = Sprite_Iris
-        self.Class  = "Archer"
+        self.name           = name
+        self.Icon           = Icon_Iris
+        self.Icon_Status    = Icon_Status_Iris
+        self.Sprite         = Sprite_Iris
         
-        self.Level      = 1
-        self.Experience = 0
-        self.Action_Point = 0
+        self.Class          = "Archer"
+        self.Level          = 1
+        self.Experience     = 0
+        self.Action_Point   = 0
         
-        self.Maxhealth  = 44
-        self.Health     = self.Maxhealth
-        self.Strength   = 4
-        self.Magic      = 10
-        self.Speed      = 9
-        self.Defense    = 2
-        self.Resistance = 0
+        self.Maxhealth      = 44
+        self.Health         = self.Maxhealth
+        self.Strength       = 4
+        self.Magic          = 10
+        self.Speed          = 9
+        self.Defense        = 2
+        self.Resistance     = 0
 IrisIG = Iris("Iris")
 
 
 
 class Gyrei:
     def __init__(self, name):
-        self.name   = name
-        self.Icon   = Icon_Gyrei
-        self.Sprite = Sprite_Gyrei
-        self.Class  = "Dual Wielder"
+        self.name           = name
+        self.Icon           = Icon_Gyrei
+        self.Icon_Status    = Icon_Status_Gyrei
+        self.Sprite         = Sprite_Gyrei
         
-        self.Level      = 1
-        self.Experience = 0
-        self.Action_Point = 0
+        self.Class          = "Dual Wielder"
+        self.Level          = 1
+        self.Experience     = 0
+        self.Action_Point   = 0
         
-        self.Maxhealth  = 44
-        self.Health     = self.Maxhealth
-        self.Strength   = 6
-        self.Magic      = 10
-        self.Speed      = 6
-        self.Defense    = 2
-        self.Resistance = 0
+        self.Maxhealth      = 44
+        self.Health         = self.Maxhealth
+        self.Strength       = 6
+        self.Magic          = 10
+        self.Speed          = 6
+        self.Defense        = 2
+        self.Resistance     = 0
 GyreiIG = Gyrei("Gyrei")
 
 
