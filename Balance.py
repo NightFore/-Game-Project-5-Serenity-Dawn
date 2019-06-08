@@ -54,7 +54,7 @@ class Gyrei:
         self.name   = name
         self.Icon   = Icon_Gyrei
         self.Sprite = Sprite_Gyrei
-        self.Class  = "Dual Wield"
+        self.Class  = "Dual Wielder"
         
         self.Level      = 1
         self.Experience = 0
