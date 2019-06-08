@@ -11,6 +11,6 @@
 (SOUND)SFX_Wolf_Growl
 [R]*Wolf growling again*
 [L]Woaw! Here he comes!!!
-(FIGHT)Prologue
+(FIGHT)
 (BACKGROUND) Interface_Fight
 (MUSIC) OST_Fight_1_1

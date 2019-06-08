@@ -85,7 +85,7 @@ class Wolf:
         self.Gold_Gain  = 10
         self.Action_Point = 0
         
-        self.Maxhealth  = 10 + 6 * (self.Level - 1)
+        self.Maxhealth  = 1 + 1 * (self.Level - 1)
         self.Health     = self.Maxhealth
         self.Strength   = 4 + 1 * (self.Level - 1)
         self.Magic      = 0
