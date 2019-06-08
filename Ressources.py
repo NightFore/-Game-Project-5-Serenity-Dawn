@@ -15,8 +15,8 @@ Color_Title_Screen  = 210, 100, 240
 # Backgrounds
 Background_Title_Screen_1   = pygame.image.load("Data\Background\Background_Title_Screen_1.png")
 Background_Title_Screen_2   = pygame.image.load("Data\Background\Background_Title_Screen_2.png")
-Background_Prologue         = pygame.image.load("Data\Background\Background_Altar.png")
-Background_Cutscene_1       = pygame.image.load("Data\Background\Background_House.png")
+Background_Prologue_1       = pygame.image.load("Data\Background\Background_Altar.png")
+Background_Prologue_2       = pygame.image.load("Data\Background\Background_House.png")
 
 
 

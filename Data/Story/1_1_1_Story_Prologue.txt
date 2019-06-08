@@ -1,3 +1,4 @@
+(BACKGROUND) Background_Prologue_1
 (NAME)[R]Voice
 [R]Wake up young child...
 (NAME)[L]Player

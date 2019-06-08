@@ -15,4 +15,4 @@
 [R]I will have you fall asleep now.
 [L]Fall asleep? Wait no!
 [L]I still have some... more... quest...
-(END)
+(NEXT)
