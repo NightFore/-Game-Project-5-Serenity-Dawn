@@ -1,0 +1,23 @@
+(MUSIC) BGM_Event_0_1_1
+(BACKGROUND) Background_Prologue_1
+(NAME)[R]Voice
+(NAME)[L]Player
+(SOUND)SFX_Wolf_Growl
+(SOUND)SFX_Wolf_Growl
+(SOUND)SFX_Wolf_Growl
+(SOUND)SFX_Wolf_Growl
+[L]1
+[R]1
+[L]2
+[R]2
+[L]3
+[R]3
+[L]4
+[R]4
+[L]5
+[R]5
+[L]6
+[R]6
+[L]7
+[R]7
+(EVENT)
