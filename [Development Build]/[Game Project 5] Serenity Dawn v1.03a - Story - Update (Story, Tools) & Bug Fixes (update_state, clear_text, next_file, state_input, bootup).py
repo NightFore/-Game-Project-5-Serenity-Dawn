@@ -949,15 +949,25 @@ class StoryIG():
             Setup.background = eval(self.read_line.replace("(BACKGROUND)", ""))
             self.clear_text(left=True, right=True)
             self.read_line = self.file.readline().rstrip('\n').replace("%PlayerIG.name", ("%s" % PlayerIG.name))
+            self.update_state()
             
         if "(MUSIC)" in self.read_line:
             Setup.update_music(eval(self.read_line.replace("(MUSIC)", "")))
             self.clear_text(left=True, right=True)
             self.read_line = self.file.readline().rstrip('\n').replace("%PlayerIG.name", ("%s" % PlayerIG.name))
+            self.update_state()
             
         if "(SOUND)" in self.read_line:
             eval(self.read_line.replace("(SOUND)", "")).play()
             self.read_line = self.file.readline().rstrip('\n').replace("%PlayerIG.name", ("%s" % PlayerIG.name))
+            self.update_state()
+        
+        if "(NAME)" in self.read_line:
+            for index in range(2):
+                if self.side[index] in self.read_line:
+                    self.character[index] = self.read_line.replace("(NAME)%s" % self.side[index], "")
+            self.read_line = self.file.readline().rstrip('\n').replace("%PlayerIG.name", ("%s" % PlayerIG.name))
+            self.update_state()
 
         if "(EVENT)" in self.read_line:
             self.read_line = self.read_line.replace("(EVENT)", "")
@@ -967,15 +977,6 @@ class StoryIG():
             self.state_input    = True
             self.input_line     = ""
             self.read_line      = self.read_line.replace("(INPUT)", "")
-        
-        if "(NAME)" in self.read_line:
-            for index in range(2):
-                if self.side[index] in self.read_line:
-                    self.character[index] = self.read_line.replace("(NAME)%s" % self.side[index], "")
-            self.read_line = self.file.readline().rstrip('\n').replace("%PlayerIG.name", ("%s" % PlayerIG.name))
-
-        if "(RESULT)" in self.read_line:
-            Fight.result()
         
         if "(NEXT)" in self.read_line:
             self.next_file(story=True)
@@ -995,6 +996,9 @@ class StoryIG():
 
             # Load the user interface
             Setup.update_init(Background, Music, fight=True)
+
+        if "(RESULT)" in self.read_line:
+            Fight.result()
 
 
     def update_display(self):
