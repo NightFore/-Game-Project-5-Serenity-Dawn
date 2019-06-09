@@ -97,8 +97,8 @@ SFX_Defeated    = pygame.mixer.Sound("Data\SFX\SFX_Defeated.wav")
 # BGM
 List_BGM = load_file("Data/BGM")
 
-BGM_Event_0_1_1 = "Data/BGM/Event_0_1_Serenity.mp3"
-BGM_Event_0_1_2 = "Data/BGM/Event_0_2_Around_a_Campfire.mp3"
+BGM_Event_0_1_1 = "Data/BGM/Event_0_1_1_Serenity.mp3"
+BGM_Event_0_1_2 = "Data/BGM/Event_0_1_2_Around_a_Campfire.mp3"
 BGM_Event_1_1   = "Data/BGM/Event_1_1_Exploring_the_Danger.mp3"
 BGM_Event_1_2_1 = "Data/BGM/Event_1_2_1_Time_of_Crisis.mp3"
 BGM_Event_1_2_2 = "Data/BGM/Event_1_2_2_Time_of_Crisis_Piano.mp3"
