@@ -80,42 +80,35 @@ SFX_Defeated    = pygame.mixer.Sound("Data\SFX\SFX_Defeated.wav")
 
 
 
-# OSTs
-OST_Title_Screen    = "Data/OST/Title_Screen_Undisturbed_Place.mp3"
+# BGM
+BGM_Title_Screen    = "Data/OST/BGM_Title_Screen_Undisturbed_Place.mp3"
 
-OST_Cutscene_1_1    = "Data/OST/Serenity.mp3"
-OST_Cutscene_1_2    = "Data/OST/Around_a_Campfire.mp3"
-OST_Cutscene_1_3    = "Data/OST/Departure.mp3"
+BGM_0_1     = "Data/OST/BGM_0_1_Serenity.mp3"
+BGM_0_2     = "Data/OST/BGM_0_2_Around_a_Campfire.mp3"
+BGM_0_3     = "Data/OST/BGM_0_3_Fierce_Assault.mp3"
 
-OST_Cutscene_2_1    = "Data/OST/Behind_the_Curtains.mp3"
-OST_Cutscene_2_2    = "Data/OST/Danger_to_our_Lives.mp3"
-OST_Cutscene_2_3    = "Data/OST/Welcome_Back_Party.mp3"
+BGM_1_1     = "Data/OST/BGM_1_1_Exploring_the_Danger.mp3"
+BGM_1_2     = "Data/OST/BGM_1_2_Ruler_of_the_Hills.mp3"
+BGM_1_3     = "Data/OST/BGM_1_3_Time_of_Crisis.mp3"
+BGM_1_4     = "Data/OST/BGM_1_4_Desperate_Situation.mp3"
+BGM_1_5     = "Data/OST/BGM_1_5_Danger_to_our_Lives.mp3"
+BGM_1_6     = "Data/OST/BGM_1_6_Facing_the_Danger.mp3"
+BGM_1_7     = "Data/OST/BGM_1_7_Behind_the_Curtains.mp3"
+BGM_1_8     = "Data/OST/BGM_1_8_Intimidating_Foe.mp3"
+BGM_1_9     = "Data/OST/BGM_1_9_Departure.mp3"
 
-OST_Fight_1_1       = "Data/OST/Fierce_Assault.mp3"
-OST_Fight_1_2       = "Data/OST/Striking_Back.mp3"
-OST_Fight_1_3       = "Data/OST/Facing_a_Wall.mp3"
-OST_Fight_1_4       = "Data/OST/Intimidating_Foe.mp3"
+BGM_Menu_1     = "Data/OST/BGM_Menu_1_The_Soul_of_the_Adventurer.mp3"
+BGM_Menu_2     = "Data/OST/BGM_Menu_2_Calm_Before_the_Storm.mp3"
 
-OST_Fight_2_1       = "Data/OST/Desperate_Situation.mp3"
-OST_Fight_2_2       = "Data/OST/The_Hunt_is_On.mp3"
-OST_Fight_2_3       = "Data/OST/Blazing_Power.mp3"
-OST_Fight_2_4       = "Data/OST/Taking_Down_the_Mastermind.mp3"
-OST_Fight_2_5       = "Data/OST/Ruler_of_the_Hills.mp3"
-OST_Fight_2_6       = "Data/OST/Tense_Fight.mp3"
-
-OST_Menu_Main_1_1   = "Data/OST/The_Soul_of_the_Adventurer.mp3"
-OST_Menu_Main_2_1   = "Data/OST/Time_of_Crisis.mp3"
-OST_Menu_Main_2_2   = "Data/OST/Calm_Before_the_Storm.mp3"
-
-OST_Menu_Shop       = "Data/OST/Shopping_in_Town.mp3"
-OST_Menu_Victory_1  = "Data/OST/Resting_Around_the_Campfire.mp3"
-OST_Menu_Victory_2  = "Data/OST/Glory_Ride.mp3"
+BGM_Shop        = "Data/OST/BGM_Shop_Shopping_in_Town.mp3"
+BGM_Victory_1   = "Data/OST/BGM_Victory_1_Resting_Around_the_Campfire.mp3"
+BGM_Victory_2   = "Data/OST/BGM_Victory_2_Glory_Ride.mp3"
 
 
-List_OST = [OST_Title_Screen,
-            OST_Cutscene_1_1, OST_Cutscene_1_2, OST_Cutscene_1_3,
-            OST_Cutscene_2_1, OST_Cutscene_2_2, OST_Cutscene_2_3,
-            OST_Fight_1_1, OST_Fight_1_2, OST_Fight_1_3, OST_Fight_1_4,
-            OST_Fight_2_1, OST_Fight_2_2, OST_Fight_2_3, OST_Fight_2_4, OST_Fight_2_5, OST_Fight_2_6,
-            OST_Menu_Main_1_1, OST_Menu_Main_2_1, OST_Menu_Main_2_2,
-            OST_Menu_Shop, OST_Menu_Victory_1, OST_Menu_Victory_2]
+##List_OST = [OST_Title_Screen,
+##            OST_Cutscene_1_1, OST_Cutscene_1_2, OST_Cutscene_1_3,
+##            OST_Cutscene_2_1, OST_Cutscene_2_2, OST_Cutscene_2_3,
+##            OST_Fight_1_1, OST_Fight_1_2, OST_Fight_1_3, OST_Fight_1_4,
+##            OST_Fight_2_1, OST_Fight_2_2, OST_Fight_2_3, OST_Fight_2_4, OST_Fight_2_5, OST_Fight_2_6,
+##            OST_Menu_Main_1_1, OST_Menu_Main_2_1, OST_Menu_Main_2_2,
+##            OST_Menu_Shop, OST_Menu_Victory_1, OST_Menu_Victory_2]

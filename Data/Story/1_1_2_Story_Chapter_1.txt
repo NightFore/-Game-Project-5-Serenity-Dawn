@@ -1,0 +1,6 @@
+(BACKGROUND) Interface_Fight
+(MUSIC) BGM_Victory_1
+[L]That should do it.
+[L]Now let's head to the village.
+[L]We should be able to see it now.
+(RESULT)

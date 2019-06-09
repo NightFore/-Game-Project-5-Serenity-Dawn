@@ -1,0 +1,12 @@
+(BACKGROUND) Interface_Fight
+(MUSIC) BGM_1_1
+[L]The forest is really agitated
+[L]I should pay attention to my surroundings
+[L]It would be bad if I meet a monster on my way here
+(SOUND)SFX_Wolf_Growl
+[R]*Wolf growling*
+[L]Am I being followed by a wolf?
+[L]Let's take care of him before he brings more of them
+(FIGHT)
+(BACKGROUND) Interface_Fight
+(MUSIC) BGM_1_2

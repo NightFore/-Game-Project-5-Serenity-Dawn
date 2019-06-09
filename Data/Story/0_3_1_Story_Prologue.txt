@@ -1,5 +1,5 @@
-(BACKGROUND)Interface_Fight
-(MUSIC)OST_Menu_Victory_1
+(BACKGROUND) Interface_Fight
+(MUSIC) BGM_Victory_1
 [L]What was a Monster doing here?
 [L]There shouldn't be monsters here.
 [L]I wonder if the village is safe.

@@ -1,5 +1,5 @@
-(BACKGROUND)Background_Prologue_2
-(MUSIC)OST_Cutscene_1_2
+(BACKGROUND) Background_Prologue_2
+(MUSIC) BGM_0_2
 [L]Huum...... Huh...? What's happening?
 [L]Why is it so noisy?
 [L]I should check out what's happening.
@@ -13,4 +13,4 @@
 [L]Woaw! Here he comes!!!
 (FIGHT)
 (BACKGROUND) Interface_Fight
-(MUSIC) OST_Fight_1_1
+(MUSIC) BGM_0_3
