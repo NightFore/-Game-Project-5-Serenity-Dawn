@@ -1,5 +1,5 @@
 (BACKGROUND) Background_Prologue_2
-(MUSIC) BGM_0_2
+(MUSIC) BGM_Event_0_1_2
 [L]Huum...... Huh...? What's happening?
 [L]Why is it so noisy?
 [L]I should check out what's happening.
@@ -13,4 +13,4 @@
 [L]Woaw! Here he comes!!!
 (FIGHT)
 (BACKGROUND) Interface_Fight
-(MUSIC) BGM_0_3
+(MUSIC) BGM_Fight_0_1
