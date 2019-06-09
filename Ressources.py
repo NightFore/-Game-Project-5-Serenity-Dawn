@@ -1,5 +1,19 @@
 import pygame
+import os
 pygame.init()
+
+
+def load_file(path):
+    """
+    Load    : All texts/images in directory. The directory must only contain texts/images.
+    Path    : The relative or absolute path to the directory to load texts/images from.
+    Image   : Load and convert image in the direcoty path.
+    Return  : List of files.
+    """
+    file = []
+    for file_name in os.listdir(path):
+            file.append(path + os.sep + file_name)
+    return file
 
 # Colors
 Color_Red           = 255, 20,  0
@@ -81,34 +95,26 @@ SFX_Defeated    = pygame.mixer.Sound("Data\SFX\SFX_Defeated.wav")
 
 
 # BGM
-BGM_Title_Screen    = "Data/OST/BGM_Title_Screen_Undisturbed_Place.mp3"
+List_BGM = load_file("Data/BGM")
 
-BGM_0_1     = "Data/OST/BGM_0_1_Serenity.mp3"
-BGM_0_2     = "Data/OST/BGM_0_2_Around_a_Campfire.mp3"
-BGM_0_3     = "Data/OST/BGM_0_3_Fierce_Assault.mp3"
+BGM_Event_0_1_1 = "Data/BGM/Event_0_1_Serenity.mp3"
+BGM_Event_0_1_2 = "Data/BGM/Event_0_2_Around_a_Campfire.mp3"
+BGM_Event_1_1   = "Data/BGM/Event_1_1_Exploring_the_Danger.mp3"
+BGM_Event_1_2_1 = "Data/BGM/Event_1_2_1_Time_of_Crisis.mp3"
+BGM_Event_1_2_2 = "Data/BGM/Event_1_2_2_Time_of_Crisis_Piano.mp3"
+BGM_Event_1_3   = "Data/BGM/Event_1_3_Danger_to_our_Lives.mp3"
+BGM_Event_1_4   = "Data/BGM/Event_1_4_Behind_the_Curtains.mp3"
+BGM_Event_1_5   = "Data/BGM/Event_1_5_Departure.mp3"
 
-BGM_1_1     = "Data/OST/BGM_1_1_Exploring_the_Danger.mp3"
-BGM_1_2     = "Data/OST/BGM_1_2_Ruler_of_the_Hills.mp3"
-BGM_1_3     = "Data/OST/BGM_1_3_Time_of_Crisis.mp3"
-BGM_1_4     = "Data/OST/BGM_1_4_Desperate_Situation.mp3"
-BGM_1_5     = "Data/OST/BGM_1_5_Danger_to_our_Lives.mp3"
-BGM_1_6     = "Data/OST/BGM_1_6_Facing_the_Danger.mp3"
-BGM_1_7     = "Data/OST/BGM_1_7_Behind_the_Curtains.mp3"
-BGM_1_8     = "Data/OST/BGM_1_8_Intimidating_Foe.mp3"
-BGM_1_9     = "Data/OST/BGM_1_9_Departure.mp3"
+BGM_Fight_0_1   = "Data/BGM/Fight_0_1_Fierce_Assault.mp3"
+BGM_Fight_1_1   = "Data/BGM/Fight_1_1_Ruler_of_the_Hills.mp3"
+BGM_Fight_1_2   = "Data/BGM/Fight_1_2_Desperate_Situation.mp3"
+BGM_Fight_1_3   = "Data/BGM/Fight_1_3_Facing_the_Danger.mp3"
+BGM_Fight_1_4   = "Data/BGM/Fight_1_4_Intimidating_Foe.mp3"
 
-BGM_Menu_1     = "Data/OST/BGM_Menu_1_The_Soul_of_the_Adventurer.mp3"
-BGM_Menu_2     = "Data/OST/BGM_Menu_2_Calm_Before_the_Storm.mp3"
-
-BGM_Shop        = "Data/OST/BGM_Shop_Shopping_in_Town.mp3"
-BGM_Victory_1   = "Data/OST/BGM_Victory_1_Resting_Around_the_Campfire.mp3"
-BGM_Victory_2   = "Data/OST/BGM_Victory_2_Glory_Ride.mp3"
-
-
-##List_OST = [OST_Title_Screen,
-##            OST_Cutscene_1_1, OST_Cutscene_1_2, OST_Cutscene_1_3,
-##            OST_Cutscene_2_1, OST_Cutscene_2_2, OST_Cutscene_2_3,
-##            OST_Fight_1_1, OST_Fight_1_2, OST_Fight_1_3, OST_Fight_1_4,
-##            OST_Fight_2_1, OST_Fight_2_2, OST_Fight_2_3, OST_Fight_2_4, OST_Fight_2_5, OST_Fight_2_6,
-##            OST_Menu_Main_1_1, OST_Menu_Main_2_1, OST_Menu_Main_2_2,
-##            OST_Menu_Shop, OST_Menu_Victory_1, OST_Menu_Victory_2]
+BGM_Menu_1      = "Data/BGM/Menu_1_The_Soul_of_the_Adventurer.mp3"
+BGM_Menu_2      = "Data/BGM/Menu_2_Calm_Before_the_Storm.mp3"
+BGM_Shop        = "Data/BGM/Shop_Shopping_in_Town.mp3"
+BGM_Title_Screen = "Data/BGM/Title_Screen_Undisturbed_Place.mp3"
+BGM_Victory_1   = "Data/BGM/Victory_1_Resting_Around_the_Campfire.mp3"
+BGM_Victory_2   = "Data/BGM/Victory_2_Glory_Ride.mp3"
