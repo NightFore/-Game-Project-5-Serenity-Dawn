@@ -2,10 +2,9 @@
 (BACKGROUND) Background_Prologue_1
 (NAME)[R]Voice
 (NAME)[L]Player
-(SOUND)SFX_Wolf_Growl
-(SOUND)SFX_Wolf_Growl
-(SOUND)SFX_Wolf_Growl
-(SOUND)SFX_Wolf_Growl
+(SOUND) SFX_Voice_voice_tiger01
+(SOUND) SFX_Voice_voice_tiger01
+(SOUND) SFX_Voice_voice_tiger01
 [L]1
 [R]1
 [L]2

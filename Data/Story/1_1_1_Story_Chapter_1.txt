@@ -4,11 +4,11 @@
 [L]The forest seems really noisy.
 [L]I have to pay attention to my surroundings.
 [L]Monsters are very active in the forest.
-(SOUND)SFX_Wolf_Growl
+(SOUND) SFX_Voice_voice_tiger01
 (NAME)[R]Wolf
 [R]*Wolf growling*
 [L]Am I being followed by a wolf?
-(SOUND)SFX_Wolf_Growl
+(SOUND) SFX_Voice_voice_tiger01
 [R]*Wolf growling again*
 [L]I need to take care of him.
 [L]He must not bring other wolves against me.

@@ -1,18 +1,18 @@
-(BACKGROUND)Background_Prologue_2
-(MUSIC)BGM_Event_0_1_2
+(BACKGROUND) Background_Prologue_2
+(MUSIC) BGM_Event_0_1_2
 (NAME)[L]%PlayerIG.name
 [L]Huum... Huh...? What's happened?
-(SOUND)SFX_Wolf_Growl
+(SOUND) SFX_Voice_voice_tiger01
 (NAME)[R]???
 [R]*Sound outside*
 [L]What was that noise just now?
 [L]I probably should check out what's outside.
-(SOUND)SFX_Wolf_Growl
+(SOUND) SFX_Voice_voice_tiger01
 (NAME)[R]Wolf
 [R]*Wolf growling*
 [L]Was that a Wolf just now?!
 [L]Why is there a monster here?
-(SOUND)SFX_Wolf_Growl
+(SOUND) SFX_Voice_voice_tiger01
 [R]*Wolf growling again*
 [L]Woaw! Here he comes!
 (FIGHT)
