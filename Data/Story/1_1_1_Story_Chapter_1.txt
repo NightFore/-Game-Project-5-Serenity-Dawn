@@ -1,13 +1,17 @@
 (BACKGROUND) Interface_Fight
 (MUSIC) BGM_Event_1_1
+(NAME)[L]%PlayerIG.name
 [L]The forest seems really noisy.
-[L]I have to be careful around me.
-[L]Monsters are usually very active in the forest.
+[L]I have to pay attention to my surroundings.
+[L]Monsters are very active in the forest.
 (SOUND)SFX_Wolf_Growl
+(NAME)[R]Wolf
 [R]*Wolf growling*
-[L]Am I being tracked by a wolf?!
+[L]Am I being followed by a wolf?
+(SOUND)SFX_Wolf_Growl
+[R]*Wolf growling again*
 [L]I need to take care of him.
-[L]Before he brings more of them.
+[L]He must not bring other wolves against me.
 (FIGHT)
 (BACKGROUND) Interface_Fight
 (MUSIC) BGM_Fight_1_1

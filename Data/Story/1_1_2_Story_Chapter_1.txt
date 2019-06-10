@@ -1,6 +1,8 @@
 (BACKGROUND) Interface_Fight
 (MUSIC) BGM_Victory_1
+(NAME)[L]%PlayerIG.name
 [L]Alright, that should do it.
-[L]Let's continue going to the village.
-[L]We should be able to see it now.
+[L]Let's continue to head towards the village.
+[L]I should be able to see it soon.
+[L]I hope everything's fine over there...
 (RESULT)
