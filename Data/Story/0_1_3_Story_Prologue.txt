@@ -16,5 +16,3 @@
 [R]*Wolf growling again*
 [L]Woaw! Here he comes!
 (FIGHT)
-(BACKGROUND)Interface_Fight
-(MUSIC)BGM_Fight_0_1

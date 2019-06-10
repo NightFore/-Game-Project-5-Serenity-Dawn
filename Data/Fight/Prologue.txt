@@ -1,1 +1,0 @@
-Wolf("Wolf 1", level=1)
