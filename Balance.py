@@ -26,9 +26,9 @@ class Player:
             self.Experience -= 100
         
         self.Maxhealth      = 40    + 8.0 * (self.level-1)
-        self.Strength       = 8     + 1.5 * (self.level-1)
-        self.Speed          = 10    + 0.8 * (self.level-1)
-        self.Defense        = 3     + 1.3 * (self.level-1)
+        self.Strength       = 8     + 1.1 * (self.level-1)
+        self.speed          = 10    + 1.2 * (self.level-1)
+        self.Defense        = 4     + 1.3 * (self.level-1)
         self.Health         = self.Maxhealth
         
         self.Magic          = 0
@@ -60,9 +60,9 @@ class Iris:
             self.Experience -= 100
         
         self.Maxhealth      = 26    + 5.0 * (self.level-1)
-        self.Strength       = 10    + 2.0 * (self.level-1)
-        self.Speed          = 8     + 0.9 * (self.level-1)
-        self.Defense        = 2     + 0.7 * (self.level-1)
+        self.Strength       = 9     + 1.4 * (self.level-1)
+        self.speed          = 8     + 0.9 * (self.level-1)
+        self.Defense        = 1     + 0.7 * (self.level-1)
         self.Health         = self.Maxhealth
         
         self.Magic          = 0
@@ -92,8 +92,8 @@ class Gyrei:
             self.Experience -= 100
         
         self.Maxhealth      = 35    + 7.0 * (self.level-1)
-        self.Strength       = 6     + 1.2 * (self.level-1)
-        self.Speed          = 12    + 1.4 * (self.level-1)
+        self.Strength       = 6     + 0.8 * (self.level-1)
+        self.speed          = 12    + 1.5 * (self.level-1)
         self.Defense        = 2     + 1.0 * (self.level-1)
         self.Health         = self.Maxhealth
         
@@ -122,7 +122,7 @@ class Wolf:
         self.Health     = self.Maxhealth
         self.Strength   = 4 + 1 * (self.level - 1)
         self.Magic      = 0
-        self.Speed      = 4 + 1 * (self.level - 1)
+        self.speed      = 4 + 1 * (self.level - 1)
         self.Defense    = 1 + 0.5 * (self.level - 1)
         self.Resistance = 0 + 0.5 * (self.level - 1)
 WolfIG = Wolf("Wolf")
@@ -144,7 +144,7 @@ class Direwolf:
         self.Health     = self.Maxhealth
         self.Strength   = 4 + 1 * (self.level - 1)
         self.Magic      = 0
-        self.Speed      = 6 + 1 * (self.level - 1)
+        self.speed      = 6 + 1 * (self.level - 1)
         self.Defense    = 1 + 0.5 * (self.level - 1)
         self.Resistance = 0 + 0.5 * (self.level - 1)
 DirewolfIG = Direwolf("Direwolf")
@@ -166,7 +166,7 @@ class Ghoul:
         self.Health     = self.Maxhealth
         self.Strength   = 4 + 1 * (self.level - 1)
         self.Magic      = 0
-        self.Speed      = 3 + 1 * (self.level - 1)
+        self.speed      = 3 + 1 * (self.level - 1)
         self.Defense    = 1 + 0.5 * (self.level - 1)
         self.Resistance = 0 + 0.5 * (self.level - 1)
 GhoulIG = Ghoul("Ghoul")
@@ -188,7 +188,7 @@ class Zombie:
         self.Health     = self.Maxhealth
         self.Strength   = 4 + 1 * (self.level - 1)
         self.Magic      = 0
-        self.Speed      = 3 + 1 * (self.level - 1)
+        self.speed      = 3 + 1 * (self.level - 1)
         self.Defense    = 1 + 0.5 * (self.level - 1)
         self.Resistance = 0 + 0.5 * (self.level - 1)
 ZombieIG = Zombie("Zombie")
@@ -210,7 +210,7 @@ class Shadow_Red:
         self.Health     = self.Maxhealth
         self.Strength   = 4 + 1 * (self.level - 1)
         self.Magic      = 0
-        self.Speed      = 3 + 1 * (self.level - 1)
+        self.speed      = 3 + 1 * (self.level - 1)
         self.Defense    = 1 + 0.5 * (self.level - 1)
         self.Resistance = 0 + 0.5 * (self.level - 1)
 Shadow_RedIG = Shadow_Red("Shadow_Red")
@@ -232,7 +232,7 @@ class Shadow_Blue:
         self.Health     = self.Maxhealth
         self.Strength   = 4 + 1 * (self.level - 1)
         self.Magic      = 0
-        self.Speed      = 3 + 1 * (self.level - 1)
+        self.speed      = 3 + 1 * (self.level - 1)
         self.Defense    = 1 + 0.5 * (self.level - 1)
         self.Resistance = 0 + 0.5 * (self.level - 1)
 Shadow_BlueIG = Shadow_Blue("Shadow_Blue")
