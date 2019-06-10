@@ -24,6 +24,8 @@ class Player:
         self.Speed          = 7
         self.Defense        = 2
         self.Resistance     = 0
+
+        self.SFX_Attack     = SFX_Slash
 PlayerIG = Player("NightFore")
 
 

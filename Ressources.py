@@ -84,15 +84,13 @@ Sprite_Wolf         = pygame.image.load("Data\Sprite\Sprite_Wolf.png")
 
 
 # Sound Effects
-SFX_Battle_Debuff_system04       = pygame.mixer.Sound("Data\SFX\Battle_Debuff_system04.wav")
-SFX_Battle_Debuff_system09	 = pygame.mixer.Sound("Data\SFX\Battle_Debuff_system09.wav")
-SFX_Battle_Defeated_battle02	 = pygame.mixer.Sound("Data\SFX\Battle_Defeated_battle02.wav")
-SFX_Battle_element_water08	 = pygame.mixer.Sound("Data\SFX\Battle_element_water08.wav")
-SFX_Battle_element_water14	 = pygame.mixer.Sound("Data\SFX\Battle_element_water14.wav")
-SFX_Battle_Escape_battle19	 = pygame.mixer.Sound("Data\SFX\Battle_Escape_battle19.wav")
-SFX_Battle_Fire_element_fire01	 = pygame.mixer.Sound("Data\SFX\Battle_Fire_element_fire01.wav")
-SFX_Battle_Fire_explosion06	 = pygame.mixer.Sound("Data\SFX\Battle_Fire_explosion06.wav")
-SFX_Battle_Heal_magical25	 = pygame.mixer.Sound("Data\SFX\Battle_Heal_magical25.wav")
+List_SFX = load_file("Data/SFX")
+
+SFX_Hit, SFX_Metal, SFX_Slash = [], [], []
+[SFX_Hit.append(SFX)    for SFX in List_SFX if "Hit"    in SFX]
+[SFX_Metal.append(SFX)  for SFX in List_SFX if "Metal"  in SFX]
+[SFX_Slash.append(SFX)  for SFX in List_SFX if "Slash"  in SFX]
+
 SFX_Battle_Hit_battle06	         = pygame.mixer.Sound("Data\SFX\Battle_Hit_battle06.wav")
 SFX_Battle_Hit_battle12	         = pygame.mixer.Sound("Data\SFX\Battle_Hit_battle12.wav")
 SFX_Battle_Metal_battle05	 = pygame.mixer.Sound("Data\SFX\Battle_Metal_battle05.wav")
@@ -100,9 +98,21 @@ SFX_Battle_Metal_battle10	 = pygame.mixer.Sound("Data\SFX\Battle_Metal_battle10.
 SFX_Battle_Slash_battle01	 = pygame.mixer.Sound("Data\SFX\Battle_Slash_battle01.wav")
 SFX_Battle_Slash_battle03	 = pygame.mixer.Sound("Data\SFX\Battle_Slash_battle03.wav")
 SFX_Battle_Slash_battle17	 = pygame.mixer.Sound("Data\SFX\Battle_Slash_battle17.wav")
-SFX_Battle_Stab_battle14	 = pygame.mixer.Sound("Data\SFX\Battle_Stab_battle14.wav")
+
+SFX_Battle_Debuff_system04       = pygame.mixer.Sound("Data\SFX\Battle_Debuff_system04.wav")
+SFX_Battle_Debuff_system09	 = pygame.mixer.Sound("Data\SFX\Battle_Debuff_system09.wav")
+SFX_Battle_Fire_element_fire01	 = pygame.mixer.Sound("Data\SFX\Battle_Fire_element_fire01.wav")
+SFX_Battle_Fire_explosion06	 = pygame.mixer.Sound("Data\SFX\Battle_Fire_explosion06.wav")
+SFX_Battle_Heal_magical25	 = pygame.mixer.Sound("Data\SFX\Battle_Heal_magical25.wav")
 SFX_Battle_Water_element_water06 = pygame.mixer.Sound("Data\SFX\Battle_Water_element_water06.wav")
+SFX_Battle_Water_element_water08 = pygame.mixer.Sound("Data\SFX\Battle_Water_element_water08.wav")
+SFX_Battle_Water_element_water14 = pygame.mixer.Sound("Data\SFX\Battle_Water_element_water14.wav")
 SFX_Battle_Wind_magical16	 = pygame.mixer.Sound("Data\SFX\Battle_Wind_magical16.wav")
+
+SFX_Battle_Defeated_battle02	 = pygame.mixer.Sound("Data\SFX\Battle_Defeated_battle02.wav")
+SFX_Battle_Escape_battle19	 = pygame.mixer.Sound("Data\SFX\Battle_Escape_battle19.wav")
+SFX_Battle_Miss_battle14	 = pygame.mixer.Sound("Data\SFX\Battle_Miss_battle14.wav")
+
 SFX_Event_Bell_chime07	         = pygame.mixer.Sound("Data\SFX\Event_Bell_chime07.wav")
 SFX_Event_Bell_chime08	         = pygame.mixer.Sound("Data\SFX\Event_Bell_chime08.wav")
 SFX_Event_Bell_chime09	         = pygame.mixer.Sound("Data\SFX\Event_Bell_chime09.wav")
@@ -111,13 +121,13 @@ SFX_Event_Creepy_effect12	 = pygame.mixer.Sound("Data\SFX\Event_Creepy_effect12.
 SFX_Event_Creepy_effect13	 = pygame.mixer.Sound("Data\SFX\Event_Creepy_effect13.wav")
 SFX_Event_Creepy_magical13	 = pygame.mixer.Sound("Data\SFX\Event_Creepy_magical13.wav")
 SFX_Event_Creepy_magical14	 = pygame.mixer.Sound("Data\SFX\Event_Creepy_magical14.wav")
-SFX_Event_magical10	         = pygame.mixer.Sound("Data\SFX\Event_magical10.wav")
-SFX_Event_Prologue_effect04	 = pygame.mixer.Sound("Data\SFX\Event_Prologue_effect04.wav")
+SFX_Event_Future_effect04	 = pygame.mixer.Sound("Data\SFX\Event_Future_effect04.wav")
 SFX_Event_se_door01	         = pygame.mixer.Sound("Data\SFX\Event_se_door01.wav")
 SFX_Event_se_door05	         = pygame.mixer.Sound("Data\SFX\Event_se_door05.wav")
 SFX_Event_se_footstep01	         = pygame.mixer.Sound("Data\SFX\Event_se_footstep01.wav")
 SFX_Event_se_footstep02	         = pygame.mixer.Sound("Data\SFX\Event_se_footstep02.wav")
 SFX_Event_se_stairs	         = pygame.mixer.Sound("Data\SFX\Event_se_stairs.wav")
+SFX_Event_Summon_magical10	 = pygame.mixer.Sound("Data\SFX\Event_Summon_magical10.wav")
 SFX_Map_element_fire12	         = pygame.mixer.Sound("Data\SFX\Map_element_fire12.wav")
 SFX_Map_element_thunder01	 = pygame.mixer.Sound("Data\SFX\Map_element_thunder01.wav")
 SFX_Map_element_wind03	         = pygame.mixer.Sound("Data\SFX\Map_element_wind03.wav")
