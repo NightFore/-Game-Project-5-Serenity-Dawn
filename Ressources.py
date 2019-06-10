@@ -86,18 +86,22 @@ Sprite_Wolf         = pygame.image.load("Data\Sprite\Sprite_Wolf.png")
 # Sound Effects
 List_SFX = load_file("Data/SFX")
 
-SFX_Hit, SFX_Metal, SFX_Slash = [], [], []
+SFX_Bow, SFX_Hit, SFX_Metal, SFX_Slash, SFX_Stab = [], [], [], [], []
+[SFX_Bow.append(SFX)    for SFX in List_SFX if "Bow"    in SFX]
 [SFX_Hit.append(SFX)    for SFX in List_SFX if "Hit"    in SFX]
 [SFX_Metal.append(SFX)  for SFX in List_SFX if "Metal"  in SFX]
 [SFX_Slash.append(SFX)  for SFX in List_SFX if "Slash"  in SFX]
+[SFX_Stab.append(SFX)   for SFX in List_SFX if "Stab"   in SFX]
 
+SFX_Battle_Bow_battle16	         = pygame.mixer.Sound("Data\SFX\Battle_Bow_battle16.wav")
+SFX_Battle_Bow_battle18	         = pygame.mixer.Sound("Data\SFX\Battle_Bow_battle18.wav")
 SFX_Battle_Hit_battle06	         = pygame.mixer.Sound("Data\SFX\Battle_Hit_battle06.wav")
 SFX_Battle_Hit_battle12	         = pygame.mixer.Sound("Data\SFX\Battle_Hit_battle12.wav")
 SFX_Battle_Metal_battle05	 = pygame.mixer.Sound("Data\SFX\Battle_Metal_battle05.wav")
 SFX_Battle_Metal_battle10	 = pygame.mixer.Sound("Data\SFX\Battle_Metal_battle10.wav")
-SFX_Battle_Slash_battle01	 = pygame.mixer.Sound("Data\SFX\Battle_Slash_battle01.wav")
-SFX_Battle_Slash_battle03	 = pygame.mixer.Sound("Data\SFX\Battle_Slash_battle03.wav")
 SFX_Battle_Slash_battle17	 = pygame.mixer.Sound("Data\SFX\Battle_Slash_battle17.wav")
+SFX_Battle_Stab_battle01	 = pygame.mixer.Sound("Data\SFX\Battle_Stab_battle01.wav")
+SFX_Battle_Stab_battle03	 = pygame.mixer.Sound("Data\SFX\Battle_Stab_battle03.wav")
 
 SFX_Battle_Debuff_system04       = pygame.mixer.Sound("Data\SFX\Battle_Debuff_system04.wav")
 SFX_Battle_Debuff_system09	 = pygame.mixer.Sound("Data\SFX\Battle_Debuff_system09.wav")
