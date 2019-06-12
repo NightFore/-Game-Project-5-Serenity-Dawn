@@ -26,7 +26,7 @@ class Player:
         
         self.Maxhealth      = 45    + (7.90 + 0.525 * (self.level-1)) * (self.level-1)
         self.Strength       = 8     + (1.25 + 0.225 * (self.level-1)) * (self.level-1)
-        self.speed          = 10    + (0.70 + 0.100 * (self.level-1)) * (self.level-1)
+        self.speed          = 9     + (0.95 + 0.100 * (self.level-1)) * (self.level-1)
         self.Defense        = 4     + (0.75 + 0.190 * (self.level-1)) * (self.level-1)
         
         self.Magic          = 0
@@ -61,8 +61,8 @@ class Iris:
         
         self.Maxhealth      = 30    + (6.80 + 0.490 * (self.level-1)) * (self.level-1)
         self.Strength       = 9     + (0.95 + 0.240 * (self.level-1)) * (self.level-1)
-        self.speed          = 8     + (0.60 + 0.080 * (self.level-1)) * (self.level-1)
-        self.Defense        = 1     + (0.85 + 0.165 * (self.level-1)) * (self.level-1)
+        self.speed          = 7     + (0.85 + 0.080 * (self.level-1)) * (self.level-1)
+        self.Defense        = 2     + (0.60 + 0.165 * (self.level-1)) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -94,8 +94,8 @@ class Gyrei:
             
         self.Maxhealth      = 40    + (8.00 + 0.500 * (self.level-1)) * (self.level-1)
         self.Strength       = 7     + (1.05 + 0.210 * (self.level-1)) * (self.level-1)
-        self.speed          = 12    + (0.80 + 0.110 * (self.level-1)) * (self.level-1)
-        self.Defense        = 2     + (0.80 + 0.175 * (self.level-1)) * (self.level-1)
+        self.speed          = 10    + (1.30 + 0.110 * (self.level-1)) * (self.level-1)
+        self.Defense        = 3     + (0.55 + 0.175 * (self.level-1)) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -120,8 +120,8 @@ class Wolf:
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 40    + (4.20 + 0.200 * (self.level-1)) * (self.level-1)
-        self.Strength       = 6     + (1.55 + 0.060 * (self.level-1)) * (self.level-1)
+        self.Maxhealth      = 35    + (5.45 + 0.200 * (self.level-1)) * (self.level-1)
+        self.Strength       = 4     + (1.05 + 0.060 * (self.level-1)) * (self.level-1)
         self.speed          = 10    + (1.35 + 0.040 * (self.level-1)) * (self.level-1)
         self.Defense        = 2     + (0.80 + 0.055 * (self.level-1)) * (self.level-1)
         
@@ -144,8 +144,8 @@ class Direwolf:
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 55    + (5.35 + 0.225 * (self.level-1)) * (self.level-1)
-        self.Strength       = 8     + (2.00 + 0.075 * (self.level-1)) * (self.level-1)
+        self.Maxhealth      = 45    + (7.85 + 0.225 * (self.level-1)) * (self.level-1)
+        self.Strength       = 6     + (1.50 + 0.075 * (self.level-1)) * (self.level-1)
         self.speed          = 8     + (1.65 + 0.035 * (self.level-1)) * (self.level-1)
         self.Defense        = 3     + (0.95 + 0.075 * (self.level-1)) * (self.level-1)
         
@@ -168,13 +168,10 @@ class Shadow_Red:
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 70    + (6.50 + 0.290 * (self.level-1)) * (self.level-1)
-        self.Strength       = 10    + (1.40 + 0.150 * (self.level-1)) * (self.level-1)
+        self.Maxhealth      = 75    + (7.75 + 0.290 * (self.level-1)) * (self.level-1)
+        self.Strength       = 8     + (0.90 + 0.150 * (self.level-1)) * (self.level-1)
         self.speed          = 7     + (1.05 + 0.025 * (self.level-1)) * (self.level-1)
         self.Defense        = 5     + (0.85 + 0.100 * (self.level-1)) * (self.level-1)
-        print(self.Strength)
-        print(self.Defense)
-
         
         self.Magic          = 0
         self.Resistance     = 0
