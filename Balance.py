@@ -116,15 +116,14 @@ class Wolf:
         self.Sprite         = Sprite_Wolf
         self.SFX_Attack     = SFX_Hit
 
-        self.base_level     = 0
-        self.level          = self.base_level + level
+        self.level          = level
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 40    + (3.75 + 0.210 * self.level) * (self.level-1)
-        self.Strength       = 6     + (0.85 + 0.110 * self.level) * (self.level-1)
-        self.speed          = 12    + (0.95 + 0.040 * self.level) * (self.level-1)
-        self.Defense        = 2     + (0.95 + 0.055 * self.level) * (self.level-1)
+        self.Maxhealth      = 40    + (4.25 + 0.180 * self.level) * (self.level-1)
+        self.Strength       = 8     + (1.55 + 0.060 * self.level) * (self.level-1)
+        self.speed          = 12    + (0.95 + 0.035 * self.level) * (self.level-1)
+        self.Defense        = 2     + (0.80 + 0.040 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -141,15 +140,14 @@ class Direwolf:
         self.Sprite         = Sprite_Direwolf
         self.SFX_Attack     = SFX_Hit
 
-        self.base_level     = 2
-        self.level          = self.base_level + level
+        self.level          = level
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 70    + 6 * (self.level-1)
-        self.Strength       = 4     + 1 * (self.level-1)
-        self.speed          = 12    + 1 * (self.level-1)
-        self.Defense        = 1     + 1 * (self.level-1)
+        self.Maxhealth      = 75    + (6.00 + 0.225 * self.level) * (self.level-1)
+        self.Strength       = 12    + (2.10 + 0.070 * self.level) * (self.level-1)
+        self.speed          = 10    + (0.85 + 0.035 * self.level) * (self.level-1)
+        self.Defense        = 5     + (1.05 + 0.050 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -166,15 +164,14 @@ class Shadow_Red:
         self.Sprite         = Sprite_Shadow_Red
         self.SFX_Attack     = SFX_Hit
 
-        self.base_level     = 4
-        self.level          = self.base_level + level
+        self.level          = level
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 100   + 6 * (self.level-1)
-        self.Strength       = 25    + 1 * (self.level-1)
-        self.speed          = 6     + 1 * (self.level-1)
-        self.Defense        = 1     + 1 * (self.level-1)
+        self.Maxhealth      = 100   + (12.5 + 0.250 * self.level) * (self.level-1)
+        self.Strength       = 15    + (2.40 + 0.085 * self.level) * (self.level-1)
+        self.speed          = 8     + (0.60 + 0.025 * self.level) * (self.level-1)
+        self.Defense        = 9     + (1.25 + 0.060 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -191,8 +188,7 @@ class Zombie:
         self.Sprite         = Sprite_Zombie
         self.SFX_Attack     = SFX_Hit
 
-        self.base_level     = 3
-        self.level          = self.base_level + level
+        self.level          = level
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
 
@@ -216,8 +212,7 @@ class Ghoul:
         self.Sprite         = Sprite_Ghoul
         self.SFX_Attack     = SFX_Hit
 
-        self.base_level     = 5
-        self.level          = self.base_level + level
+        self.level          = level
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
 
@@ -240,9 +235,8 @@ class Shadow_Blue:
         self.Icon           = Icon_Shadow_Blue
         self.Sprite         = Sprite_Shadow_Blue
         self.SFX_Attack     = SFX_Hit
-
-        self.base_level     = 9
-        self.level          = self.base_level + level
+    
+        self.level          = level
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
 
