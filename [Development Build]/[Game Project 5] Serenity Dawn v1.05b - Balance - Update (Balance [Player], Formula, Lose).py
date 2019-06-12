@@ -856,7 +856,7 @@ class Fight():
             for index in range(6):
                 # Generating Action Point
                 if self.slot[index] == True and self.death[index] == False:
-                    self.character[index].Action_Point += self.character[index].speed/10
+                    self.character[index].Action_Point += self.character[index].speed/25
                     
                     # Gain a Turn to the character
                     if self.character[index].Action_Point > 100:
