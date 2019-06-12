@@ -5,7 +5,7 @@ from Ressources import *
 
         # Player
 class Player:
-    def __init__(self, name, level=10):
+    def __init__(self, name, level=5):
         self.name           = name
         self.Icon           = Icon_Ellesia
         self.Icon_Status    = Icon_Status_Ellesia
@@ -24,10 +24,10 @@ class Player:
             self.level += 1
             self.Experience -= 100
         
-        self.Maxhealth      = 40    + (6.00 + 0.525 * self.level) * (self.level-1)
-        self.Strength       = 8     + (1.10 + 0.150 * self.level) * (self.level-1)
-        self.speed          = 10    + (0.85 + 0.035 * self.level) * (self.level-1)
-        self.Defense        = 4     + (0.80 + 0.115 * self.level) * (self.level-1)
+        self.Maxhealth      = 40    + (7.50 + 0.525 * self.level) * (self.level-1)
+        self.Strength       = 8     + (1.25 + 0.225 * self.level) * (self.level-1)
+        self.speed          = 10    + (0.70 + 0.100 * self.level) * (self.level-1)
+        self.Defense        = 4     + (1.00 + 0.185 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -41,7 +41,7 @@ PlayerIG = Player("NightFore")
 
 
 class Iris:
-    def __init__(self, name, level=10):
+    def __init__(self, name, level=5):
         self.name           = name
         self.Icon           = Icon_Iris
         self.Icon_Status    = Icon_Status_Iris
@@ -59,10 +59,10 @@ class Iris:
             self.level += 1
             self.Experience -= 100
         
-        self.Maxhealth      = 26    + (7.00 + 0.325 * self.level) * (self.level-1)
-        self.Strength       = 9     + (1.25 + 0.180 * self.level) * (self.level-1)
-        self.speed          = 8     + (1.00 + 0.025 * self.level) * (self.level-1)
-        self.Defense        = 2     + (1.20 + 0.075 * self.level) * (self.level-1)
+        self.Maxhealth      = 24    + (6.75 + 0.455 * self.level) * (self.level-1)
+        self.Strength       = 9     + (0.95 + 0.240 * self.level) * (self.level-1)
+        self.speed          = 8     + (0.60 + 0.080 * self.level) * (self.level-1)
+        self.Defense        = 2     + (0.85 + 0.160 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -74,7 +74,7 @@ IrisIG = Iris("Iris")
 
 
 class Gyrei:
-    def __init__(self, name, level=10):
+    def __init__(self, name, level=5):
         self.name           = name
         self.Icon           = Icon_Gyrei
         self.Icon_Status    = Icon_Status_Gyrei
@@ -91,11 +91,11 @@ class Gyrei:
         while self.Experience >= 100:
             self.level += 1
             self.Experience -= 100
-        
-        self.Maxhealth      = 25    + (8.00 + 0.375 * self.level) * (self.level-1)
-        self.Strength       = 6     + (0.90 + 0.145 * self.level) * (self.level-1)
-        self.speed          = 12    + (1.10 + 0.050 * self.level) * (self.level-1)
-        self.Defense        = 2     + (0.70 + 0.105 * self.level) * (self.level-1)
+            
+        self.Maxhealth      = 34    + (8.00 + 0.480 * self.level) * (self.level-1)
+        self.Strength       = 7     + (1.05 + 0.210 * self.level) * (self.level-1)
+        self.speed          = 12    + (0.80 + 0.110 * self.level) * (self.level-1)
+        self.Defense        = 2     + (0.95 + 0.175 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -120,10 +120,10 @@ class Wolf:
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 40    + (4.25 + 0.180 * self.level) * (self.level-1)
-        self.Strength       = 8     + (1.55 + 0.060 * self.level) * (self.level-1)
-        self.speed          = 12    + (0.95 + 0.035 * self.level) * (self.level-1)
-        self.Defense        = 2     + (0.80 + 0.040 * self.level) * (self.level-1)
+        self.Maxhealth      = 42    + (3.60 + 0.220 * self.level) * (self.level-1)
+        self.Strength       = 6     + (1.55 + 0.060 * self.level) * (self.level-1)
+        self.speed          = 10    + (1.35 + 0.040 * self.level) * (self.level-1)
+        self.Defense        = 2     + (1.20 + 0.040 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -144,10 +144,10 @@ class Direwolf:
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 75    + (6.00 + 0.225 * self.level) * (self.level-1)
-        self.Strength       = 12    + (2.10 + 0.070 * self.level) * (self.level-1)
-        self.speed          = 10    + (0.85 + 0.035 * self.level) * (self.level-1)
-        self.Defense        = 5     + (1.05 + 0.050 * self.level) * (self.level-1)
+        self.Maxhealth      = 54    + (5.50 + 0.240 * self.level) * (self.level-1)
+        self.Strength       = 8     + (2.00 + 0.075 * self.level) * (self.level-1)
+        self.speed          = 8     + (1.65 + 0.035 * self.level) * (self.level-1)
+        self.Defense        = 4     + (1.40 + 0.070 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -168,10 +168,10 @@ class Shadow_Red:
         self.EXP_Gain       = 10
         self.Gold_Gain      = 10
         
-        self.Maxhealth      = 100   + (12.5 + 0.250 * self.level) * (self.level-1)
-        self.Strength       = 15    + (2.40 + 0.085 * self.level) * (self.level-1)
-        self.speed          = 8     + (0.60 + 0.025 * self.level) * (self.level-1)
-        self.Defense        = 9     + (1.25 + 0.060 * self.level) * (self.level-1)
+        self.Maxhealth      = 80    + (9.00 + 0.275 * self.level) * (self.level-1)
+        self.Strength       = 10    + (1.40 + 0.190 * self.level) * (self.level-1)
+        self.speed          = 7     + (1.05 + 0.025 * self.level) * (self.level-1)
+        self.Defense        = 5     + (1.15 + 0.100 * self.level) * (self.level-1)
         
         self.Magic          = 0
         self.Resistance     = 0
@@ -253,4 +253,4 @@ class Shadow_Blue:
 Shadow_BlueIG = Shadow_Blue("Shadow_Blue")
 
 
-list_enemy = [Wolf, Direwolf, Ghoul, Zombie, Shadow_Red, Shadow_Blue]
+list_enemy = [Wolf, Direwolf, Shadow_Red]#, Ghoul, Zombie, Shadow_Blue]
