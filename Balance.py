@@ -5,7 +5,7 @@ from Ressources import *
 
         # Player
 class Player:
-    def __init__(self, name, level=5):
+    def __init__(self, name, level=1):
         self.name           = name
         self.Icon           = Icon_Ellesia
         self.Icon_Status    = Icon_Status_Ellesia
@@ -41,7 +41,7 @@ PlayerIG = Player("NightFore")
 
 
 class Iris:
-    def __init__(self, name, level=5):
+    def __init__(self, name, level=1):
         self.name           = name
         self.Icon           = Icon_Iris
         self.Icon_Status    = Icon_Status_Iris
@@ -74,7 +74,7 @@ IrisIG = Iris("Iris")
 
 
 class Gyrei:
-    def __init__(self, name, level=5):
+    def __init__(self, name, level=1):
         self.name           = name
         self.Icon           = Icon_Gyrei
         self.Icon_Status    = Icon_Status_Gyrei
