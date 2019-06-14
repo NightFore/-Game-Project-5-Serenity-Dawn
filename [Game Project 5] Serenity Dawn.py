@@ -702,7 +702,8 @@ class Fight():
         attack      = x**3 / (x**2 + 2*y**2 + y**3*100/(100+1.5*x**2))
         damage      = random.randint(int(0.9*attack), int(1.1*attack))
         
-        print(attacker.name)
+        print("Attacker : %s" % attacker.name)
+        print("Defender : %s" % defender.name)
         print("Precision = %i" % precision)
         print("Accuracy = %i" % accuracy)
         print("Evasion = %i" % evasion)
@@ -722,11 +723,11 @@ class Fight():
             
             # Normal Damage
             if critical < precision:
-                defender.Health -= damage
+                defender.Health = int(defender.Health-damage)
 
             # Critical Damage
             else:
-                defender.Health -= damage*2
+                defender.Health = int(defender.Health-damage*2)
 
             # Death
             if defender.Health < 0:
