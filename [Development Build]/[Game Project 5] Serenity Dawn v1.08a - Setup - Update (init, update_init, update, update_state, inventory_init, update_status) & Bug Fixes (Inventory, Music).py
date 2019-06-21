@@ -328,6 +328,7 @@ class Setup():
             Text(("Defense : %i"    % Fight.character[0][status].Defense),     450, 340, False, Text_Interface)
             Text(("Resistance : %i" % Fight.character[0][status].Resistance),  450, 370, False, Text_Interface)
 
+############################################################ WIP
             Text(("Accuracy : %i"   % Fight.character[0][status].Resistance),  450, 410, False, Text_Interface)
             Text(("Evasion : %i"    % Fight.character[0][status].Resistance),  450, 440, False, Text_Interface)
             Text(("Critical : %i"   % Fight.character[0][status].Resistance),  450, 470, False, Text_Interface)
