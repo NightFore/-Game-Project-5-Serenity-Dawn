@@ -559,6 +559,7 @@ class Button():
         textRect = textSurf.get_rect()
         textRect.center = self.x+self.w/2, self.y+self.h/2
         gameDisplay.blit(textSurf, textRect)
+    
 
 
 class Button_Image():
