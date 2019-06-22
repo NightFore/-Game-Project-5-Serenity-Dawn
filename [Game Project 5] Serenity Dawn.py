@@ -118,6 +118,7 @@ class Setup():
         Update : Load Music
         """
         if self.music != music:
+            self.music = music
             pygame.mixer.music.load(music)
             pygame.mixer.music.play(-1)
 
@@ -152,7 +153,6 @@ class Setup():
         # Load
         self.background = background
 
-        self.music = music
         if music != False: 
             self.update_music(music)
 
@@ -554,11 +554,12 @@ class Button():
         pygame.draw.rect(gameDisplay, self.color, self.rect)
 
         # Text
-        font, color = eval("Text." + self.font)(self)
-        textSurf = font.render(self.text, True, color)
-        textRect = textSurf.get_rect()
-        textRect.center = self.x+self.w/2, self.y+self.h/2
-        gameDisplay.blit(textSurf, textRect)
+        if self.text != None:
+            font, color = eval("Text." + self.font)(self)
+            textSurf = font.render(self.text, True, color)
+            textRect = textSurf.get_rect()
+            textRect.center = self.x+self.w/2, self.y+self.h/2
+            gameDisplay.blit(textSurf, textRect)
     
 
 
@@ -638,7 +639,7 @@ class Fight():
         
         # Character / Slot / Death Status
         self.character  = [[PlayerIG, IrisIG, GyreiIG], [None, None, None]]
-        self.slot       = [[True, True, True],          [False, False, False]]
+        self.slot       = [[True, True, True],        [False, False, False]]
         self.death      = [[False, False, False],       [False, False, False]]
 
         # Information
@@ -801,7 +802,7 @@ class Fight():
             for index in range(3):
                 if self.slot[1][index] == True and self.death[1][index] == False:
                     sprite_rect = self.character[1][index].Sprite.get_rect(topleft=(self.character_x[1][index-3], self.character_y[1][index-3]))
-                    Button(None, Text_Interface, sprite_rect[0]-10, sprite_rect[1]-10, sprite_rect[2]+20, sprite_rect[3]+20, 8, True, False, Color_Red, Color_Green, (index, 1), self.attack)
+                    Button(None, None, sprite_rect[0]-10, sprite_rect[1]-10, sprite_rect[2]+20, sprite_rect[3]+20, 8, True, False, Color_Red, Color_Green, (index, 1), self.attack)
 
 
 
