@@ -25,7 +25,7 @@ class Player:
             self.level += 1
             self.Experience -= 100
         
-        self.Maxhealth      = 45    + (7.90 + 0.525 * (self.level-1)) * (self.level-1)
+        self.Maxhealth      = 45    + (5.90 + 0.525 * (self.level-1)) * (self.level-1)
         self.Strength       = 6     + (1.45 + 0.145 * (self.level-1)) * (self.level-1)
         self.speed          = 9     + (0.95 + 0.100 * (self.level-1)) * (self.level-1)
         self.Defense        = 4     + (0.75 + 0.165 * (self.level-1)) * (self.level-1)
@@ -60,7 +60,7 @@ class Iris:
             self.level += 1
             self.Experience -= 100
         
-        self.Maxhealth      = 30    + (6.80 + 0.490 * (self.level-1)) * (self.level-1)
+        self.Maxhealth      = 30    + (4.80 + 0.490 * (self.level-1)) * (self.level-1)
         self.Strength       = 7     + (1.15 + 0.160 * (self.level-1)) * (self.level-1)
         self.speed          = 7     + (0.85 + 0.080 * (self.level-1)) * (self.level-1)
         self.Defense        = 2     + (0.60 + 0.140 * (self.level-1)) * (self.level-1)
@@ -93,7 +93,7 @@ class Gyrei:
             self.level += 1
             self.Experience -= 100
             
-        self.Maxhealth      = 40    + (8.00 + 0.500 * (self.level-1)) * (self.level-1)
+        self.Maxhealth      = 40    + (6.00 + 0.500 * (self.level-1)) * (self.level-1)
         self.Strength       = 5     + (1.25 + 0.130 * (self.level-1)) * (self.level-1)
         self.speed          = 10    + (1.30 + 0.110 * (self.level-1)) * (self.level-1)
         self.Defense        = 3     + (0.55 + 0.150 * (self.level-1)) * (self.level-1)
