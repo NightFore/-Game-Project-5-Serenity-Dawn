@@ -68,6 +68,26 @@ Icon_Arrow_B = pygame.image.load("Data\Icon\Icon_Arrow_B.png")
 Arrow_A_Rect = Icon_Arrow_A.get_rect()
 Arrow_B_Rect = Icon_Arrow_B.get_rect()
 
+# Items
+icon_1_common_sword       = pygame.image.load("Data\Icon\Item\icon_1_common_sword.png")
+icon_2_uncommon_sword     = pygame.image.load("Data\Icon\Item\icon_2_uncommon_sword.png")
+icon_3_rare_sword         = pygame.image.load("Data\Icon\Item\icon_3_rare_sword.png")
+icon_4_epic_sword         = pygame.image.load("Data\Icon\Item\icon_4_epic_sword.png")
+icon_5_legendary_sword    = pygame.image.load("Data\Icon\Item\icon_5_legendary_sword.png")
+
+icon_1_common_lance       = pygame.image.load("Data\Icon\Item\icon_1_common_lance.png")
+icon_2_uncommon_lance     = pygame.image.load("Data\Icon\Item\icon_2_uncommon_lance.png")
+icon_3_rare_lance         = pygame.image.load("Data\Icon\Item\icon_3_rare_lance.png")
+icon_4_epic_lance         = pygame.image.load("Data\Icon\Item\icon_4_epic_lance.png")
+icon_5_legendary_lance    = pygame.image.load("Data\Icon\Item\icon_5_legendary_lance.png")
+
+icon_1_common_bow         = pygame.image.load("Data\Icon\Item\icon_1_common_bow.png")
+icon_2_uncommon_bow       = pygame.image.load("Data\Icon\Item\icon_2_uncommon_bow.png")
+icon_3_rare_bow           = pygame.image.load("Data\Icon\Item\icon_3_rare_bow.png")
+icon_4_epic_bow           = pygame.image.load("Data\Icon\Item\icon_4_epic_bow.png")
+icon_5_legendary_bow      = pygame.image.load("Data\Icon\Item\icon_5_legendary_bow.png")
+
+
 
 
 # Sprites
