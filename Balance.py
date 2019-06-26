@@ -2,7 +2,7 @@ import random
 
 from Ressources import *
 
-Debug_Level = 10
+Debug_Level = 1
 
         # Player
 class Player:
