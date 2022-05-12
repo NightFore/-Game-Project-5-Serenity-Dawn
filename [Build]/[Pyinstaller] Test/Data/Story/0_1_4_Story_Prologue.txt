@@ -1,9 +1,0 @@
-(BACKGROUND) Interface_Fight
-(MUSIC) BGM_Victory_1
-(NAME)[L]%PlayerIG.name
-[L]What was a monster doing here?
-[L]I'm living so far from the forest.
-[L]There shouldn't have been any monster here.
-[L]I wonder how is the village near the forest.
-[L]Let's go check what's going on.
-(RESULT)
